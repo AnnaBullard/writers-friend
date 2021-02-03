@@ -1,0 +1,32 @@
+.homepage-content {
+    width: 715px;
+    margin: 0 auto;
+}
+
+.home-logo-navbar {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+}
+
+.home-logo-navbar button {
+    background: transparent;
+    border: 0;
+    font-size: 16px;
+    outline:none;
+    text-transform: uppercase;
+  }
+
+  .home-logo-navbar > div {
+    box-sizing: border-box;
+    border-style: solid;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    border-left: none;
+    border-right: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 6px;
+  }

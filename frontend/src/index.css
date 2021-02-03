@@ -1,1 +1,53 @@
 /* TODO Add site wide styles */
+@import './color-scheme/peach.css';
+
+body, #root {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.page-content{
+    padding: 50px 0;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+form h3 {
+    display: block;
+    font-size: 24px;
+    text-align: center;
+}
+
+form button {
+    padding: 7px 10px;
+    border-radius: 0;
+    border-style: none;
+    text-transform: uppercase;
+    margin: 20px auto;
+    font-size: 14px;
+}
+
+form input {
+    padding: 5px 6px 5px 11px;
+    font-size: 14px;
+    border-style: solid;
+    border-radius: 0;
+    border-width: 1px;
+    margin: 10px;
+}
+
+form input:focus {
+    outline: 0;
+}
+
+form > div {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(198px, 1fr));
+    width: 400px;
+}

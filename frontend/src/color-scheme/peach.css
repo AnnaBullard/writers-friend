@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=Open+Sans:wght@300&display=swap');
+
+/*BACKGROUND*/
+body, #root, #modal-content {
+    background-color: #efdbb0;
+}
+
+.navbar, form button:hover,
+.profile-dropdown {
+    background-color: #dba279;
+}
+
+form button {
+    background-color: #333;
+}
+
+#modal-background {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+/*TEXT*/
+body,
+.navbar button,
+.home-logo-navbar button,
+form button:hover {
+    color: #333
+}
+
+.navbar button:hover,
+.home-logo-navbar .profile-dropdown button:hover{
+    color: #efdbb0
+}
+
+.home-logo-navbar button:hover {
+    color: #b08260;
+}
+
+/*BORDER-COLOR*/
+.home-logo-navbar > div,
+form input:focus {
+    border-color: #b08260;
+}
+
+#modal-content button {
+    color: #fff;
+}
+
+/*Dance Script*/
+#modal-content h3 {
+    font-family: 'Dancing Script', cursive;
+}
+
+/*Open Sans*/
+body, button, input, textarea, select {
+    font-family: 'Open Sans', sans-serif;
+ }
+
+
