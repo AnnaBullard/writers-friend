@@ -6,6 +6,7 @@ module.exports = {
       {type:"chapter/story"},
       {type:"book"},
       {type:"book series"},
+      {type:"world"},
     ], {});
   },
 

@@ -25,12 +25,12 @@ module.exports = (sequelize, DataTypes) => {
     
     Entity.belongsTo(models.Entity,{
       foreignKey: "parentId",
-      as: "child"
+      as: "parent"
     })
 
     Entity.hasMany(models.Entity,{
       foreignKey: "parentId",
-      as: "parent"
+      as: "children"
     })
 
     Entity.hasMany(models.Entity,{
