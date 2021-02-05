@@ -44,8 +44,6 @@ router.get(
                 ["title", "ASC"]
             ]
         })
-
-        console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",entities)
         return res.json(entities)
     })
 );
