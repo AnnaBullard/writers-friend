@@ -3,10 +3,12 @@ import {useParams} from "react-router-dom";
 import {useDispatch,useSelector} from "react-redux";
 import {useState,useEffect, Fragment} from "react";
 import {getScenes, setNewOrder, setNewTitle,saveScenes} from "../../store/scenes";
+import SceneBlock from "./SceneBlock";
 import "./ScenesPage.css"
 
 export default function ScenesPage () {
     const [isLoaded, setIsLoaded] = useState(false);
+    const [authorized, setAuthorized] = useState(false);
     const [title, setTitle] = useState();
     const [saved, setSaved] = useState();
     const dispatch = useDispatch();
@@ -15,9 +17,10 @@ export default function ScenesPage () {
     bookId = parseInt(bookId);
 
     let story = useSelector(state => state.scenes);
+    let user = useSelector(state => state.session.user);
 
     useEffect(()=>{
-        dispatch(getScenes(16))
+        dispatch(getScenes(bookId))
     },[dispatch])
     
     useEffect(()=>{
@@ -26,7 +29,10 @@ export default function ScenesPage () {
             setIsLoaded(true);
         }
         setSaved(story.saved)
-    },[story])
+        if (user && story.book && story.book.userId === user.id){
+            setAuthorized(true)
+        }
+    },[story, user])
 
     const onDragEnd = result => {
         if (result.destination !== null) {
@@ -56,41 +62,28 @@ export default function ScenesPage () {
         dispatch(saveScenes(bookId, updates))
     }
 
-    return isLoaded && <>
-        <input 
-            type="text" 
-            value={title}
-            onChange={e=>{dispatch(setNewTitle(e.target.value))}}
-            className="title-input"
-            /><button onClick={onSave}>Save</button>
-        <DragDropContext onDragEnd={onDragEnd}>
-            <Droppable droppableId={`book-${bookId}`}>
-                {provided => (
-                    <div className="scenes-list" ref={provided.innerRef} {...provided.droppableProps}>
-                        {story.scenes.map((scene, index) => (
-                            <Fragment key={`scene-${scene.id}`}>
-                            {(index > 0 ) && <div className="connect-block" onClick={()=>{console.log(story.scenes[index-1].id,":",scene.id)}}>
-                                <i className="fas fa-link"></i>
-                            </div>}
-                            <Draggable draggableId={`scene-${scene.id}`} index={scene.order}>
-                                {provided => (
-                                    <div className="scene-block" ref={provided.innerRef} {...provided.draggableProps}>
-                                        {/* <div className="scene-text"><textarea value={scene.text}></textarea></div> */}
-                                        <div className="scene-text">{scene.text}</div>
-                                        <div className="scene-handle">
-                                            <i className="fas fa-arrows-alt-v" {...provided.dragHandleProps}></i>
-                                            <i className="fas fa-cut"></i>
-                                            <i className="fas fa-eraser"></i>
-                                        </div>
-                                    </div>
-                                )}
-                            </Draggable>
-                            </Fragment>
-                        ))}
-                        {provided.placeholder}
-                    </div>
-                )}
-            </Droppable>
-        </DragDropContext>
-    </>
+    if (!authorized) {
+        return <h1>Page not found</h1>
+    } else {
+        return isLoaded && <>
+            <input 
+                type="text" 
+                value={title}
+                onChange={e=>{dispatch(setNewTitle(e.target.value))}}
+                className="title-input"
+                /><button onClick={onSave}>Save</button>
+            <DragDropContext onDragEnd={onDragEnd}>
+                <Droppable droppableId={`book-${bookId}`}>
+                    {provided => (
+                        <div className="scenes-list" ref={provided.innerRef} {...provided.droppableProps}>
+                            {story.scenes.map((scene, index) => (
+                                <SceneBlock  key={`scene-${scene.id}`} scene={scene} index={index} joinFn={()=>{console.log(story.scenes[index-1].id,":",scene.id)}} />
+                            ))}
+                            {provided.placeholder}
+                        </div>
+                    )}
+                </Droppable>
+            </DragDropContext>
+        </>
+    }
 }
