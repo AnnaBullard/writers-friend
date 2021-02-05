@@ -2,11 +2,14 @@
     border-style: solid;
     border-radius: 0;
     border-width: 1px;
+    box-sizing: border-box;
     display: block;
     font-size: 22px;
-    margin: 20px 0;
+    left: 30px;
+    margin: 20px auto;
     padding: 5px 6px 5px 11px;
-    width: 100%;
+    position: relative;
+    width: 530px;
 }
 .scenes-list {
     box-sizing: border-box;
@@ -25,7 +28,7 @@
 .scenes-list .scene-text {
     border-radius: 5px 0 0 5px;
     box-sizing: border-box;
-    padding: 15px;
+    padding: 25px 15px;
     position: relative;
     width: 100%;
 }
@@ -46,17 +49,14 @@
 }
 
 .connect-block {
-    border-radius: 5px 0 0 5px;
+    align-items: center;
+    border-radius: 15px;
     box-sizing: border-box;
-    cursor: row-resize;
+    display: flex;
     height: 30px;
-    margin: -14px 0 -14px;
-    padding: 5px;
-    width: 530px;
-    z-index: -1;
-}
-
-.connect-block i {
-    cursor: default;
-    margin: auto 0;
+    justify-content: center;
+    margin: -14px auto;
+    position: relative;
+    width: 30px;
+    z-index: 5;
 }
