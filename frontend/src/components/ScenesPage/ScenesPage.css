@@ -5,7 +5,6 @@
     box-sizing: border-box;
     display: block;
     font-size: 22px;
-    left: 30px;
     margin: 20px auto;
     padding: 5px 6px 5px 11px;
     position: relative;
@@ -20,7 +19,6 @@
 
 .scenes-list .scene-block {
     box-sizing: border-box;
-    left: 30px;
     position: relative;
     width: 500px;
 }
@@ -56,7 +54,43 @@
     height: 30px;
     justify-content: center;
     margin: -14px auto;
+    opacity: 1;
     position: relative;
     width: 30px;
     z-index: 5;
+    transition: opacity 0.1s;
+}
+
+.scenes-list.active .connect-block {
+    opacity: 0;
+}
+
+.story-controls {
+    align-items: center;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    height: 45px;
+    justify-content: center;
+    margin: 0 auto;
+    padding: 0 30%;
+    position: fixed;
+    top: 0;
+    left: 30%;
+    width: 30%;
+    z-index: 100;
+}
+
+.story-controls button {
+    border-style: solid;
+    border-width: 1px;
+    margin: 0 5px;
+    padding: 5px 7px;
+    text-transform: uppercase;
+}
+
+.scenes-list.active {
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 5px;
 }
