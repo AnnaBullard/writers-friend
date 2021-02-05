@@ -3,6 +3,7 @@ import {DragDropContext, Droppable, Draggable} from "react-beautiful-dnd";
 import {useState, useEffect} from "react";
 import {useDispatch} from "react-redux";
 import {getEntities} from "../../store/entities";
+import {getScenes} from "../../store/scenes";
 
 const initialData = {
     chapters: {
@@ -34,9 +35,9 @@ function Chapter ({chapter, index}) {
     >{(provided)=>
         <div className="chapter"
             {...provided.draggableProps}
-            {...provided.dragHandleProps}
             ref={provided.innerRef}
-        >{chapter.title}
+        >{chapter.title} 
+        <span {...provided.dragHandleProps}>X</span>
         </div>
     }
     </Draggable>
@@ -73,16 +74,13 @@ export default function BlocksList () {
     const [data, setData] = useState(initialData)
 
     const onDragEnd = result => {
-
+        console.log(result)
     }
 
     useEffect(()=>{
         dispatch(getEntities())
+        dispatch(getScenes(16))
     },[])
-
-    useEffect((data)=>{
-        console.log(data)
-    },[data])
 
     return <DragDropContext 
         // onDragStart

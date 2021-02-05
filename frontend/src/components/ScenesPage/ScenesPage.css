@@ -1,0 +1,62 @@
+.title-input {
+    border-style: solid;
+    border-radius: 0;
+    border-width: 1px;
+    display: block;
+    font-size: 22px;
+    margin: 20px 0;
+    padding: 5px 6px 5px 11px;
+    width: 100%;
+}
+.scenes-list {
+    box-sizing: border-box;
+    margin: 0 auto;
+    padding: 0;
+    width: 530px;
+}
+
+.scenes-list .scene-block {
+    box-sizing: border-box;
+    left: 30px;
+    position: relative;
+    width: 500px;
+}
+
+.scenes-list .scene-text {
+    border-radius: 5px 0 0 5px;
+    box-sizing: border-box;
+    padding: 15px;
+    position: relative;
+    width: 100%;
+}
+
+.scenes-list .scene-block:last-child .scene-text {
+    border-radius: 5px 0 5px 5px;
+}
+
+.scenes-list .scene-handle {
+    border-radius: 0 5px 5px 0;
+    box-sizing: border-box;
+    padding: 5px;
+    position: absolute;
+    right: -30px;
+    text-align: center;
+    top: 0;
+    width: 30px;
+}
+
+.connect-block {
+    border-radius: 5px 0 0 5px;
+    box-sizing: border-box;
+    cursor: row-resize;
+    height: 30px;
+    margin: -14px 0 -14px;
+    padding: 5px;
+    width: 530px;
+    z-index: -1;
+}
+
+.connect-block i {
+    cursor: default;
+    margin: auto 0;
+}

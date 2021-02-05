@@ -5,6 +5,7 @@ import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import Homepage from "./components/Homepage";
 import BlocksList from "./components/BlocksList";
+import ScenesPage from "./components/ScenesPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -24,6 +25,9 @@ function App() {
             </Route>
             <Route path="/dnd">
               <BlocksList />
+            </Route>
+            <Route path="/scenes/:bookId">
+              <ScenesPage />
             </Route>
           </Switch>
         )}

@@ -1,6 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=Open+Sans:wght@300&display=swap');
 
 /*BACKGROUND*/
+.scenes-list .scene-text,
+.scenes-list .scene-handle {
+    background-color: #fff;
+}
+
 body, #root, #modal-content {
     background-color: #efdbb0;
 }
@@ -8,6 +13,10 @@ body, #root, #modal-content {
 .navbar, form button:hover,
 .profile-dropdown {
     background-color: #dba279;
+}
+
+.connect-block {
+    background-color: #b08260;
 }
 
 form button {
@@ -21,16 +30,20 @@ form button {
 body,
 .navbar button,
 .home-logo-navbar button,
-form button:hover {
+form button:hover,
+.connect-block:hover {
     color: #333
 }
 
 .navbar button:hover,
-.home-logo-navbar .profile-dropdown button:hover{
+.home-logo-navbar .profile-dropdown button:hover,
+.connect-block{
     color: #efdbb0
 }
 
-.home-logo-navbar button:hover {
+.home-logo-navbar button:hover,
+.scene-handle i:hover,
+.scene-handle i.active {
     color: #b08260;
 }
 

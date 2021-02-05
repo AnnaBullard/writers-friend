@@ -8,7 +8,7 @@ function LoginForm() {
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
 
-  const handleSubmit = (e) => {git
+  const handleSubmit = (e) => {
     e.preventDefault();
     setErrors([]);
     return dispatch(sessionActions.login({ credential, password })).catch(
