@@ -4,12 +4,16 @@ import { Route, Switch } from "react-router-dom";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import Homepage from "./components/Homepage";
+import BlocksList from "./components/BlocksList";
+import ScenesPage from "./components/ScenesPage";
 
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
   useEffect(() => {
-    dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
+    dispatch(sessionActions.restoreUser()).then(() => {
+      setIsLoaded(true)
+    });
   }, [dispatch]);
 
   return (
@@ -20,6 +24,12 @@ function App() {
           <Switch>
             <Route exact path="/">
               <Homepage />
+            </Route>
+            <Route path="/dnd">
+              <BlocksList />
+            </Route>
+            <Route path="/scenes/:chapterId">
+              <ScenesPage />
             </Route>
           </Switch>
         )}

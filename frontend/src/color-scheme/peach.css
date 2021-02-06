@@ -1,6 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=Open+Sans:wght@300&display=swap');
 
 /*BACKGROUND*/
+.scenes-list .scene-text,
+.scenes-list .scene-handle {
+    background-color: #fff;
+}
+
 body, #root, #modal-content {
     background-color: #efdbb0;
 }
@@ -10,6 +15,10 @@ body, #root, #modal-content {
     background-color: #dba279;
 }
 
+.connect-block {
+    background-color: #b08260;
+}
+
 form button {
     background-color: #333;
 }
@@ -17,21 +26,37 @@ form button {
 #modal-background {
     background-color: rgba(0, 0, 0, 0.7);
 }
+
+.story-controls button{
+    background: transparent;
+}
 /*TEXT*/
 body,
 .navbar button,
 .home-logo-navbar button,
-form button:hover {
+form button:hover,
+.connect-block:hover,
+.story-controls button {
     color: #333
 }
 
+.home-logo-navbar button:hover,
+.scene-handle i:hover,
+.scene-handle i.active,
+.story-controls button[disabled],
+.story-controls button[disabled]:hover {
+    color: #b08260;
+}
+
 .navbar button:hover,
-.home-logo-navbar .profile-dropdown button:hover{
+.home-logo-navbar .profile-dropdown button:hover,
+.connect-block,
+.story-controls button:hover {
     color: #efdbb0
 }
 
-.home-logo-navbar button:hover {
-    color: #b08260;
+#modal-content button {
+    color: #fff;
 }
 
 /*BORDER-COLOR*/
@@ -40,8 +65,12 @@ form input:focus {
     border-color: #b08260;
 }
 
-#modal-content button {
-    color: #fff;
+.story-controls button {
+    border-color: #333;
+}
+
+.scenes-list.active {
+    border-color: tomato;
 }
 
 /*Dance Script*/
