@@ -1,5 +1,5 @@
 import {DragDropContext, Droppable, Draggable} from "react-beautiful-dnd";
-import {useParams} from "react-router-dom";
+import {useParams, Link} from "react-router-dom";
 import {useDispatch,useSelector} from "react-redux";
 import {useState,useEffect, Fragment} from "react";
 import {Modal} from '../../context/Modal';
@@ -33,10 +33,16 @@ export default function ScenesPage () {
             setIsLoaded(true);
         }
         setSaved(story.saved)
+        
+    },[story, user])
+
+    useEffect(()=>{
         if (user && story.book && story.book.userId === user.id){
             setAuthorized(true)
+        } else {
+            setAuthorized(false)
         }
-    },[story, user])
+    }, [isLoaded])
 
     const onDragEnd = result => {
         if (result.destination !== null) {
@@ -72,7 +78,10 @@ export default function ScenesPage () {
     }
 
     if (!authorized) {
-        return <h1>Page not found</h1>
+        return isLoaded && <>
+        <h1>Page not found</h1>
+        <div>Go to the <Link to="/">Home Page</Link></div>
+        </>
     } else {
         return isLoaded && <>
             <div className="story-controls">

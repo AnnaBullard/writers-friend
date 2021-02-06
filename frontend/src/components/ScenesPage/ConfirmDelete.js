@@ -21,7 +21,7 @@ export default function ConfirmDelete ({onSubmit, onClose, scene}) {
         <input type="checkbox" checked={confirmed?"checked":false} onChange={()=>{setConfirmed(!confirmed)}}/>
         Yes, I wat to remove his scene.
         </label>
-        <div>{scene.text}</div>
+        <div className="span-2">{scene.text}</div>
         <button>Submit</button>
     </form>
 }

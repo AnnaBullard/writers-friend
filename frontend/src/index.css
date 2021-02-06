@@ -53,3 +53,7 @@ form > div {
     grid-template-columns: repeat(auto-fill, minmax(198px, 1fr));
     width: 400px;
 }
+
+form .span-2{
+    display: block;
+}
