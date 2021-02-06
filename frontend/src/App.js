@@ -28,7 +28,7 @@ function App() {
             <Route path="/dnd">
               <BlocksList />
             </Route>
-            <Route path="/scenes/:bookId">
+            <Route path="/scenes/:chapterId">
               <ScenesPage />
             </Route>
           </Switch>

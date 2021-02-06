@@ -46,9 +46,9 @@ router.patch(
                 await scene.update(updates.scenes[sceneId],{transaction: tx})
             }
 
-            if (updates.delete) {
-                for (let i=0; i< updates.delete.length; i++) {
-                    let sceneId = updates.delete[i];
+            if (updates.deleted) {
+                for (let i=0; i< updates.deleted.length; i++) {
+                    let sceneId = updates.deleted[i];
                     let scene = await Scene.findByPk(sceneId, {transaction: tx})
                     await scene.destroy({transaction: tx})
                 }

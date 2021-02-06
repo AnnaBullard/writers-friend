@@ -1,10 +1,11 @@
 import {DragDropContext, Droppable, Draggable} from "react-beautiful-dnd";
 import {useParams, Link} from "react-router-dom";
+import {Prompt} from "react-router-dom";
 import {useDispatch,useSelector} from "react-redux";
 import {useState,useEffect, Fragment} from "react";
 import {Modal} from '../../context/Modal';
 import ConfirmReset from "./ConfirmReset";
-import {getScenes, setNewOrder, setNewTitle,saveScenes} from "../../store/scenes";
+import {getScenes, setNewOrder, setNewTitle, saveScenes, joinScenes} from "../../store/scenes";
 import SceneBlock from "./SceneBlock";
 import "./ScenesPage.css"
 
@@ -17,19 +18,30 @@ export default function ScenesPage () {
     const [saved, setSaved] = useState();
     const dispatch = useDispatch();
 
-    let {bookId} =useParams();
-    bookId = parseInt(bookId);
+    //Handling re-load of the page with usaved changes
+    const handleOnBeforeUnload = e => {
+        if (!saved) {
+            return true
+        } else {
+            return undefined
+        }
+    }
+    
+    window.onbeforeunload = handleOnBeforeUnload;
+
+    let {chapterId} =useParams();
+    chapterId = parseInt(chapterId);
 
     let story = useSelector(state => state.scenes);
     let user = useSelector(state => state.session.user);
 
     useEffect(()=>{
-        dispatch(getScenes(bookId))
+        if (!story.chapter || story.chapter.id !== chapterId) dispatch(getScenes(chapterId))
     },[dispatch])
     
     useEffect(()=>{
-        if (story.book) {
-            setTitle(story.book.title)
+        if (story.chapter) {
+            setTitle(story.chapter.title)
             setIsLoaded(true);
         }
         setSaved(story.saved)
@@ -37,7 +49,7 @@ export default function ScenesPage () {
     },[story, user])
 
     useEffect(()=>{
-        if (user && story.book && story.book.userId === user.id){
+        if (user && story.chapter && story.chapter.userId === user.id){
             setAuthorized(true)
         } else {
             setAuthorized(false)
@@ -59,7 +71,7 @@ export default function ScenesPage () {
     };
 
     const onSave = () => {
-        let updates = {title, delete: story.delete}
+        let updates = {title, deleted: story.deleted}
         let scenes = {}
         story.scenes.forEach(scene => {
             console.log("this story:", scene)
@@ -69,7 +81,7 @@ export default function ScenesPage () {
         })
         updates.scenes = scenes;
         console.log("ready updates", updates)
-        dispatch(saveScenes(bookId, updates))
+        dispatch(saveScenes(chapterId, updates))
     }
 
     const onReset = () => {
@@ -84,6 +96,10 @@ export default function ScenesPage () {
         </>
     } else {
         return isLoaded && <>
+            <Prompt
+            when={!saved}
+            message='You have unsaved changes, are you sure you want to leave?'
+            />
             <div className="story-controls">
                 <button onClick={onSave} disabled={saved?"disabled":false}>Save</button>
                 <button onClick={onReset} disabled={saved?"disabled":false}>Reset</button>
@@ -96,11 +112,11 @@ export default function ScenesPage () {
                 className="title-input"
                 />
             <DragDropContext onDragEnd={onDragEnd}>
-                <Droppable droppableId={`book-${bookId}`}>
+                <Droppable droppableId={`chapter-${chapterId}`}>
                     {(provided, snapshot) => (
                         <div className={`scenes-list${snapshot.isDraggingOver?" active":""}`} ref={provided.innerRef} {...provided.droppableProps}>
                             {story.scenes.map((scene, index) => (
-                                <SceneBlock  key={`scene-${scene.id}`} scene={scene} index={index} joinFn={()=>{console.log(story.scenes[index-1].id,":",scene.id)}} />
+                                <SceneBlock  key={`scene-${scene.id}`} scene={scene} index={index} joinFn={()=>{dispatch(joinScenes(story.scenes[index-1].id,scene.id))}} />
                             ))}
                             {provided.placeholder}
                         </div>
@@ -110,7 +126,7 @@ export default function ScenesPage () {
             {showModal && (
                 <Modal onClose={() => setShowModal(false)}>
                 {(fromType==="reset") &&
-                    <ConfirmReset onSubmit={()=>{dispatch(getScenes(bookId))}} onClose={() => setShowModal(false)}/>
+                    <ConfirmReset onSubmit={()=>{dispatch(getScenes(chapterId))}} onClose={() => setShowModal(false)}/>
                 }
                 </Modal>
             )}

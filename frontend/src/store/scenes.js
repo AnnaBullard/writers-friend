@@ -4,10 +4,11 @@ const GET_SCENES = "scenes/get"
 const REORDER_SCENES = "scenes/re-order"
 const SET_TITLE="scenes/set_title"
 const SAVE_SCENES = "scenes/save"
+const JOIN_SCENES = "scenes/join"
 
-const setScenes = (book, scenes) => ({
+const setScenes = (chapter, scenes) => ({
     type: GET_SCENES,
-    book,
+    chapter,
     scenes
   });
 
@@ -25,12 +26,18 @@ export const setSaved = () => ({
     type: SAVE_SCENES
 })
 
+export const joinScenes = (id1, id2) => ({
+    type: JOIN_SCENES,
+    id1,
+    id2
+})
+
 export const getScenes = id => async (dispatch) => {
     const res = await fetch(`/api/scenes/${id}`);
     if (res.ok) {
-        let book = res.data.entity;
+        let chapter = res.data.entity;
         let scenes = res.data.scenes;
-        dispatch(setScenes(book, scenes));
+        dispatch(setScenes(chapter, scenes));
     }
 }
 
@@ -44,9 +51,9 @@ export const saveScenes = (id, updates) => async (dispatch) => {
 }
 
 const initialState = {
-    book: null, 
+    chapter: null, 
     scenes: [], 
-    delete: [],
+    deleted: [],
     saved:false,
 }
 
@@ -54,9 +61,10 @@ export default function reducer(state = initialState, action) {
     switch (action.type) {
         case GET_SCENES: {
             let newState = {}
-            newState.book = action.book;
+            newState.chapter = action.chapter;
             newState.scenes = action.scenes;
             newState.saved = true
+            newState.deleted = []
             return newState;
         }
         case REORDER_SCENES:{
@@ -74,20 +82,39 @@ export default function reducer(state = initialState, action) {
 
         }
         case SET_TITLE: {
-            let book = {...state.book};
-            book.title = action.title;
-            let newState = {...state, book};
+            let chapter = {...state.chapter};
+            chapter.title = action.title;
+            let newState = {...state, chapter};
             newState.saved = false;
             return newState;
         }
         case SAVE_SCENES: {
-            let newState = {book: {...state.book}, delete:[], saved: true}
+            let newState = {chapter: {...state.chapter}, deleted:[], saved: true}
             let newScenes = state.scenes.map(s => {
                 let newS = {...s};
                 delete newS.updated;
                 return newS;
             })
             newState.scenes = newScenes;
+            return newState;
+        }
+        case JOIN_SCENES: {
+            let sceneToDelete = state.scenes.find(s => s.id === action.id2)
+            let scenes = state.scenes.filter(s => s.id !== action.id2)
+                                        .map((scene, idx) => {
+                                            if (scene.id === action.id1) {
+                                                scene.text = scene.text + "\n" + sceneToDelete.text
+                                                scene.updated = true
+                                            }
+                                            if (scene.order != idx) {
+                                                scene.order = idx
+                                                scene.updated = true
+                                            }
+                                            return scene;
+                                        })
+            let deleted = [...state.deleted];
+            deleted.push(sceneToDelete.id);
+            let newState = {...state, scenes, deleted};
             return newState;
         }
         default:
