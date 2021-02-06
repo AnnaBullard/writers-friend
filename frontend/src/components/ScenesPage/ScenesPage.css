@@ -94,3 +94,16 @@
     border-style: solid;
     border-radius: 5px;
 }
+
+.confirm-box .errors {
+    display: block;
+}
+
+.confirm-box .text {
+    border-radius: 5px;
+    display: block;
+    max-height: 300px;
+    overflow-y: scroll;
+    padding: 15px;
+    text-align: justify;
+}

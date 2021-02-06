@@ -1,10 +1,10 @@
 import {Draggable} from "react-beautiful-dnd";
 import {useState} from "react";
-import {useDispatch,useSelector} from "react-redux";
 import ConfirmDelete from "./ConfirmDelete";
 import {Modal} from '../../context/Modal';
 
-export default function SceneBlock ({scene, index, joinFn}) {
+export default function SceneBlock ({scene, index, joinFn, deleteFn}) {
+
     const [showModal, setShowModal] = useState(false);
     const [fromType, setFormType] = useState("delete");
 
@@ -31,7 +31,7 @@ export default function SceneBlock ({scene, index, joinFn}) {
                 {showModal && (
                 <Modal onClose={() => setShowModal(false)}>
                 {(fromType==="delete") &&
-                    <ConfirmDelete onSubmit={()=>{console.log(scene.id)}} onClose={() => setShowModal(false)} scene={scene}/>
+                    <ConfirmDelete onClose={() => setShowModal(false)} scene={scene}/>
                 }
                 </Modal>
             )}

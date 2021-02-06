@@ -5,6 +5,7 @@ const REORDER_SCENES = "scenes/re-order"
 const SET_TITLE="scenes/set_title"
 const SAVE_SCENES = "scenes/save"
 const JOIN_SCENES = "scenes/join"
+const DELETE_SCENE = "scenes/delete"
 
 const setScenes = (chapter, scenes) => ({
     type: GET_SCENES,
@@ -30,6 +31,11 @@ export const joinScenes = (id1, id2) => ({
     type: JOIN_SCENES,
     id1,
     id2
+})
+
+export const deleteScene = (id) => ({
+    type: DELETE_SCENE,
+    id
 })
 
 export const getScenes = id => async (dispatch) => {
@@ -60,11 +66,12 @@ const initialState = {
 export default function reducer(state = initialState, action) {
     switch (action.type) {
         case GET_SCENES: {
-            let newState = {}
-            newState.chapter = action.chapter;
-            newState.scenes = action.scenes;
-            newState.saved = true
-            newState.deleted = []
+            let newState = {
+                chapter: action.chapter,
+                scenes: action.scenes,
+                saved: true,
+                deleted: []
+            }
             return newState;
         }
         case REORDER_SCENES:{
@@ -76,31 +83,28 @@ export default function reducer(state = initialState, action) {
                 }
                 return current;
             })
-            let newState = {...state, scenes};
-            newState.saved = false;
+            let newState = {...state, scenes, saved: false};
             return newState;
 
         }
         case SET_TITLE: {
             let chapter = {...state.chapter};
             chapter.title = action.title;
-            let newState = {...state, chapter};
-            newState.saved = false;
+            let newState = {...state, chapter, saved: false};
             return newState;
         }
         case SAVE_SCENES: {
-            let newState = {chapter: {...state.chapter}, deleted:[], saved: true}
-            let newScenes = state.scenes.map(s => {
+            let scenes = state.scenes.map(s => {
                 let newS = {...s};
                 delete newS.updated;
                 return newS;
             })
-            newState.scenes = newScenes;
+            let newState = {...state, scenes, deleted:[], saved: true}
             return newState;
         }
         case JOIN_SCENES: {
-            let sceneToDelete = state.scenes.find(s => s.id === action.id2)
-            let scenes = state.scenes.filter(s => s.id !== action.id2)
+            let sceneToDelete = state.scenes.find(scene => scene.id === action.id2)
+            let scenes = state.scenes.filter(scene => scene.id !== action.id2)
                                         .map((scene, idx) => {
                                             if (scene.id === action.id1) {
                                                 scene.text = scene.text + "\n" + sceneToDelete.text
@@ -112,10 +116,23 @@ export default function reducer(state = initialState, action) {
                                             }
                                             return scene;
                                         })
-            let deleted = [...state.deleted];
-            deleted.push(sceneToDelete.id);
-            let newState = {...state, scenes, deleted};
+            let deleted = [...state.deleted, sceneToDelete.id];
+            let newState = {...state, scenes, deleted, saved: false};
             return newState;
+        }
+        case DELETE_SCENE: {
+            let sceneToDelete = state.scenes.find(scene => scene.id === action.id)
+            let scenes = state.scenes.filter(scene => scene.id !== action.id)
+                                     .map((scene, idx) => {
+                                         if (scene.order !== idx) {
+                                             scene.order = idx;
+                                             scene.updated = true;
+                                         }
+                                         return scene;
+                                     })
+            let deleted = [...state.deleted, sceneToDelete.id]
+            let newState = {...state, scenes, deleted, saved: false}
+            return newState
         }
         default:
             return state
