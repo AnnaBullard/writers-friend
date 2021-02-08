@@ -3,6 +3,7 @@ import { fetch } from './csrf.js';
 const GET_SCENES = "scenes/get"
 const REORDER_SCENES = "scenes/re-order"
 const SET_TITLE="scenes/set_title"
+const EDIT_TEXT="scenes/edit_text"
 const SAVE_SCENES = "scenes/save"
 const JOIN_SCENES = "scenes/join"
 const DELETE_SCENE = "scenes/delete"
@@ -21,6 +22,12 @@ export const setNewOrder = (order) => ({
 export const setNewTitle = (title) => ({
     type: SET_TITLE,
     title
+})
+
+export const editText = (id, text) => ({
+    type: EDIT_TEXT,
+    id,
+    text
 })
 
 export const setSaved = () => ({
@@ -91,6 +98,18 @@ export default function reducer(state = initialState, action) {
             let chapter = {...state.chapter};
             chapter.title = action.title;
             let newState = {...state, chapter, saved: false};
+            return newState;
+        }
+        case EDIT_TEXT: {
+            let scenes = state.scenes.map(scene => {
+                if (scene.id === action.id) {
+                    let newScene = {...scene, text: action.text, updated:true}
+                    return newScene;
+                } else {
+                    return scene;
+                }
+            })
+            let newState = {... state, scenes}
             return newState;
         }
         case SAVE_SCENES: {

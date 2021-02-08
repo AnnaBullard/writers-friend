@@ -2,6 +2,7 @@ import {Draggable} from "react-beautiful-dnd";
 import {useState} from "react";
 import ConfirmDelete from "./ConfirmDelete";
 import {Modal} from '../../context/Modal';
+import SceneEditor from "./Editor";
 
 export default function SceneBlock ({scene, index, joinFn, deleteFn}) {
 
@@ -20,8 +21,8 @@ export default function SceneBlock ({scene, index, joinFn, deleteFn}) {
                     <i className="fas fa-link"></i>
                 </div>}
                 <div className="scene-block" ref={provided.innerRef} {...provided.draggableProps}>
-                    {/* <div className="scene-text"><textarea value={scene.text}></textarea></div> */}
-                    <div className="scene-text">{scene.text}</div>
+                    {/* <div className="scene-text">{scene.text}</div> */}
+                    <SceneEditor id={scene.id} text={scene.text} />
                     <div className="scene-handle">
                         <i className="fas fa-arrows-alt-v" {...provided.dragHandleProps}></i>
                         <i className="fas fa-cut"></i>

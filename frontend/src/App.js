@@ -25,8 +25,8 @@ function App() {
             <Route exact path="/">
               <Homepage />
             </Route>
-            <Route path="/dnd">
-              <BlocksList />
+            <Route path="/test">
+              <BlocksList text={"This is a great day to be alive\n\nWhat do you think?"}/>
             </Route>
             <Route path="/scenes/:chapterId">
               <ScenesPage />
