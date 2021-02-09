@@ -5,7 +5,8 @@ import {useDispatch,useSelector} from "react-redux";
 import {useState,useEffect} from "react";
 import {Modal} from '../../context/Modal';
 import ConfirmReset from "./ConfirmReset";
-import {getScenes, setNewOrder, setNewTitle, saveScenes, joinScenes} from "../../store/scenes";
+import {getScenes, setNewOrder, setNewTitle, 
+        saveScenes, joinScenes, createScene} from "../../store/scenes";
 import SceneBlock from "./SceneBlock";
 import Sidebar from "./Sidebar";
 import "./ScenesPage.css"
@@ -60,7 +61,8 @@ export default function ScenesPage () {
 
     const onDragEnd = result => {
         if (result.destination !== null) {
-            let sceneId = parseInt(result.draggableId.split("-")[1]);
+            let sceneId = result.draggableId.split("-")[1]
+            if (!sceneId.startsWith("new")) sceneId = parseInt(sceneId);
             let newNumber = result.destination.index;
             let oldNumber = result.source.index;
             let newOrder = story.scenes.map(s => s.id)
@@ -123,6 +125,7 @@ export default function ScenesPage () {
                         )}
                     </Droppable>
                 </DragDropContext>
+                <div className="new-scene" onClick={()=>{dispatch(createScene())}}><i className="fas fa-plus"></i></div>
             </div>
             {showModal && (
                 <Modal onClose={() => setShowModal(false)}>

@@ -126,24 +126,36 @@
     padding-left: 200px;
 }
 
-.openSidebar {
+.open-sidebar {
     border-radius: 0 5px 5px 0;
     cursor: pointer;
     opacity: 1;
     padding: 7px;
     position: absolute;
     right: -54px;
+    top: 50px;
     transition: all 0.5s;
 }
 
-.sidebar-container.open .openSidebar {
+.sidebar-container.open .open-sidebar {
     opacity: 0;
     right: 0px;
     transition: all 0.5s;
 }
 
-.closeSidebar {
+.close-sidebar {
     position: absolute;
     top: 10px;
     right: 10px;
+}
+
+.new-scene {
+    align-items: center;
+    border-style: dashed;
+    box-sizing: border-box;
+    display: flex;
+    height: 120px;
+    justify-content: center;
+    margin: 10px auto;
+    width: 530px;
 }

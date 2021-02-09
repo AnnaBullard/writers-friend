@@ -7,6 +7,7 @@ const EDIT_TEXT="scenes/edit_text"
 const SAVE_SCENES = "scenes/save"
 const JOIN_SCENES = "scenes/join"
 const DELETE_SCENE = "scenes/delete"
+const CREATE_SCENE = "scenes/create"
 
 const setScenes = (chapter, scenes) => ({
     type: GET_SCENES,
@@ -43,6 +44,10 @@ export const joinScenes = (id1, id2) => ({
 export const deleteScene = (id) => ({
     type: DELETE_SCENE,
     id
+})
+
+export const createScene = () => ({
+    type: CREATE_SCENE
 })
 
 export const getScenes = id => async (dispatch) => {
@@ -151,6 +156,13 @@ export default function reducer(state = initialState, action) {
                                      })
             let deleted = [...state.deleted, sceneToDelete.id]
             let newState = {...state, scenes, deleted, saved: false}
+            return newState
+        }
+        case CREATE_SCENE: {
+            let count = state.scenes.filter(scene => typeof scene.id !== "number").length;
+            console.log("new"+count);
+            let scene = {id: "new"+count, text: "", order:state.scenes.length};
+            let newState = {...state, scenes: [...state.scenes, scene]};
             return newState
         }
         default:
