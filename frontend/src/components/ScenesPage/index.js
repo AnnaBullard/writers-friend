@@ -2,15 +2,17 @@ import {DragDropContext, Droppable, Draggable} from "react-beautiful-dnd";
 import {useParams, Link} from "react-router-dom";
 import {Prompt} from "react-router-dom";
 import {useDispatch,useSelector} from "react-redux";
-import {useState,useEffect, Fragment} from "react";
+import {useState,useEffect} from "react";
 import {Modal} from '../../context/Modal';
 import ConfirmReset from "./ConfirmReset";
 import {getScenes, setNewOrder, setNewTitle, saveScenes, joinScenes} from "../../store/scenes";
 import SceneBlock from "./SceneBlock";
+import Sidebar from "./Sidebar";
 import "./ScenesPage.css"
 
 export default function ScenesPage () {
     const [isLoaded, setIsLoaded] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
     const [authorized, setAuthorized] = useState(false);
     const [showModal, setShowModal] = useState(false);
     const [fromType, setFormType] = useState("reset");
@@ -100,29 +102,28 @@ export default function ScenesPage () {
             when={!saved}
             message='You have unsaved changes, are you sure you want to leave?'
             />
-            <div className="story-controls">
-                <button onClick={onSave} disabled={saved?"disabled":false}>Save</button>
-                <button onClick={onReset} disabled={saved?"disabled":false}>Reset</button>
-                <button>Publish</button>
+            <Sidebar onSave={onSave} onReset={onReset} isOpen={isOpen} setIsOpen={setIsOpen} 
+                     saved={saved} />
+            <div className={`main-content${isOpen?" open":""}`}>
+                <input 
+                    type="text" 
+                    value={title}
+                    onChange={e=>{dispatch(setNewTitle(e.target.value))}}
+                    className="title-input"
+                    />
+                <DragDropContext onDragEnd={onDragEnd}>
+                    <Droppable droppableId={`chapter-${chapterId}`}>
+                        {(provided, snapshot) => (
+                            <div className={`scenes-list${snapshot.isDraggingOver?" active":""}`} ref={provided.innerRef} {...provided.droppableProps}>
+                                {story.scenes.map((scene, index) => (
+                                    <SceneBlock  key={`scene-${scene.id}`} scene={scene} index={index} joinFn={()=>{dispatch(joinScenes(story.scenes[index-1].id,scene.id))}} />
+                                ))}
+                                {provided.placeholder}
+                            </div>
+                        )}
+                    </Droppable>
+                </DragDropContext>
             </div>
-            <input 
-                type="text" 
-                value={title}
-                onChange={e=>{dispatch(setNewTitle(e.target.value))}}
-                className="title-input"
-                />
-            <DragDropContext onDragEnd={onDragEnd}>
-                <Droppable droppableId={`chapter-${chapterId}`}>
-                    {(provided, snapshot) => (
-                        <div className={`scenes-list${snapshot.isDraggingOver?" active":""}`} ref={provided.innerRef} {...provided.droppableProps}>
-                            {story.scenes.map((scene, index) => (
-                                <SceneBlock  key={`scene-${scene.id}`} scene={scene} index={index} joinFn={()=>{dispatch(joinScenes(story.scenes[index-1].id,scene.id))}} />
-                            ))}
-                            {provided.placeholder}
-                        </div>
-                    )}
-                </Droppable>
-            </DragDropContext>
             {showModal && (
                 <Modal onClose={() => setShowModal(false)}>
                 {(fromType==="reset") &&

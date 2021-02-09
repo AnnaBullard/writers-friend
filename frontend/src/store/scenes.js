@@ -109,7 +109,7 @@ export default function reducer(state = initialState, action) {
                     return scene;
                 }
             })
-            let newState = {... state, scenes}
+            let newState = {... state, scenes, saved: false}
             return newState;
         }
         case SAVE_SCENES: {

@@ -12,11 +12,14 @@ body, #root, #modal-content {
 }
 
 .navbar, form button:hover,
-.profile-dropdown {
+.profile-dropdown,
+.sidebar .story-controls button {
     background-color: #dba279;
 }
 
-.connect-block {
+.connect-block,
+.openSidebar,
+.sidebar-container .sidebar {
     background-color: #b08260;
 }
 

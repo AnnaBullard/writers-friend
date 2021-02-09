@@ -2,10 +2,12 @@ import {Editor, EditorState, RichUtils,
     convertToRaw, convertFromHTML,
     ContentState} from 'draft-js';
 import draftToHtml from 'draftjs-to-html';
+import {useDispatch} from "react-redux";
 import {useState, useEffect} from "react";
-// import "./BlocksList.css"
+import {editText} from "../../store/scenes";
 
 export default function SceneEditor ({id, text}) {
+    const dispatch = useDispatch();
 const [isReady, setIsReady] = useState(false)
 const [prevState, setPrevState] = useState("")
 
@@ -24,7 +26,7 @@ useEffect(()=>{
     const inputChange = setTimeout(()=>{
         const newState = draftToHtml(convertToRaw(editorState.getCurrentContent()));
         if (isReady && prevState!== newState) {
-            console.log(newState)
+            dispatch(editText(id, newState));
         }
         if (!isReady && ((prevState ==="" && newState !== "") || !text)) {
             setPrevState(newState)
