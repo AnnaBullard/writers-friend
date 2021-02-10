@@ -4,7 +4,6 @@ import { Route, Switch } from "react-router-dom";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import Homepage from "./components/Homepage";
-import BlocksList from "./components/BlocksList";
 import ScenesPage from "./components/ScenesPage";
 
 function App() {
@@ -24,9 +23,6 @@ function App() {
           <Switch>
             <Route exact path="/">
               <Homepage />
-            </Route>
-            <Route path="/dnd">
-              <BlocksList />
             </Route>
             <Route path="/scenes/:chapterId">
               <ScenesPage />

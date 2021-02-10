@@ -3,6 +3,8 @@
     flex-direction: column;
     justify-content: center;
     position: relative;
+    width: 715px;
+    margin: 0 auto;
 }
 
 .home-logo-navbar button {

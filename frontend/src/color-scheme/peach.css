@@ -7,16 +7,20 @@
     background-color: #fff;
 }
 
-body, #root, #modal-content {
+body, #root, #modal-content,
+.new-scene {
     background-color: #efdbb0;
 }
 
 .navbar, form button:hover,
-.profile-dropdown {
+.profile-dropdown,
+.sidebar .story-controls button {
     background-color: #dba279;
 }
 
-.connect-block {
+.connect-block,
+.open-sidebar,
+.sidebar-container .sidebar {
     background-color: #b08260;
 }
 
@@ -37,7 +41,8 @@ body,
 .home-logo-navbar button,
 form button:hover,
 .connect-block:hover,
-.story-controls button {
+.story-controls button,
+.new-scene {
     color: #333
 }
 
@@ -60,7 +65,8 @@ form button:hover,
     color: #fff;
 }
 
-.confirm-box .errors{
+.confirm-box .errors,
+.new-scene:hover {
     color: tomato;
 }
 
@@ -70,11 +76,13 @@ form input:focus {
     border-color: #b08260;
 }
 
-.story-controls button {
+.story-controls button,
+.new-scene {
     border-color: #333;
 }
 
-.scenes-list.active {
+.scenes-list.active,
+.new-scene:hover {
     border-color: tomato;
 }
 

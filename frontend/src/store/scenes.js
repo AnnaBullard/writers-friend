@@ -3,9 +3,12 @@ import { fetch } from './csrf.js';
 const GET_SCENES = "scenes/get"
 const REORDER_SCENES = "scenes/re-order"
 const SET_TITLE="scenes/set_title"
+const EDIT_TEXT="scenes/edit_text"
 const SAVE_SCENES = "scenes/save"
+const UNSAVE_SCENES = "scenes/unsaved"
 const JOIN_SCENES = "scenes/join"
 const DELETE_SCENE = "scenes/delete"
+const CREATE_SCENE = "scenes/create"
 
 const setScenes = (chapter, scenes) => ({
     type: GET_SCENES,
@@ -23,8 +26,21 @@ export const setNewTitle = (title) => ({
     title
 })
 
-export const setSaved = () => ({
-    type: SAVE_SCENES
+export const editText = (id, text) => ({
+    type: EDIT_TEXT,
+    id,
+    text
+})
+
+export const setSaved = (newScenes) => ({
+    type: SAVE_SCENES,
+    newScenes
+})
+
+export const setUnsaved = (id, text) => ({
+    type: UNSAVE_SCENES,
+    id,
+    text
 })
 
 export const joinScenes = (id1, id2) => ({
@@ -36,6 +52,10 @@ export const joinScenes = (id1, id2) => ({
 export const deleteScene = (id) => ({
     type: DELETE_SCENE,
     id
+})
+
+export const createScene = () => ({
+    type: CREATE_SCENE
 })
 
 export const getScenes = id => async (dispatch) => {
@@ -53,7 +73,8 @@ export const saveScenes = (id, updates) => async (dispatch) => {
         body: JSON.stringify({updates})
     });
     if (res.ok)
-        dispatch(getScenes(id))
+        // dispatch(getScenes(id))
+        dispatch(setSaved(res.data.newScenes))
 }
 
 const initialState = {
@@ -93,13 +114,43 @@ export default function reducer(state = initialState, action) {
             let newState = {...state, chapter, saved: false};
             return newState;
         }
+        case EDIT_TEXT: {
+            let scenes = state.scenes.map(scene => {
+                if (scene.id === action.id) {
+                    let newScene = {...scene, text: action.text, updated:true}
+                    delete newScene.temp
+                    return newScene;
+                } else {
+                    return scene;
+                }
+            })
+            let newState = {...state, scenes, saved: false}
+            return newState;
+        }
         case SAVE_SCENES: {
-            let scenes = state.scenes.map(s => {
-                let newS = {...s};
-                delete newS.updated;
-                return newS;
+            let scenes = state.scenes.map(scene => {
+                let newScene = {...scene};
+                if (scene.temp) {
+                    newScene.text = scene.temp;
+                    delete newScene.temp;
+                }
+                if(scene.id in action.newScenes) newScene.id = action.newScenes[scene.id]
+                delete newScene.updated;
+                return newScene;
             })
             let newState = {...state, scenes, deleted:[], saved: true}
+            return newState;
+        }
+        case UNSAVE_SCENES: {
+            let scenes = state.scenes.map(scene => {
+                if (scene.id === action.id) {
+                    let newScene = {...scene, temp: action.text, updated:true}
+                    return newScene;
+                } else {
+                    return scene;
+                }
+            })
+            let newState = {...state, scenes, saved: false}
             return newState;
         }
         case JOIN_SCENES: {
@@ -107,10 +158,11 @@ export default function reducer(state = initialState, action) {
             let scenes = state.scenes.filter(scene => scene.id !== action.id2)
                                         .map((scene, idx) => {
                                             if (scene.id === action.id1) {
-                                                scene.text = scene.text + "\n" + sceneToDelete.text
+                                                scene.text = (scene.temp || scene.text) + "\n" + (sceneToDelete.temp || sceneToDelete.text)
+                                                delete scene.temp
                                                 scene.updated = true
                                             }
-                                            if (scene.order != idx) {
+                                            if (scene.order !== idx) {
                                                 scene.order = idx
                                                 scene.updated = true
                                             }
@@ -132,6 +184,12 @@ export default function reducer(state = initialState, action) {
                                      })
             let deleted = [...state.deleted, sceneToDelete.id]
             let newState = {...state, scenes, deleted, saved: false}
+            return newState
+        }
+        case CREATE_SCENE: {
+            let count = state.scenes.filter(scene => typeof scene.id !== "number").length;
+            let scene = {id: "new"+count, text: "", order:state.scenes.length, updated:true};
+            let newState = {...state, scenes: [...state.scenes, scene], saved: true};
             return newState
         }
         default:
