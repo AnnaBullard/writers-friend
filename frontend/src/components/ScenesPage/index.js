@@ -1,4 +1,4 @@
-import {DragDropContext, Droppable, Draggable} from "react-beautiful-dnd";
+import {DragDropContext, Droppable} from "react-beautiful-dnd";
 import {useParams, Link} from "react-router-dom";
 import {Prompt} from "react-router-dom";
 import {useDispatch,useSelector} from "react-redux";
@@ -18,9 +18,9 @@ export default function ScenesPage () {
     const [showModal, setShowModal] = useState(false);
     const [fromType, setFormType] = useState("reset");
     const [title, setTitle] = useState();
-    const [saved, setSaved] = useState();
     const dispatch = useDispatch();
 
+    const saved = useSelector(state => state.scenes.saved)
     //Handling re-load of the page with usaved changes
     const handleOnBeforeUnload = e => {
         if (!saved) {
@@ -40,15 +40,13 @@ export default function ScenesPage () {
 
     useEffect(()=>{
         if (!story.chapter || story.chapter.id !== chapterId) dispatch(getScenes(chapterId))
-    },[dispatch])
+    },[dispatch, chapterId, story])
     
     useEffect(()=>{
         if (story.chapter) {
             setTitle(story.chapter.title)
             setIsLoaded(true);
-        }
-        setSaved(story.saved)
-        
+        }        
     },[story, user])
 
     useEffect(()=>{
@@ -57,7 +55,7 @@ export default function ScenesPage () {
         } else {
             setAuthorized(false)
         }
-    }, [isLoaded])
+    }, [isLoaded, story, user])
 
     const onDragEnd = result => {
         if (result.destination !== null) {
@@ -68,23 +66,26 @@ export default function ScenesPage () {
             let newOrder = story.scenes.map(s => s.id)
             newOrder = [...newOrder.slice(0,oldNumber),...newOrder.slice(oldNumber+1)]
             newOrder = [...newOrder.slice(0,newNumber),sceneId,...newOrder.slice(newNumber)]
-            console.log(newOrder)
             dispatch(setNewOrder(newOrder))
         }
-        console.log(result);
     };
 
     const onSave = () => {
-        let updates = {title, deleted: story.deleted}
-        let scenes = {}
+        let updates = {title}
+        updates.deleted = story.deleted.filter(id => typeof id === "number")
+        updates.scenes = {};
+        updates.new = [];
         story.scenes.forEach(scene => {
-            console.log("this story:", scene)
-            if (scene.updated) {
-                scenes[scene.id] = scene
+            if (scene.updated && typeof scene.id === "number") {
+                if (scene.temp){
+                    updates.scenes[scene.id] = {...scene, text: scene.temp}
+                } else {
+                    updates.scenes[scene.id] = scene
+                }
+            } else if(scene.updated && typeof scene.id !== "number") {
+                updates.new.push(scene)
             }
         })
-        updates.scenes = scenes;
-        console.log("ready updates", updates)
         dispatch(saveScenes(chapterId, updates))
     }
 
@@ -104,8 +105,7 @@ export default function ScenesPage () {
             when={!saved}
             message='You have unsaved changes, are you sure you want to leave?'
             />
-            <Sidebar onSave={onSave} onReset={onReset} isOpen={isOpen} setIsOpen={setIsOpen} 
-                     saved={saved} />
+            <Sidebar onSave={onSave} onReset={onReset} isOpen={isOpen} setIsOpen={setIsOpen} saved={saved}/>
             <div className={`main-content${isOpen?" open":""}`}>
                 <input 
                     type="text" 

@@ -35,7 +35,8 @@ router.patch(
         const { user } = req;
         let id = parseInt (req.params.id)
         let {updates} = req.body
-        
+
+        let newScenes = {};
 
         await sequelize.transaction(async (tx) => {
             let entity = await Entity.findByPk(id, {transaction: tx})
@@ -44,6 +45,15 @@ router.patch(
             for (let sceneId in updates.scenes) {
                 let scene = await Scene.findByPk(sceneId, {transaction: tx})
                 await scene.update(updates.scenes[sceneId],{transaction: tx})
+            }
+
+            for (let i = 0; i < updates.new.length; i++){
+                let scene = await Scene.create({
+                    text: updates.new[i].text, 
+                    order: updates.new[i].order,
+                    parentId: id
+                }, {transaction: tx})
+                newScenes[updates.new[i].id] = scene.id
             }
 
             if (updates.deleted) {
@@ -56,7 +66,7 @@ router.patch(
 
         })
         
-        return res.json({success:true})
+        return res.json({newScenes})
     })
 );
 
