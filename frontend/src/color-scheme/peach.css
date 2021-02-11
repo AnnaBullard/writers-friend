@@ -3,7 +3,8 @@
 /*BACKGROUND*/
 .scenes-list .scene-text,
 .scenes-list .scene-handle,
-.confirm-box .text {
+.confirm-box .text,
+.entity-block {
     background-color: #fff;
 }
 
@@ -20,7 +21,8 @@ body, #root, #modal-content,
 
 .connect-block,
 .open-sidebar,
-.sidebar-container .sidebar {
+.sidebar-container .sidebar,
+.entity-block .entity-header {
     background-color: #b08260;
 }
 
@@ -72,7 +74,8 @@ form button:hover,
 
 /*BORDER-COLOR*/
 .home-logo-navbar > div,
-form input:focus {
+form input:focus,
+.entity-block .drop-block {
     border-color: #b08260;
 }
 

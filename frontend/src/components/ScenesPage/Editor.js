@@ -52,7 +52,7 @@ export default function SceneEditor ({id, text}) {
         if (prevState !== newState) {
             dispatch(editText(id, newState));
             setPrevState(newState);
-        }
-    }}/>
+        }}}
+        />
     </div>
 }

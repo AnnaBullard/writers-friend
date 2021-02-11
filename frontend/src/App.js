@@ -5,6 +5,7 @@ import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import Homepage from "./components/Homepage";
 import ScenesPage from "./components/ScenesPage";
+import Profile from "./components/Profile";
 
 function App() {
   const dispatch = useDispatch();
@@ -26,6 +27,9 @@ function App() {
             </Route>
             <Route path="/scenes/:chapterId">
               <ScenesPage />
+            </Route>
+            <Route path="/profile">
+              <Profile />
             </Route>
           </Switch>
         )}
