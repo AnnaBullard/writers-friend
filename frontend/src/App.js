@@ -6,6 +6,7 @@ import Navigation from "./components/Navigation";
 import Homepage from "./components/Homepage";
 import ScenesPage from "./components/ScenesPage";
 import Profile from "./components/Profile";
+import Profile2 from "./components/Profile2";
 
 function App() {
   const dispatch = useDispatch();
@@ -30,6 +31,9 @@ function App() {
             </Route>
             <Route path="/profile">
               <Profile />
+            </Route>
+            <Route path="/profile2">
+              <Profile2 />
             </Route>
           </Switch>
         )}

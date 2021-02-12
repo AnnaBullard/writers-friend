@@ -8,7 +8,6 @@
     background-color: #b08260;
     border: 1px solid black;
     box-sizing: border-box;
-    border-radius: 5px;
     color:#fff;
     display: flex;
     height: 330px;
@@ -29,7 +28,6 @@
 .book-cover.open .book-header {
     flex-direction: row;
     justify-content: space-between;
-    margin-left: 30px;
 }
 
 .book-cover::before {
@@ -46,8 +44,8 @@
 }
 
 .book-cover.open::before {
-    width: 20px;
-    height: 20px;
+    width: 30px;
+    height: 30px;
     top: 5px;
     left: 5px;
     transform: translate( 0, 0);
@@ -93,18 +91,7 @@
     color: #333;
     margin: 5px;
 }
-.book-cover .controls i:hover,
-.book-cover .controls i.active {
+.book-cover .controls i:hover {
     color: #efdbb0
 }
 
-.book-content {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    box-sizing: border-box;
-    margin-left: 20px;
-    border: 1px solid #333;
-    padding: 10px 0;
-}

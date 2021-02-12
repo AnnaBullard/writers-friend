@@ -19,6 +19,17 @@ module.exports = {
       {title:"The Muster of Rohan",               userId: 1, pseudonymId: 1, typeId: 1, parentId: 5, order: 2, isPublished: false},
       {title:"Hobbits",                           userId: 1, pseudonymId: 1, typeId: 2, parentId: 1, order: 0, isPublished: true},
       {title:"An Unexpected Party",               userId: 1, pseudonymId: 1, typeId: 1, parentId: 15, order: 0, isPublished: true},
+      {title:"Pride and Prejudice",               userId: 1, pseudonymId: 2, typeId: 2, parentId: null, order: 0, isPublished: true},
+      {title:null,                                userId: 1, pseudonymId: 2, typeId: 1, parentId: 17, order: 0, isPublished: true},
+      {title:null,                                userId: 1, pseudonymId: 2, typeId: 1, parentId: 17, order: 1, isPublished: true},
+      {title:null,                                userId: 1, pseudonymId: 2, typeId: 1, parentId: 17, order: 2, isPublished: true},
+      {title:"Roast mutton",                      userId: 1, pseudonymId: 1, typeId: 1, parentId: 15, order: 1, isPublished: true},
+      {title:"Short rest",                        userId: 1, pseudonymId: 1, typeId: 1, parentId: 15, order: 2, isPublished: true},
+      {title:"Over hill and under hill",          userId: 1, pseudonymId: 1, typeId: 1, parentId: 15, order: 3, isPublished: true},
+      {title:"Riddles in the dark",               userId: 1, pseudonymId: 1, typeId: 1, parentId: 15, order: 4, isPublished: true},
+      {title:"Out of the frying-pan into the fire",userId: 1, pseudonymId: 1, typeId: 1, parentId: 15, order: 5, isPublished: true},
+      {title:"Queer lodgings",                    userId: 1, pseudonymId: 1, typeId: 1, parentId: 15, order: 6, isPublished: true},
+      {title:"flies and spiders",                 userId: 1, pseudonymId: 1, typeId: 1, parentId: 15, order: 7, isPublished: true},
     ], {});
   },
 

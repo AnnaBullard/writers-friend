@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {useState, useEffect} from "react";
 import {getEntities} from "../../store/entities";
 import EntityBlock from "./EntityBlock";
-import "./Profile.css"
+// import "./Profile.css"
 
 export default function Profile () {
     const dispatch = useDispatch();
