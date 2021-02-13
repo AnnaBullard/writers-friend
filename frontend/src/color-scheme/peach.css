@@ -9,7 +9,8 @@
 }
 
 body, #root, #modal-content,
-.new-scene {
+.new-scene,
+add-entity {
     background-color: #efdbb0;
 }
 
@@ -22,7 +23,8 @@ body, #root, #modal-content,
 .connect-block,
 .open-sidebar,
 .sidebar-container .sidebar,
-.entity-block .entity-header {
+.entity-block .entity-header,
+.book-cover {
     background-color: #b08260;
 }
 
@@ -32,6 +34,10 @@ form button {
 
 #modal-background {
     background-color: rgba(0, 0, 0, 0.7);
+}
+
+.book-cover::before {
+    background-color: #000;
 }
 
 .story-controls button{
@@ -44,7 +50,9 @@ body,
 form button:hover,
 .connect-block:hover,
 .story-controls button,
-.new-scene {
+.new-scene,
+.add-entity,
+.book-cover .controls i {
     color: #333
 }
 
@@ -59,43 +67,53 @@ form button:hover,
 .navbar button:hover,
 .home-logo-navbar .profile-dropdown button:hover,
 .connect-block,
-.story-controls button:hover {
+.story-controls button:hover,
+.book-cover .controls i:hover,
+.book-cover .controls i.active {
     color: #efdbb0
 }
 
-#modal-content button {
+#modal-content button,
+.book-cover {
     color: #fff;
 }
 
 .confirm-box .errors,
-.new-scene:hover {
+.new-scene:hover,
+.add-entity:hover {
     color: tomato;
 }
 
 /*BORDER-COLOR*/
 .home-logo-navbar > div,
 form input:focus,
-.entity-block .drop-block {
+.entity-block .drop-block,
+.book-content {
     border-color: #b08260;
 }
 
 .story-controls button,
-.new-scene {
+.new-scene,
+.add-entity,
+.book-cover {
     border-color: #333;
 }
 
 .scenes-list.active,
-.new-scene:hover {
+.new-scene:hover,
+.add-entity:hover {
     border-color: tomato;
 }
 
 /*Dance Script*/
-#modal-content h3 {
+#modal-content h3,
+.book-cover > div:first-child {
     font-family: 'Dancing Script', cursive;
 }
 
 /*Open Sans*/
-body, button, input, textarea, select {
+body, button, input, textarea, select,
+.book-cover .entity-type {
     font-family: 'Open Sans', sans-serif;
  }
 

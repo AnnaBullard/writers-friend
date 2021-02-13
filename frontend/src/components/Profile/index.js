@@ -3,13 +3,13 @@ import {useDispatch, useSelector} from "react-redux";
 import {useState, useEffect} from "react";
 import {getEntities} from "../../store/entities";
 import EntityBlock from "./EntityBlock";
+import NewEntity from "./NewEntity";
 import "./Profile.css"
 
 export default function Profile () {
     const dispatch = useDispatch();
     const [isAuthorized, setAuthorized] = useState(false);
     const [isLoaded, setIsLoaded] = useState(false);
-    const [editMode, setEditMode] = useState(null);
 
     let user = useSelector(state => state.session.user)
     let entities = useSelector(state => state.entities)
@@ -23,10 +23,6 @@ export default function Profile () {
         }
     },[dispatch, user])
 
-    useEffect(()=>{
-        console.log(editMode)
-    },[editMode])
-
     const onDragEnd = result => {
         console.log(result);
     }
@@ -39,9 +35,10 @@ export default function Profile () {
             <div className={`entities-grid`} >
             <DragDropContext onDragEnd={onDragEnd} >
                 {entities.map((entity,idx) => 
-                    <EntityBlock entity={entity} key={`drop-0-drop-${idx}`} editMode={editMode} setEditMode={setEditMode} />
+                    <EntityBlock entity={entity} key={`drop-0-drop-${idx}`} />
                 )}
             </DragDropContext>
+                <NewEntity />
             </div>
         </>
     }

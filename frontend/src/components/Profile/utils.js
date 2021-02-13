@@ -24,11 +24,11 @@ export function getType(entity){
     }
 }
 
-export function flattenTree (entities, level = 0) {
+export function flattenTree (entities, level = 0, limit = 1) {
     let arr = []
   
     entities.forEach(entity=>{
-      if (entity.typeId !== 1){
+      if (entity.typeId > limit){
         arr.push({
           id: entity.id,
           title: entity.title || "untitled",
@@ -36,8 +36,7 @@ export function flattenTree (entities, level = 0) {
           level
         })
         if (entity.children.length) {
-            console.log(level, level+1)
-            arr.push(...flattenTree(entity.children, level+1))
+            arr.push(...flattenTree(entity.children, level+1, limit))
         }
       }
     })

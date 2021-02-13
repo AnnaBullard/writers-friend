@@ -5,11 +5,8 @@
 
 .book-cover {
     align-items: center;
-    background-color: #b08260;
-    border: 1px solid black;
     box-sizing: border-box;
     border-radius: 5px;
-    color:#fff;
     display: flex;
     height: 330px;
     justify-content: center;
@@ -20,10 +17,11 @@
 }
 
 .book-cover.open {
-    width: 100%;
-    height: auto;
+    border-radius: 5px 5px 0 5px;
     flex-direction: row;
+    height: auto;
     justify-content: space-between;
+    width: 100%;
 }
 
 .book-cover.open .book-header {
@@ -33,37 +31,34 @@
 }
 
 .book-cover::before {
+    border-radius: 50%;
     content: "";
-    width: 150px;
-    height: 150px;
-    background-color: #000;
     display:block;
+    height: 150px;
+    left: 50%;
     position: absolute;
     top: 50%;
-    left: 50%;
     transform: translate(-50%, -50%);
-    border-radius: 50%;
+    width: 150px;
 }
 
 .book-cover.open::before {
-    width: 20px;
     height: 20px;
-    top: 5px;
     left: 5px;
+    top: 5px;
     transform: translate( 0, 0);
+    width: 20px;
 }
 
 .book-cover > div:first-child {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    font-family: 'Dancing Script', cursive;
     font-size: 25px;
     z-index: 2;
 }
 
 .book-cover .entity-type {
-    font-family: 'Open Sans', sans-serif;
     font-size: 14px;
     text-transform: uppercase;
 }
@@ -90,21 +85,34 @@
 }
 
 .book-cover .controls i {
-    color: #333;
     margin: 5px;
-}
-.book-cover .controls i:hover,
-.book-cover .controls i.active {
-    color: #efdbb0
 }
 
 .book-content {
-    width: 100%;
+    border-style: solid;
+    border-width: 1px;
+    box-sizing: border-box;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    box-sizing: border-box;
+    justify-content: start;
+    align-items: start;
     margin-left: 20px;
-    border: 1px solid #333;
     padding: 10px 0;
+    position: relative;
+    top: -1px;
+    width: 100%;
+}
+
+.add-entity {
+    align-items: center;
+    border-style: dashed;
+    box-sizing: border-box;
+    border-radius: 5px;
+    display: flex;
+    height: 330px;
+    justify-content: center;
+    margin-top: 10px;
+    margin-left: 10px;
+    width: 230px;
 }

@@ -20,8 +20,12 @@ export default function EntityForm({entity}) {
   const entities = useSelector(state => state.entities);
 
   useEffect(()=>{
-    setEntititesList(flattenTree(entities, 0))
-  },[entities])
+    setEntititesList(flattenTree(entities, 0, typeId))
+  },[entities,typeId])
+
+  useEffect(()=>{
+    console.log(entitiesList)
+  },[typeId])
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -62,7 +66,6 @@ export default function EntityForm({entity}) {
         >
           <option value={undefined}>set as standalone</option>
           {entitiesList.map(entity =>{
-            console.log(entity)
             return <option value={entity.id}>
               {repeat(entity.level,"-")}
               {(entity.title?entity.title:"untitled")}
