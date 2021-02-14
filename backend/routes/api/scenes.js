@@ -14,17 +14,28 @@ router.get(
     asyncHandler(async (req,res) => {
         const { user } = req;
         let id = parseInt (req.params.id)
-        const entity = await Entity.findByPk(id)
-        const scenes = await Scene.findAll({
+        const entity = await Entity.findOne({
             where: {
-                parentId: id
-            },
-            order: [
-                ["order", "ASC"]
-            ]
+                id,
+                userId: user.id,
+                typeId: 1
+            }
         })
-        
-        return res.json({entity, scenes})
+
+        if (entity) {
+            const scenes = await Scene.findAll({
+                where: {
+                    parentId: id
+                },
+                order: [
+                    ["order", "ASC"]
+                ]
+            })
+            
+            return res.json({entity, scenes})
+        } else {
+            return res.json({error: "no such story"})
+        }
     })
 );
 

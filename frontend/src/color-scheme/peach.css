@@ -46,8 +46,10 @@ form button {
 /*TEXT*/
 body,
 .navbar button,
+.profile-dropdown a,
 .home-logo-navbar button,
 form button:hover,
+#modal-content button:hover, 
 .connect-block:hover,
 .story-controls button,
 .new-scene,
@@ -60,12 +62,15 @@ form button:hover,
 .scene-handle i:hover,
 .scene-handle i.active,
 .story-controls button[disabled],
-.story-controls button[disabled]:hover {
+.story-controls button[disabled]:hover,
+.modal-close:hover,
+form label i:hover {
     color: #b08260;
 }
 
 .navbar button:hover,
 .home-logo-navbar .profile-dropdown button:hover,
+.profile-dropdown a:hover,
 .connect-block,
 .story-controls button:hover,
 .book-cover .controls i:hover,

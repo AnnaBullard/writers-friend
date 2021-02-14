@@ -25,7 +25,7 @@ export default function SceneBlock ({scene, index, joinFn, deleteFn}) {
                     <SceneEditor id={scene.id} text={scene.text} />
                     <div className="scene-handle">
                         <i className="fas fa-arrows-alt-v" {...provided.dragHandleProps}></i>
-                        <i className="fas fa-cut"></i>
+                        {/* <i className="fas fa-cut"></i> */}
                         <i className="fas fa-eraser" onClick={onDelete}></i>
                     </div>
                 </div>

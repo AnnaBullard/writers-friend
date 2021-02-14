@@ -35,13 +35,17 @@ form button {
     font-size: 14px;
 }
 
-form input {
+form input, form select, form textarea {
     padding: 5px 6px 5px 11px;
     font-size: 14px;
     border-style: solid;
     border-radius: 0;
     border-width: 1px;
     margin: 10px;
+}
+
+form textarea {
+    grid-column: span 2;
 }
 
 form input:focus {
@@ -54,3 +58,6 @@ form > div {
     width: 400px;
 }
 
+form label {
+    margin: 10px;
+}

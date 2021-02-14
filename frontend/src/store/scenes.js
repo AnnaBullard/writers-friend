@@ -60,10 +60,13 @@ export const createScene = () => ({
 
 export const getScenes = id => async (dispatch) => {
     const res = await fetch(`/api/scenes/${id}`);
-    if (res.ok) {
+    if (res.ok && !res.data.error) {
         let chapter = res.data.entity;
         let scenes = res.data.scenes;
         dispatch(setScenes(chapter, scenes));
+        return true
+    } else {
+        return false
     }
 }
 

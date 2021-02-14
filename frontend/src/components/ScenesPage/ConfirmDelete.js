@@ -1,6 +1,7 @@
 import {useState} from "react";
 import {useDispatch} from "react-redux";
 import {deleteScene} from "../../store/scenes";
+import sanitizeHtml from 'sanitize-html';
 
 export default function ConfirmDelete ({onSubmit, onClose, scene}) {
     const dispatch = useDispatch();
@@ -25,7 +26,7 @@ export default function ConfirmDelete ({onSubmit, onClose, scene}) {
         <input type="checkbox" checked={confirmed?"checked":false} onChange={()=>{setConfirmed(!confirmed)}}/>
         Yes, I wat to remove his scene.
         </label>
-        <div className="text">{scene.text}</div>
+        <div className="text">{scene.temp?sanitizeHtml(scene.temp):sanitizeHtml(scene.text)}</div>
         <button>Submit</button>
     </form>
 }

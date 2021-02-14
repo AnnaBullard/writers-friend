@@ -11,6 +11,10 @@
   padding: 0;
 }
 
+.profile-dropdown a {
+  text-decoration: none;
+}
+
 .navbar {
   align-items: center;
   box-sizing: border-box;

@@ -35,7 +35,7 @@ export function flattenTree (entities, level = 0, limit = 1) {
           author: getAuthorFormatted(entity),
           level
         })
-        if (entity.children.length) {
+        if (entity.children && entity.children.length) {
             arr.push(...flattenTree(entity.children, level+1, limit))
         }
       }

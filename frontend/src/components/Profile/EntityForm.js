@@ -1,18 +1,19 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {flattenTree,repeat} from "./utils"
+import {createEntity} from "../../store/entities";
 
 
-export default function EntityForm({entity}) {
+export default function EntityForm({entity, onClose}) {
   const dispatch = useDispatch();
   const [title, setTitle] = useState(entity?entity.title:"");
   const [description, setDescription] = useState(entity?entity.description:"");
   const [pseudonymId, setPseudonymId] = useState((entity && entity.pseudonymId)?entity.pseudonymId:undefined);
-  const [typeId, setTypeId] = useState(entity?entity.typeId:1);
-  const [parentId, setParentId] = useState((entity && entity.parentId)?entity.parentId:null);
+  const [typeId, setTypeId] = useState(entity.typeId);
+  const [parentId, setParentId] = useState(entity.parentId);
   const [isPublished, setIsPublished] = useState(entity?entity.isPublished:false);
-  const [errors,setErrors] = useState([])
   const [entitiesList, setEntititesList] = useState([])
+  const [isLoaded, setIsLoaded] = useState(false)
 
   const entityTypes = [null, "chapter/story", "book", "book series", "world"]
 
@@ -20,60 +21,79 @@ export default function EntityForm({entity}) {
   const entities = useSelector(state => state.entities);
 
   useEffect(()=>{
-    setEntititesList(flattenTree(entities, 0, typeId))
+    setEntititesList(flattenTree(entities, 0, typeId));
+    setIsLoaded(true);
   },[entities,typeId])
 
   useEffect(()=>{
-    console.log(entitiesList)
-  },[typeId])
+    if (isLoaded && !entitiesList.find(entity => entity.id === parentId)) setParentId(0)
+  },[entitiesList])
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log({...entity,title,pseudonymId,typeId,parentId,isPublished})
+    if (!entity.id) {
+      dispatch(createEntity({
+        ...entity,
+        title,
+        pseudonymId:(pseudonymId>0?pseudonymId:null),
+        typeId,
+        parentId:(parentId>0?parentId:null),
+        isPublished})).then(res => {
+          onClose();
+        });
+    }
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      <h3>Entity Form</h3>
-      <ul style={errors.length?{}:{display: "none"}}>
-        {errors.map((error, idx) => <li key={idx}>{error}</li>)}
-      </ul>
+      <h3>{entity.id?`Edit `:`Create new `}{entityTypes[typeId]}</h3>
       <div>
-        <input
-          type="text"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          placeholder="Title"
-        />
-        <select 
-          value={pseudonymId}
-          onChange={e => setPseudonymId(e.target.value)}
-        >
-          <option value={undefined}>{user.username}</option>
-        </select>
+        <label htmlFor="entity-type">Type:</label>
         <select 
           value={typeId} 
-          disabled={entity && entity.typeId===1}
+          disabled={entity.id && entity.typeId===1}
           onChange={e => setTypeId(e.target.value)}
+          id="entity-type"
         >
           <option value={4}>world</option>
           <option value={3}>book series</option>
           <option value={2}>book</option>
           <option value={1}>{parentId?"chapter":"story"}</option>
         </select>
+        <input style={{gridColumn: "span 2"}}
+          type="text"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          placeholder="Title"
+        />
+        <label htmlFor="entity-pseudonym">Author:</label>
+        <select 
+          value={pseudonymId}
+          onChange={e => setPseudonymId(e.target.value)}
+          id="entity-pseudonym"
+        >
+          <option value={0}>{user.username}</option>
+        </select>
+        <label htmlFor="entity-parent">Part of:</label>
         <select value={parentId} 
           onChange={e => setParentId(e.target.value)}
+          id="entity-parent"
         >
-          <option value={undefined}>set as standalone</option>
+          <option value={0}>set as standalone</option>
           {entitiesList.map(entity =>{
-            return <option value={entity.id}>
+            return <option value={entity.id} key={`entity-parent-option-${entity.id}`}>
               {repeat(entity.level,"-")}
               {(entity.title?entity.title:"untitled")}
               {entity.author}
             </option>
           })}
         </select>
-        <input type="checkbox" checked={isPublished?"checked":false} onClick={()=>setIsPublished(!isPublished)}/>
+        {!!entity.id && 
+        <label style={{gridColumn: "span 2"}} onClick={()=>setIsPublished(!isPublished)} >
+          {isPublished && <i className="fas fa-eye"></i>}
+          {!isPublished && (<><i className="fas fa-eye-slash"></i>{` Not `}</>)}
+          {` Public`}
+        </label>}
         <textarea
           value={description}
           onChange={(e) => setDescription(e.target.value)}
@@ -81,7 +101,7 @@ export default function EntityForm({entity}) {
         />
         
       </div>
-      <button type="submit">{entity.id?`Edit `:`Save `}{entityTypes[typeId]}</button>
+      <button type="submit">{entity.id?`Edit `:`Create `}{entityTypes[typeId]}</button>
     </form>
   );
 }
