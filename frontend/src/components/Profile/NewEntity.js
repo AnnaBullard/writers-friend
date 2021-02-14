@@ -4,7 +4,6 @@ import EntityForm from "./EntityForm";
 
 export default function NewEntity ({parentEntity}) {
     const [showModal, setShowModal] = useState(false);
-    console.log("parentEntity",parentEntity)
     let newEntityStart = {
         parentId: parentEntity?parentEntity.id:0,
         typeId: parentEntity?parentEntity.typeId-1:1

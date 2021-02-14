@@ -76,7 +76,7 @@ asyncHandler(async (req,res) => {
     return res.json(entities)
 }))
 
-router.delete("/:id",
+router.delete("/:id(\\d+)",
 restoreUser,
 asyncHandler(async (req,res) => {
     let { user } = req;

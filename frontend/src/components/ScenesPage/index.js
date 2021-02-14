@@ -42,9 +42,6 @@ export default function ScenesPage () {
     useEffect(()=>{
         dispatch(getScenes(chapterId)).then(res => {
             setAuthorized(res);
-            if (story.chapter) {
-                setTitle(story.chapter.title)
-            }
             setIsLoaded(true);
         })
     },[dispatch, chapterId])
@@ -113,7 +110,7 @@ export default function ScenesPage () {
                         {(provided, snapshot) => (
                             <div className={`scenes-list${snapshot.isDraggingOver?" active":""}`} ref={provided.innerRef} {...provided.droppableProps}>
                                 {story.scenes.map((scene, index) => (
-                                    <SceneBlock  key={`scene-${scene.id}`} scene={scene} index={index} joinFn={()=>{dispatch(joinScenes(story.scenes[index-1].id,scene.id))}} />
+                                    <SceneBlock  key={`scene-${scene.id}`} scene={scene} index={index} joinFn={()=>{dispatch(joinScenes(story.scenes[index-1].id,scene.id))}} isLast={index===story.scenes.length-1} />
                                 ))}
                                 {provided.placeholder}
                             </div>

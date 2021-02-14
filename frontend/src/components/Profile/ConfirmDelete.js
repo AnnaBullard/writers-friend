@@ -5,13 +5,11 @@ import {flattenTree,repeat} from "./utils";
 import sanitizeHtml from 'sanitize-html';
 
 export default function ConfirmDelete ({onSubmit, onClose, entity}) {
-    console.log("DELETE",entity)
     const dispatch = useDispatch();
     const types = [null,"story/chapter", "book", "book series", "world"]
     const [confirmed, setConfirmed] = useState(false)
     const [error, setError] = useState("")
     const tree = flattenTree([entity], 0, 0)
-    console.log({tree})
     let treeHTML = ``;
     let currentLvl;
 

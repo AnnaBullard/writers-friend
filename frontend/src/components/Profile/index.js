@@ -1,4 +1,3 @@
-import {DragDropContext, Droppable} from "react-beautiful-dnd";
 import {useDispatch, useSelector} from "react-redux";
 import {useState, useEffect} from "react";
 import {getEntities} from "../../store/entities";
@@ -23,21 +22,15 @@ export default function Profile () {
         }
     },[dispatch, user])
 
-    const onDragEnd = result => {
-        console.log(result);
-    }
-
     if (!isAuthorized) {
         return <h1>Page not found</h1>
     } else {
         return isLoaded && <>
             <h1>Hello, {user.username}</h1>
             <div className={`entities-grid`} >
-            <DragDropContext onDragEnd={onDragEnd} >
                 {entities.map((entity,idx) => 
                     <EntityBlock entity={entity} key={`drop-0-drop-${idx}`} />
                 )}
-            </DragDropContext>
                 <NewEntity />
             </div>
         </>

@@ -70,13 +70,24 @@ export const getScenes = id => async (dispatch) => {
     }
 }
 
+export const getScenesToRead = id => async (dispatch) => {
+    const res = await fetch(`/api/scenes/${id}/read`);
+    if (res.ok && !res.data.error) {
+        let chapter = res.data.entity;
+        let scenes = res.data.scenes;
+        dispatch(setScenes(chapter, scenes));
+        return true
+    } else {
+        return false
+    }
+}
+
 export const saveScenes = (id, updates) => async (dispatch) => {
     const res = await fetch(`/api/scenes/${id}`, {
         method: "PATCH",
         body: JSON.stringify({updates})
     });
     if (res.ok)
-        // dispatch(getScenes(id))
         dispatch(setSaved(res.data.newScenes))
 }
 
