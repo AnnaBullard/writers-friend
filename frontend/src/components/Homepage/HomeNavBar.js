@@ -31,7 +31,7 @@ export default function HomeNavBar () {
     return <div className="home-logo-navbar">
         <Logo extraClass="home" />
         <div>
-            <span>{`Welcome, ${(getAuthorFormattedPseudonym(activePseudonym) || sessionUser.username || "stranger")}!` }</span>
+            <span>{`Welcome, ${sessionUser?(getAuthorFormattedPseudonym(activePseudonym) || sessionUser.username):"stranger"}!` }</span>
             <span>{sessionLinks}</span>
         </div>
     </div>
