@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import {getScenes} from "../../store/scenes";
 import sanitizeHtml from 'sanitize-html';
 import PageNotFound from "../PageNotFound";
+import "./Story.css";
 
 export default function Story () {
     let {storyId} = useParams();
@@ -20,19 +21,30 @@ export default function Story () {
             setAuthorized(res)
             setIsLoaded(true)
         })
-    },[dispatch])
+    },[dispatch, storyId])
+
+    useEffect(()=>{
+        if(story.chapter) {
+            document.title = `Writer's Friend - ${story.chapter.title||"untitled"}`
+        }
+    },[story])
 
     if (!authorized) {
         return isLoaded && <PageNotFound />
     } else {
-        return isLoaded &&  <div>
-        <h1>{story.chapter.title || "untitled"}
-        {user.id === story.chapter.userId && 
-        <Link to={`/scenes/${storyId}`}><i className="fas fa-pen-nib"></i></Link>} 
-        {user.id === story.chapter.userId && story.chapter.isPublished && <i className="fas fa-eye"></i>}
-        {user.id === story.chapter.userId && !story.chapter.isPublished && <i className="fas fa-eye-slash"></i>}
-        </h1>
-        {story.scenes.map(scene => <div dangerouslySetInnerHTML={{__html: sanitizeHtml(scene.text)}}></div>)}
-    </div>
+        return isLoaded &&  <div className="main-content">
+            <div className="story-page">
+                <h1>
+                    <span>{story.chapter.title || "untitled"}</span>
+                    <span>
+                        {user.id === story.chapter.userId && 
+                        <Link to={`/scenes/${storyId}`}><i className="fas fa-pen-nib"></i></Link>} 
+                        {user.id === story.chapter.userId && story.chapter.isPublished && <i className="fas fa-eye"></i>}
+                        {user.id === story.chapter.userId && !story.chapter.isPublished && <i className="fas fa-eye-slash"></i>}
+                    </span>
+                </h1>
+                {story.scenes.map(scene => <div dangerouslySetInnerHTML={{__html: sanitizeHtml(scene.text)}}></div>)}
+            </div>
+        </div>
     }
 }

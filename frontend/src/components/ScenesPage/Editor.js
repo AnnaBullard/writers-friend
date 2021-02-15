@@ -37,7 +37,7 @@ export default function SceneEditor ({id, text,isLast}) {
             }
         },1000)
         return () => {clearTimeout(inputChange)};
-    },[editorState, isReady, prevState, id, text, dispatch])
+    },[editorState, isReady, prevState, id, text, dispatch, isLast])
 
     const handleKeyCommand = (command) => {
         const newState = RichUtils.handleKeyCommand(editorState, command)

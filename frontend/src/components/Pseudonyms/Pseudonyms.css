@@ -1,0 +1,15 @@
+.pseudonym-list{
+    box-sizing: border-box;
+    display:flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+.pseudonym-list > div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+

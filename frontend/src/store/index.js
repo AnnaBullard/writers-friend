@@ -3,11 +3,13 @@ import thunk from 'redux-thunk';
 import session from './session';
 import entities from './entities';
 import scenes from './scenes';
+import pseudonyms from './pseudonyms';
 
 const rootReducer = combineReducers({
   session,
   entities,
-  scenes
+  scenes,
+  pseudonyms
 });
 
 let enhancer;

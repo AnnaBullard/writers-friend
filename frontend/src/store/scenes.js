@@ -1,14 +1,14 @@
 import { fetch } from './csrf.js';
 
-const GET_SCENES = "scenes/get"
-const REORDER_SCENES = "scenes/re-order"
-const SET_TITLE="scenes/set_title"
-const EDIT_TEXT="scenes/edit_text"
-const SAVE_SCENES = "scenes/save"
-const UNSAVE_SCENES = "scenes/unsaved"
-const JOIN_SCENES = "scenes/join"
-const DELETE_SCENE = "scenes/delete"
-const CREATE_SCENE = "scenes/create"
+const GET_SCENES = "scenes/get";
+const REORDER_SCENES = "scenes/re-order";
+const SET_TITLE="scenes/set_title";
+const EDIT_TEXT="scenes/edit_text";
+const SAVE_SCENES = "scenes/save";
+const UNSAVE_SCENES = "scenes/unsaved";
+const JOIN_SCENES = "scenes/join";
+const DELETE_SCENE = "scenes/delete";
+const CREATE_SCENE = "scenes/create";
 
 const setScenes = (chapter, scenes) => ({
     type: GET_SCENES,
@@ -89,6 +89,17 @@ export const saveScenes = (id, updates) => async (dispatch) => {
     });
     if (res.ok)
         dispatch(setSaved(res.data.newScenes))
+}
+
+export const quickStart = () => async (dispatch) => {
+    const res = await fetch(`/api/scenes/start`);
+    if (res.ok && !res.data.error){
+        let chapter = res.data.entity;
+        let scenes = res.data.scenes;
+        dispatch(setScenes(chapter, scenes));
+        return chapter.id;
+    }
+    return false;
 }
 
 const initialState = {

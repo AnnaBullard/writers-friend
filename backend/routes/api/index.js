@@ -3,23 +3,24 @@ const sessionRouter = require('./session.js');
 const usersRouter = require('./users.js');
 const entitiesRouter = require('./entities.js');
 const scenesRouter = require('./scenes.js');
+const pseudonymsRouter = require('./pseudonyms.js');
 
 // GET /api/set-token-cookie
 const asyncHandler = require('express-async-handler');
 const { setTokenCookie } = require('../../utils/auth.js');
 const { User } = require('../../db/models');
-router.get(
-  '/set-token-cookie',
-  asyncHandler(async (req, res) => {
-    const user = await User.findOne({
-      where: {
-        username: 'Demo-lition'
-      }
-    });
-    setTokenCookie(res, user);
-    return res.json({ user });
-  })
-);
+// router.get(
+//   '/set-token-cookie',
+//   asyncHandler(async (req, res) => {
+//     const user = await User.findOne({
+//       where: {
+//         username: 'Demo-lition'
+//       }
+//     });
+//     setTokenCookie(res, user);
+//     return res.json({ user });
+//   })
+// );
 
 // GET /api/restore-user
 const { restoreUser } = require('../../utils/auth.js');
@@ -48,5 +49,7 @@ router.use('/users', usersRouter);
 router.use('/entities', entitiesRouter);
 
 router.use('/scenes', scenesRouter);
+
+router.use('/pseudonyms', pseudonymsRouter);
 
 module.exports = router;

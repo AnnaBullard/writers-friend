@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {flattenTree,repeat} from "./utils"
+import {flattenTree,repeat,getAuthorFormattedPseudonym} from "./utils"
 import {createEntity} from "../../store/entities";
 
 
@@ -17,8 +17,8 @@ export default function EntityForm({entity, onClose}) {
 
   const entityTypes = [null, "chapter/story", "book", "book series", "world"]
 
-  const user = useSelector(state => state.session.user);
   const entities = useSelector(state => state.entities);
+  const pseudonyms = useSelector(state => state.pseudonyms);
 
   useEffect(()=>{
     setEntititesList(flattenTree(entities, 0, typeId));
@@ -26,8 +26,8 @@ export default function EntityForm({entity, onClose}) {
   },[entities,typeId])
 
   useEffect(()=>{
-    if (isLoaded && !entitiesList.find(entity => entity.id === parentId)) setParentId(0)
-  },[entitiesList])
+    if (isLoaded && parentId !==0 && !entitiesList.find(entity => entity.id === parentId)) setParentId(0)
+  },[entitiesList, isLoaded, parentId])
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -72,7 +72,12 @@ export default function EntityForm({entity, onClose}) {
           onChange={e => setPseudonymId(e.target.value)}
           id="entity-pseudonym"
         >
-          <option value={0}>{user.username}</option>
+          <option value={0}>anonymous</option>
+          {pseudonyms.map(pseudonym =>{
+            return <option value={pseudonym.id} key={`pseudonym-option-${pseudonym.id}`}>
+              {getAuthorFormattedPseudonym(pseudonym)}
+            </option>
+          })}
         </select>
         <label htmlFor="entity-parent">Part of:</label>
         <select value={parentId} 

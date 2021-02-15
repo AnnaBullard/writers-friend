@@ -1,5 +1,4 @@
 const express = require("express");
-const { check } = require("express-validator");
 const asyncHandler = require("express-async-handler");
 
 const { restoreUser } = require("../../utils/auth");
@@ -113,6 +112,32 @@ router.patch(
         })
         
         return res.json({newScenes})
+    })
+);
+
+router.get(
+    "/start",
+    restoreUser,
+    asyncHandler(async (req,res) => {
+        const { user } = req;
+
+        await sequelize.transaction(async (tx) => {
+            const entity = await Entity.create({
+                userId: user.id,
+                typeId: 1,
+                order: 0
+            }, {transaction: tx})
+    
+            const scene = await Scene.create({
+                parentId: entity.id,
+                order: 0,
+                text: ""
+            }, {transaction: tx})
+
+            return res.json({entity, scene})
+        })
+
+        return res.json({error: "something went wrong"})
     })
 );
 

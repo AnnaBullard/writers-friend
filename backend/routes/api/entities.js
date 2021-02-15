@@ -1,9 +1,6 @@
 const express = require("express");
-const { check } = require("express-validator");
 const asyncHandler = require("express-async-handler");
-
-const { handleValidationErrors } = require("../../utils/validation");
-const { setTokenCookie, restoreUser } = require("../../utils/auth");
+const { restoreUser } = require("../../utils/auth");
 const { Entity, Pseudonym, sequelize } = require("../../db/models");
 const { Op } = require('sequelize');
 

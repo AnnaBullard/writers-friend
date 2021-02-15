@@ -1,6 +1,7 @@
 .entities-grid {
     display: flex;
     flex-wrap: wrap;
+    margin: 10px;
 }
 
 .book-cover {
@@ -115,4 +116,34 @@
     margin-top: 10px;
     margin-left: 10px;
     width: 230px;
+}
+
+.profile-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-content: flex-start;
+    margin: 10px;
+    padding: 0 20px;
+}
+
+.profile-header h1 {
+    margin-right: 10px;
+}
+
+.profile-header button,
+.story-controls button {
+    border-style: dashed;
+    border-width: 2px;
+    font-weight: bold;
+    height:auto;
+    margin: auto 0;
+    outline: none;
+    padding: 10px;
+    text-transform: uppercase;
+}
+
+.story-controls button {
+    width: 100%;
+    margin: 5px 0;
 }

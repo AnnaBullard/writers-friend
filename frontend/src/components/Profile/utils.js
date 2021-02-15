@@ -8,6 +8,16 @@ export function getAuthorFormatted(entity) {
     return author;
 }
 
+export function getAuthorFormattedPseudonym(pseudonym) {
+    let author = "";
+    if (pseudonym) {
+        author += pseudonym.firstName?pseudonym.firstName.replace(/\s+/ig, " ").split(" ").map(word=>word[0]+".").join(" "):"";
+        author += pseudonym.middleName?" "+pseudonym.middleName.replace(/\s+/ig, " ").split(" ").map(word=>word[0]+".").join(" "):"";
+        author += pseudonym.lastName?" "+pseudonym.lastName.replace(/\s+/ig, " "):"";
+    }
+    return author;
+}
+
 export function getType(entity){
     switch (entity.typeId) {
         case 4: 
