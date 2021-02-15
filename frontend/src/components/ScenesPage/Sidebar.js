@@ -1,4 +1,8 @@
+import {useHistory,useParams} from "react-router-dom";
+
 export default function Sidebar ({isOpen, setIsOpen, onSave, onReset, saved}) {
+    const history = useHistory();
+    const {chapterId} = useParams();
 
     return <div className={`sidebar-container${isOpen?" open":""}`}>
         <span className="open-sidebar" onClick={()=>setIsOpen(true)}>Open</span>
@@ -7,7 +11,7 @@ export default function Sidebar ({isOpen, setIsOpen, onSave, onReset, saved}) {
             <div className="story-controls">
                     <button onClick={onSave} disabled={saved?"disabled":false}>Save</button>
                     <button onClick={onReset} disabled={saved?"disabled":false}>Reset</button>
-                    <button>Publish</button>
+                    <button onClick={()=>history.push(`/story/${chapterId}`)}>Read mode</button>
             </div>
         </div>
     </div>

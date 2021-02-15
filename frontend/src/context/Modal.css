@@ -25,4 +25,11 @@
   width: 715px;
 }
 
+.modal-close {
+  cursor: pointer;
+  display: block;
+  position: absolute;
+  right:5px;
+  top:5px;
+}
 

@@ -30,11 +30,15 @@ module.exports = (sequelize, DataTypes) => {
 
     Entity.hasMany(models.Entity,{
       foreignKey: "parentId",
-      as: "children"
+      as: "children",
+      onDelete: 'CASCADE',
+      hooks:true
     })
 
-    Entity.hasMany(models.Entity,{
-      foreignKey: "parentId"
+    Entity.hasMany(models.Scene,{
+      foreignKey: "parentId",
+      onDelete: 'CASCADE',
+      hooks:true
     })
 
   };

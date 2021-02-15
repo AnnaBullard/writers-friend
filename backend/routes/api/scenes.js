@@ -1,9 +1,7 @@
 const express = require("express");
-const { check } = require("express-validator");
 const asyncHandler = require("express-async-handler");
 
-const { handleValidationErrors } = require("../../utils/validation");
-const { setTokenCookie, restoreUser } = require("../../utils/auth");
+const { restoreUser } = require("../../utils/auth");
 const { Scene, Entity, sequelize } = require("../../db/models");
 
 const router = express.Router();
@@ -14,17 +12,64 @@ router.get(
     asyncHandler(async (req,res) => {
         const { user } = req;
         let id = parseInt (req.params.id)
-        const entity = await Entity.findByPk(id)
-        const scenes = await Scene.findAll({
+        const entity = await Entity.findOne({
             where: {
-                parentId: id
-            },
-            order: [
-                ["order", "ASC"]
-            ]
+                id,
+                userId: user.id,
+                typeId: 1
+            }
         })
-        
-        return res.json({entity, scenes})
+
+        if (entity) {
+            let scenes = await Scene.findAll({
+                where: {
+                    parentId: id
+                },
+                order: [
+                    ["order", "ASC"]
+                ]
+            })
+            if (!scenes || scenes.length === 0) {
+                const newScene = await Scene.create({parentId: entity.id, order: 0, text:""})
+                scenes = [newScene]
+            }
+            return res.json({entity, scenes})
+        } else {
+            return res.json({error: "no such story"})
+        }
+    })
+);
+
+router.get(
+    "/:id(\\d+)/read",
+    restoreUser,
+    asyncHandler(async (req,res) => {
+        const { user } = req;
+        let id = parseInt (req.params.id)
+        const entity = await Entity.findOne({
+            where: {
+                id,
+                typeId: 1,
+                [Op.or]: {
+                    userId: user.id,
+                    isPublished: true
+                }
+            }
+        })
+
+        if (entity) {
+            let scenes = await Scene.findAll({
+                where: {
+                    parentId: id
+                },
+                order: [
+                    ["order", "ASC"]
+                ]
+            })
+            return res.json({entity, scenes})
+        } else {
+            return res.json({error: "no such story"})
+        }
     })
 );
 
@@ -67,6 +112,32 @@ router.patch(
         })
         
         return res.json({newScenes})
+    })
+);
+
+router.get(
+    "/start",
+    restoreUser,
+    asyncHandler(async (req,res) => {
+        const { user } = req;
+
+        await sequelize.transaction(async (tx) => {
+            const entity = await Entity.create({
+                userId: user.id,
+                typeId: 1,
+                order: 0
+            }, {transaction: tx})
+    
+            const scene = await Scene.create({
+                parentId: entity.id,
+                order: 0,
+                text: ""
+            }, {transaction: tx})
+
+            return res.json({entity, scene})
+        })
+
+        return res.json({error: "something went wrong"})
     })
 );
 

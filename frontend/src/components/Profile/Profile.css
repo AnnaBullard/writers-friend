@@ -1,0 +1,149 @@
+.entities-grid {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 10px;
+}
+
+.book-cover {
+    align-items: center;
+    box-sizing: border-box;
+    border-radius: 5px;
+    display: flex;
+    height: 330px;
+    justify-content: center;
+    margin-top: 10px;
+    margin-left: 10px;
+    position: relative;
+    width: 230px;
+}
+
+.book-cover.open {
+    border-radius: 5px 5px 0 5px;
+    flex-direction: row;
+    height: auto;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.book-cover.open .book-header {
+    flex-direction: row;
+    justify-content: space-between;
+    margin-left: 30px;
+}
+
+.book-cover::before {
+    border-radius: 50%;
+    content: "";
+    display:block;
+    height: 150px;
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 150px;
+}
+
+.book-cover.open::before {
+    height: 20px;
+    left: 5px;
+    top: 5px;
+    transform: translate( 0, 0);
+    width: 20px;
+}
+
+.book-cover > div:first-child {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 25px;
+    z-index: 2;
+}
+
+.book-cover .entity-type {
+    font-size: 14px;
+    text-transform: uppercase;
+}
+
+.book-cover.open .entity-type {
+    display: none;
+}
+
+.book-cover > div > span {
+    text-align: center;
+}
+
+.book-cover.open > div > span {
+    text-align: left;
+}
+
+.book-cover .controls {
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    font-size: 20px;
+}
+
+.book-cover .controls i {
+    margin: 5px;
+}
+
+.book-content {
+    border-style: solid;
+    border-width: 1px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin-left: 20px;
+    padding: 10px 0;
+    position: relative;
+    top: -1px;
+    width: 100%;
+}
+
+.add-entity {
+    align-items: center;
+    border-style: dashed;
+    box-sizing: border-box;
+    border-radius: 5px;
+    display: flex;
+    height: 330px;
+    justify-content: center;
+    margin-top: 10px;
+    margin-left: 10px;
+    width: 230px;
+}
+
+.profile-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-content: flex-start;
+    margin: 10px;
+    padding: 0 20px;
+}
+
+.profile-header h1 {
+    margin-right: 10px;
+}
+
+.profile-header button,
+.story-controls button {
+    border-style: dashed;
+    border-width: 2px;
+    font-weight: bold;
+    height:auto;
+    margin: auto 0;
+    outline: none;
+    padding: 10px;
+    text-transform: uppercase;
+}
+
+.story-controls button {
+    width: 100%;
+    margin: 5px 0;
+}

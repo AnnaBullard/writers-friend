@@ -1,14 +1,16 @@
 import {DragDropContext, Droppable} from "react-beautiful-dnd";
-import {useParams, Link} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import {Prompt} from "react-router-dom";
 import {useDispatch,useSelector} from "react-redux";
 import {useState,useEffect} from "react";
+import sanitizeHtml from 'sanitize-html';
 import {Modal} from '../../context/Modal';
 import ConfirmReset from "./ConfirmReset";
 import {getScenes, setNewOrder, setNewTitle, 
         saveScenes, joinScenes, createScene} from "../../store/scenes";
 import SceneBlock from "./SceneBlock";
 import Sidebar from "./Sidebar";
+import PageNotFound from "../PageNotFound"
 import "./ScenesPage.css"
 
 export default function ScenesPage () {
@@ -17,7 +19,7 @@ export default function ScenesPage () {
     const [authorized, setAuthorized] = useState(false);
     const [showModal, setShowModal] = useState(false);
     const [fromType, setFormType] = useState("reset");
-    const [title, setTitle] = useState();
+    const [title, setTitle] = useState("");
     const dispatch = useDispatch();
 
     const saved = useSelector(state => state.scenes.saved)
@@ -36,26 +38,20 @@ export default function ScenesPage () {
     chapterId = parseInt(chapterId);
 
     let story = useSelector(state => state.scenes);
-    let user = useSelector(state => state.session.user);
 
     useEffect(()=>{
-        if (!story.chapter || story.chapter.id !== chapterId) dispatch(getScenes(chapterId))
-    },[dispatch, chapterId, story])
+        dispatch(getScenes(chapterId)).then(res => {
+            setAuthorized(res);
+            setIsLoaded(true);
+        })
+    },[dispatch, chapterId])
     
     useEffect(()=>{
         if (story.chapter) {
             setTitle(story.chapter.title)
-            setIsLoaded(true);
+            document.title = `Writer's Friend - ${story.chapter.title||"untitled"} (edit)`
         }        
-    },[story, user])
-
-    useEffect(()=>{
-        if (user && story.chapter && story.chapter.userId === user.id){
-            setAuthorized(true)
-        } else {
-            setAuthorized(false)
-        }
-    }, [isLoaded, story, user])
+    },[story])
 
     const onDragEnd = result => {
         if (result.destination !== null) {
@@ -78,9 +74,9 @@ export default function ScenesPage () {
         story.scenes.forEach(scene => {
             if (scene.updated && typeof scene.id === "number") {
                 if (scene.temp){
-                    updates.scenes[scene.id] = {...scene, text: scene.temp}
+                    updates.scenes[scene.id] = {...scene, text: sanitizeHtml(scene.temp)}
                 } else {
-                    updates.scenes[scene.id] = scene
+                    updates.scenes[scene.id] = {...scene, text: sanitizeHtml(scene.text)}
                 }
             } else if(scene.updated && typeof scene.id !== "number") {
                 updates.new.push(scene)
@@ -95,10 +91,7 @@ export default function ScenesPage () {
     }
 
     if (!authorized) {
-        return isLoaded && <>
-        <h1>Page not found</h1>
-        <div>Go to the <Link to="/">Home Page</Link></div>
-        </>
+        return isLoaded && <PageNotFound />
     } else {
         return isLoaded && <>
             <Prompt
@@ -118,7 +111,7 @@ export default function ScenesPage () {
                         {(provided, snapshot) => (
                             <div className={`scenes-list${snapshot.isDraggingOver?" active":""}`} ref={provided.innerRef} {...provided.droppableProps}>
                                 {story.scenes.map((scene, index) => (
-                                    <SceneBlock  key={`scene-${scene.id}`} scene={scene} index={index} joinFn={()=>{dispatch(joinScenes(story.scenes[index-1].id,scene.id))}} />
+                                    <SceneBlock  key={`scene-${scene.id}`} scene={scene} index={index} joinFn={()=>{dispatch(joinScenes(story.scenes[index-1].id,scene.id))}} isLast={index===story.scenes.length-1} />
                                 ))}
                                 {provided.placeholder}
                             </div>

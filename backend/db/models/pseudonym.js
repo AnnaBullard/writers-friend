@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
     middleName: {
       type: DataTypes.STRING(50),
       validate: {
-        len: [1, 50]
+        len: [0, 50]
       }
     },
     lastName: {
@@ -28,7 +28,8 @@ module.exports = (sequelize, DataTypes) => {
     })
 
     Pseudonym.hasMany(models.Entity, {
-      foreignKey: "pseudonymId"
+      foreignKey: "pseudonymId",
+      onDelete: "SET NULL"
     })
   };
   return Pseudonym;

@@ -4,7 +4,7 @@ import ConfirmDelete from "./ConfirmDelete";
 import {Modal} from '../../context/Modal';
 import SceneEditor from "./Editor";
 
-export default function SceneBlock ({scene, index, joinFn, deleteFn}) {
+export default function SceneBlock ({scene, index, joinFn, isLast}) {
 
     const [showModal, setShowModal] = useState(false);
     const [fromType, setFormType] = useState("delete");
@@ -22,10 +22,10 @@ export default function SceneBlock ({scene, index, joinFn, deleteFn}) {
                 </div>}
                 <div className="scene-block" ref={provided.innerRef} {...provided.draggableProps}>
                     {/* <div className="scene-text">{scene.text}</div> */}
-                    <SceneEditor id={scene.id} text={scene.text} />
+                    <SceneEditor id={scene.id} text={scene.text} isLast={isLast}/>
                     <div className="scene-handle">
                         <i className="fas fa-arrows-alt-v" {...provided.dragHandleProps}></i>
-                        <i className="fas fa-cut"></i>
+                        {/* <i className="fas fa-cut"></i> */}
                         <i className="fas fa-eraser" onClick={onDelete}></i>
                     </div>
                 </div>

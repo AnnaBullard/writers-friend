@@ -3,24 +3,29 @@
 /*BACKGROUND*/
 .scenes-list .scene-text,
 .scenes-list .scene-handle,
-.confirm-box .text {
+.confirm-box .text,
+.entity-block {
     background-color: #fff;
 }
 
 body, #root, #modal-content,
-.new-scene {
+.new-scene,
+.add-entity,
+.profile-header button {
     background-color: #efdbb0;
 }
 
 .navbar, form button:hover,
 .profile-dropdown,
-.sidebar .story-controls button {
+.story-controls button {
     background-color: #dba279;
 }
 
 .connect-block,
 .open-sidebar,
-.sidebar-container .sidebar {
+.sidebar-container .sidebar,
+.entity-block .entity-header,
+.book-cover {
     background-color: #b08260;
 }
 
@@ -32,17 +37,24 @@ form button {
     background-color: rgba(0, 0, 0, 0.7);
 }
 
-.story-controls button{
-    background: transparent;
+.book-cover::before {
+    background-color: #000;
 }
+
 /*TEXT*/
 body,
 .navbar button,
+.profile-dropdown a,
 .home-logo-navbar button,
 form button:hover,
+#modal-content button:hover, 
 .connect-block:hover,
+.new-scene,
+.add-entity,
+.book-cover .controls i,
+.profile-header button,
 .story-controls button,
-.new-scene {
+.story-page h1 a {
     color: #333
 }
 
@@ -50,49 +62,72 @@ form button:hover,
 .scene-handle i:hover,
 .scene-handle i.active,
 .story-controls button[disabled],
-.story-controls button[disabled]:hover {
+.story-controls button[disabled]:hover,
+.modal-close:hover,
+form label i:hover,
+.story-page h1 a:hover {
     color: #b08260;
 }
 
 .navbar button:hover,
 .home-logo-navbar .profile-dropdown button:hover,
+.profile-dropdown a:hover,
 .connect-block,
-.story-controls button:hover {
+.book-cover .controls i:hover,
+.book-cover .controls i.active,
+.pseudonym-list i:hover {
     color: #efdbb0
 }
 
-#modal-content button {
+#modal-content button,
+.book-cover {
     color: #fff;
 }
 
 .confirm-box .errors,
-.new-scene:hover {
+.new-scene:hover,
+.add-entity:hover,
+.profile-header button:hover,
+.story-controls button:hover {
     color: tomato;
 }
 
 /*BORDER-COLOR*/
 .home-logo-navbar > div,
-form input:focus {
+form input:focus,
+.entity-block .drop-block,
+.book-content,
+.story-controls button[disabled],
+.story-controls button[disabled]:hover {
     border-color: #b08260;
 }
 
-.story-controls button,
-.new-scene {
+.new-scene,
+.add-entity,
+.book-cover,
+.profile-header button,
+.story-controls button {
     border-color: #333;
 }
 
 .scenes-list.active,
-.new-scene:hover {
+.new-scene:hover,
+.add-entity:hover,
+.profile-header button:hover,
+.story-controls button:hover {
     border-color: tomato;
 }
 
 /*Dance Script*/
-#modal-content h3 {
+#modal-content h3,
+.book-cover > div:first-child,
+h1 {
     font-family: 'Dancing Script', cursive;
 }
 
 /*Open Sans*/
-body, button, input, textarea, select {
+body, button, input, textarea, select,
+.book-cover .entity-type {
     font-family: 'Open Sans', sans-serif;
  }
 

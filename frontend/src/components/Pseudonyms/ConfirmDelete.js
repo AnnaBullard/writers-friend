@@ -1,21 +1,19 @@
 import {useState} from "react";
 import {useDispatch} from "react-redux";
-import {deleteScene} from "../../store/scenes";
-import sanitizeHtml from 'sanitize-html';
+import {deletePseudonym} from "../../store/pseudonyms";
 
-export default function ConfirmDelete ({onSubmit, onClose, scene}) {
+export default function ConfirmDelete ({onClose, pseudo}) {
     const dispatch = useDispatch();
-
     const [confirmed, setConfirmed] = useState(false)
     const [error, setError] = useState("")
 
     const onDelete = e => {
         e.preventDefault();
         if (confirmed) {
-            dispatch(deleteScene(scene.id))
+            dispatch(deletePseudonym(pseudo.id))
             onClose();
         } else {
-            setError("You need to confirm, that you want to delete this scene")
+            setError(`You need to confirm, that you want to delete this pseudonym`)
         }
     }
 
@@ -24,9 +22,8 @@ export default function ConfirmDelete ({onSubmit, onClose, scene}) {
         {error?(<div className="errors">{error}</div>):""}
         <label>
         <input type="checkbox" checked={confirmed?"checked":false} onChange={()=>{setConfirmed(!confirmed)}}/>
-        Yes, I wat to remove his scene.
+        Yes, I wat to remove {pseudo.firstName+(pseudo.middleName?" "+pseudo.middleName:"")+" "+pseudo.lastName}.
         </label>
-        <div className="text">{scene.temp?sanitizeHtml(scene.temp):sanitizeHtml(scene.text)}</div>
         <button>Submit</button>
     </form>
 }

@@ -5,7 +5,7 @@ module.exports = {
     return queryInterface.bulkInsert('Pseudonyms', [
       {firstName:"John", middleName: "Ronald Ruel",lastName:"Tolkien",userId: 1, isActive: false},
       {firstName:"Jane", lastName:"Austen",userId: 1, isActive: false},
-      {firstName:"Anna", lastName:"Bulard",userId: 1, isActive: true}
+      {firstName:"Anna", lastName:"Bullard",userId: 1, isActive: true}
     ], {});
   },
 
