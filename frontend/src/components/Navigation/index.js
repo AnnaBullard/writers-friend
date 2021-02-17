@@ -5,13 +5,13 @@ import LoginFormModal from '../LoginFormModal';
 import Logo from "../Logo";
 import './Navigation.css';
 
-function Navigation({ isLoaded }){
+function Navigation({ isLoaded, themeSettings }){
   const sessionUser = useSelector(state => state.session.user);
 
   let sessionLinks;
   if (sessionUser) {
     sessionLinks = (
-      <ProfileButton user={sessionUser} />
+      <ProfileButton user={sessionUser} themeSettings={themeSettings}/>
     );
   } else {
     sessionLinks = (
