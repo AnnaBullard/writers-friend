@@ -7,17 +7,26 @@
     text-shadow: 1px 1px #000;
     z-index: 1;
   }
-  
-  .logo::before{
-    background-color: #000;
-    border-radius: 15px;
-    content: "";
+  .logo > div {
+    position: relative;
+  }
+
+  .logo > div > span {
     display: block;
-    height: 30px;
-    left:-4px;
+    left: -1.5%;
     position: absolute;
     top:0;
-    width: 30px;
+    width: 20%;
+  }
+  
+  .logo > div > span::before{
+    background-color: #000;
+    border-radius: 50%;
+    content: "";
+    display: block;
+    padding-top: 100%;
+    position: relative;
+    width: 100%;
     z-index: -1;
   }
 

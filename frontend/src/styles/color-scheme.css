@@ -19,6 +19,7 @@
     --border-color1: #b08260;
     --border-color2: #333;
     --border-color3: tomato;
+    --border-color4: #efdbb0;
   }
   
 .beach {
@@ -40,6 +41,7 @@
     --border-color1: #5392bf;
     --border-color2: #333;
     --border-color3: #47ffd7;
+    --border-color4: #c6d7d8;
   }
 
 .theme-button.peach-theme {
@@ -70,13 +72,15 @@ body, #root,
 #modal-content,
 .new-scene,
 .add-entity,
-.profile-header button {
+.profile-header button,
+.mobile-nav span.open {
     background-color: var(--bg-color2);
 }
 
 .navbar, form button:hover,
 .profile-dropdown,
-.story-controls button {
+.story-controls button,
+.profile-controls button {
     background-color: var(--bg-color3);
 }
 
@@ -84,7 +88,8 @@ body, #root,
 .open-sidebar,
 .sidebar-container .sidebar,
 .entity-block .entity-header,
-.book-cover {
+.book-cover,
+.mobile-nav span {
     background-color: var(--bg-color4);
 }
 
@@ -114,7 +119,9 @@ form button:hover,
 .book-cover .controls i,
 .profile-header button,
 .story-controls button,
-.story-page h1 a {
+.profile-controls button,
+.story-page h1 a,
+.mobile-nav span.open {
     color: var(--text-color1)
 }
 
@@ -123,9 +130,12 @@ form button:hover,
 .scene-handle i.active,
 .story-controls button[disabled],
 .story-controls button[disabled]:hover,
+.profile-controls button[disabled],
+.profile-controls button[disabled]:hover,
 .modal-close:hover,
 form label i:hover,
-.story-page h1 a:hover {
+.story-page h1 a:hover,
+.pseudonym-list i:hover {
     color: var(--text-color2);
 }
 
@@ -135,7 +145,7 @@ form label i:hover,
 .connect-block,
 .book-cover .controls i:hover,
 .book-cover .controls i.active,
-.pseudonym-list i:hover {
+.mobile-nav span {
     color: var(--text-color3)
 }
 
@@ -148,7 +158,8 @@ form label i:hover,
 .new-scene:hover,
 .add-entity:hover,
 .profile-header button:hover,
-.story-controls button:hover {
+.story-controls button:hover,
+.profile-controls button:hover {
     color: var(--text-color5);
 }
 
@@ -158,7 +169,11 @@ form input:focus,
 .entity-block .drop-block,
 .book-content,
 .story-controls button[disabled],
-.story-controls button[disabled]:hover {
+.story-controls button[disabled]:hover,
+.profile-controls button[disabled],
+.profile-controls button[disabled]:hover,
+.mobile-nav,
+.mobile-nav span {
     border-color: var(--border-color1);
 }
 
@@ -166,7 +181,8 @@ form input:focus,
 .add-entity,
 .book-cover,
 .profile-header button,
-.story-controls button {
+.story-controls button,
+.profile-controls button {
     border-color: var(--border-color2);
 }
 
@@ -174,8 +190,13 @@ form input:focus,
 .new-scene:hover,
 .add-entity:hover,
 .profile-header button:hover,
-.story-controls button:hover {
+.story-controls button:hover,
+.profile-controls button:hover {
     border-color: var(--border-color3);
+}
+
+.mobile-nav span.open {
+    border-bottom-color: var(--border-color4);
 }
 
 /*Dance Script*/

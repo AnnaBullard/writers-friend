@@ -93,12 +93,12 @@
     position:fixed;
     top:0;
     width: 200px;
-    transition: left 0.5s;
+    transition: all 0.5s;
 }
 
 .sidebar-container.open {
     left:0;
-    transition: left 0.5s;
+    transition: all 0.5s;
 }
 
 .sidebar-container .sidebar {
@@ -108,15 +108,6 @@
     height:100%;
     padding: 30px 15px 15px 15px;
     position: relative;
-}
-
-
-.story-controls button {
-    border-style: solid;
-    border-width: 1px;
-    margin: 0 5px;
-    padding: 5px 7px;
-    text-transform: uppercase;
 }
 
 .main-content {

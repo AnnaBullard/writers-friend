@@ -9,6 +9,7 @@
 
 .profile-dropdown button {
   padding: 0;
+  text-transform: none;
 }
 
 .profile-dropdown a {

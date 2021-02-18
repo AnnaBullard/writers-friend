@@ -1,24 +1,19 @@
-import {useSelector, useDispatch} from "react-redux";
+import {useSelector} from "react-redux";
 import {useEffect, useState} from "react";
-import {getPseudonyms} from "../../store/pseudonyms";
 import {Modal} from '../../context/Modal';
 import PseudoForm from "./PseudoForm";
 import ConfirmDelete from "./ConfirmDelete";
 import {getAuthorFormattedPseudonym} from "../Profile/utils";
-import "./Pseudonyms.css";
 
 export default function PseudonymsList () {
-    const dispatch = useDispatch();
     const [isLoaded, setIsLoaded] = useState(false);
     const [showModal, setShowModal] = useState(false);
     const [modalType, setModalType] = useState("edit");
     const [pseudo, setPseudo] = useState();
     
     useEffect(()=>{
-        dispatch(getPseudonyms()).then(res => {
-            setIsLoaded(true)
-        })
-    },[dispatch])
+        setIsLoaded(true);
+    },[])
 
     const pseudonyms = useSelector(state => state.pseudonyms)
 
@@ -42,7 +37,7 @@ export default function PseudonymsList () {
             </span>
         </div>)}
     </div>
-    <div className="story-controls">
+    <div className="profile-controls">
         <button onClick={()=>{
             setPseudo(undefined);
             setModalType("edit")

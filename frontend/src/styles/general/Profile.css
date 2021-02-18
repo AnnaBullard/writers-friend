@@ -147,3 +147,23 @@
     width: 100%;
     margin: 5px 0;
 }
+
+.mobile-nav {
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    display: flex;
+    flex-direction: row;
+    margin: 10px;
+}
+
+.mobile-nav span{
+    border-style: solid;
+    border-radius: 5px 5px 0 0;
+    border-width: 1px;
+    cursor: pointer;
+    margin-right: 10px;
+    padding: 7px;
+    position: relative;
+    top: 1px;
+}
+

@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import LoginFormModal from '../LoginFormModal';
 import Logo from "../Logo";
-import './Navigation.css';
 
 function Navigation({ isLoaded, themeSettings }){
   const sessionUser = useSelector(state => state.session.user);

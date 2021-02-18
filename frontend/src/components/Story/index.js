@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import {getScenes} from "../../store/scenes";
 import sanitizeHtml from 'sanitize-html';
 import PageNotFound from "../PageNotFound";
-import "./Story.css";
 
 export default function Story () {
     let {storyId} = useParams();

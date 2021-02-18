@@ -11,7 +11,6 @@ import {getScenes, setNewOrder, setNewTitle,
 import SceneBlock from "./SceneBlock";
 import Sidebar from "./Sidebar";
 import PageNotFound from "../PageNotFound"
-import "./ScenesPage.css"
 
 export default function ScenesPage () {
     const [isLoaded, setIsLoaded] = useState(false);

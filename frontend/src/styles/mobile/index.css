@@ -1,0 +1,41 @@
+@media screen and (max-width: 725px){
+    .home-logo-navbar {
+        width: 100%;
+    }
+
+    .logo.home {
+        font-size: 14vw;
+    }
+
+    .navbar {
+        min-width: 200px;
+    }
+
+    .sidebar {
+        width:100%;
+    }
+
+    .main-content.open {
+        width: 100%;
+        padding: 0px;
+    }
+
+    .book-cover, .add-entity {
+        height: 200px;
+    }
+
+}
+
+
+@media screen and (max-width: 500px){
+    .profile-header{
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+@media screen and (max-width: 300px){
+    .logo.home {
+        font-size: 25px;
+    }
+}

@@ -49,7 +49,7 @@ function App() {
         {isLoaded && (
           <Switch>
             <Route exact path="/">
-              <Homepage />
+              <Homepage themeSettings={{theme, setTheme, themeList}} />
             </Route>
             <Route path="/scenes/:chapterId">
               <ScenesPage />
