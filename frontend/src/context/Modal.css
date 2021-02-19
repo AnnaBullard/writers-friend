@@ -23,6 +23,9 @@
   padding: 20px 0;
   position: absolute;
   width: 715px;
+  overflow: auto;
+  margin: 10px 0;
+  max-height: calc(100vh - 50px);
 }
 
 .modal-close {
@@ -33,3 +36,20 @@
   top:5px;
 }
 
+@media screen and (max-width: 725px){ 
+
+  #modal-content {
+    box-sizing: border-box;
+    overflow: auto;
+    padding: 20px;
+    position: absolute;
+    width: 98%;
+  }
+}
+
+@media screen and (max-width: 500px){ 
+  #modal-content {
+    height: 100vh;
+    width: 100vw;
+  }
+}

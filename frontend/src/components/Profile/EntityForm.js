@@ -44,6 +44,11 @@ export default function EntityForm({entity, onClose}) {
     }
   };
 
+  const handleCancel = e => {
+    e.preventDefault();
+    onClose();
+  }
+
   return (
     <form onSubmit={handleSubmit}>
       <h3>{entity.id?`Edit `:`Create new `}{entityTypes[typeId]}</h3>
@@ -60,7 +65,9 @@ export default function EntityForm({entity, onClose}) {
           <option value={2}>book</option>
           <option value={1}>{parentId?"chapter":"story"}</option>
         </select>
+        <label htmlFor="entity-title" className="only-mobile">Title:</label>
         <input style={{gridColumn: "span 2"}}
+          id="entity-title"
           type="text"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
@@ -99,14 +106,19 @@ export default function EntityForm({entity, onClose}) {
           {!isPublished && (<><i className="fas fa-eye-slash"></i>{` Not `}</>)}
           {` Public`}
         </label>}
+        <label htmlFor="entity-description" className="only-mobile">Description:</label>
         <textarea
+          id="entity-description"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           placeholder="Description"
         />
         
       </div>
-      <button type="submit">{entity.id?`Edit `:`Create `}{entityTypes[typeId]}</button>
+      <div>
+        <button type="submit">{entity.id?`Edit `:`Create `}{entityTypes[typeId]}</button>
+        <button type="reset" onClick={handleCancel}>Cancel</button>
+      </div>
     </form>
   );
 }

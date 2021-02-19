@@ -10,6 +10,7 @@ import ScenesPage from "./components/ScenesPage";
 import Profile from "./components/Profile";
 import Story from "./components/Story";
 import PageNotFound from "./components/PageNotFound";
+import Footer from "./components/Footer";
 
 function App() {
   const dispatch = useDispatch();
@@ -66,6 +67,7 @@ function App() {
           </Switch>
         )}
       </div>
+      <Footer />
     </>
   );
 }

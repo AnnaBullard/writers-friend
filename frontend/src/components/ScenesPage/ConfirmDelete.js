@@ -19,6 +19,13 @@ export default function ConfirmDelete ({onSubmit, onClose, scene}) {
         }
     }
 
+    const handleCancel = e => {
+        e.preventDefault();
+        setConfirmed(false);
+        onClose();
+    }
+
+
     return <form onSubmit={onDelete} className="confirm-box">
         <h3>Confirm detete</h3>
         {error?(<div className="errors">{error}</div>):""}
@@ -26,7 +33,10 @@ export default function ConfirmDelete ({onSubmit, onClose, scene}) {
         <input type="checkbox" checked={confirmed?"checked":false} onChange={()=>{setConfirmed(!confirmed)}}/>
         Yes, I wat to remove his scene.
         </label>
-        <div className="text">{scene.temp?sanitizeHtml(scene.temp):sanitizeHtml(scene.text)}</div>
-        <button>Submit</button>
+        <div className="text" dangerouslySetInnerHTML={{__html: scene.temp?sanitizeHtml(scene.temp):sanitizeHtml(scene.text)}}></div>
+        <div>
+            <button type="submit">Submit</button>
+            <button type="reset" onClick={handleCancel}>Cancel</button>
+        </div>
     </form>
 }
