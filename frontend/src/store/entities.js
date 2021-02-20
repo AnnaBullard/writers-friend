@@ -26,9 +26,7 @@ const deepSort = (entitiesArray) => {
 
 export const getEntities = () => async (dispatch) => {
     const res = await fetch('/api/entities');
-    if (res.ok) {
-        dispatch(setEntities(res.data));
-    }
+    return dispatch(setEntities(res.data));
 }
 
 export const createEntity = (entity) => async dispatch => {
@@ -36,18 +34,14 @@ export const createEntity = (entity) => async dispatch => {
         method: "POST",
         body: JSON.stringify({entity})
     })
-    if (res.ok) {
-        dispatch(setEntities(res.data));
-    }
+    return dispatch(setEntities(res.data));
 }
 
 export const deleteEntity = (id) => async dispatch => {
     const res = await fetch(`/api/entities/${id}`,{
         method: "DELETE"
     })
-    if (res.ok) {
-        dispatch(setEntities(res.data));
-    }
+    return dispatch(setEntities(res.data));
 }
 
 export default function reducer(state = [], action) {

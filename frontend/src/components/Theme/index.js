@@ -11,9 +11,9 @@ export default function Theme({themeSettings}){
 
     return <>
         {themeSettings.themeList
-        .map(theme=>
+        .map((theme, idx)=>
             <span className={`theme-button ${theme}-theme${theme===themeSettings.theme?" active":""}`} 
-            onClick={()=>{changeTheme(theme)}} ></span>
+            onClick={()=>{changeTheme(theme)}} key={`theme-${idx}`} ></span>
         )}
     </>
 }

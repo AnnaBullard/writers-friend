@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Route, Switch } from "react-router-dom";
 import Cookies from 'js-cookie';
@@ -16,7 +16,8 @@ function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
   const [theme, setTheme] = useState("peach")
-  const themeList = ["peach", "beach", "midnight", "dark"]
+  const themeList = useMemo(()=>["peach", "beach", "midnight", "dark"],[]);
+  
 
   const user = useSelector(state => state.session.user)
 
@@ -24,7 +25,6 @@ function App() {
     dispatch(sessionActions.restoreUser())
       .then(() => {
         if (Cookies.get('color-theme') && themeList.includes(Cookies.get('color-theme'))) {
-          console.log("cookie", Cookies.get('color-theme'))
           setTheme(Cookies.get('color-theme'))
         } else {
           Cookies.set('color-theme','peach')
@@ -32,11 +32,11 @@ function App() {
         setIsLoaded(true)
       });
 
-  }, [dispatch]);
+  }, [dispatch, themeList]);
 
   useEffect(()=>{
     if (user) dispatch(getPseudonyms())
-  },[user])
+  },[user, dispatch])
 
   useEffect(()=>{
     document.body.setAttribute("class", "")

@@ -1,7 +1,7 @@
 .title-input {
     border-style: solid;
-    border-radius: 0;
-    border-width: 1px;
+    border-radius: 5px;
+    border-width: 0px;
     box-sizing: border-box;
     display: block;
     font-size: 22px;

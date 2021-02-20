@@ -18,7 +18,7 @@ export default function PseudonymsList () {
     const pseudonyms = useSelector(state => state.pseudonyms)
 
     return isLoaded && <><div className="pseudonym-list">
-        {pseudonyms.map(pseudo => <div>
+        {pseudonyms.map(pseudo => <div key={`pseudo-${pseudo.id}`} >
             <span>
                 {pseudo.isActive?<i className="fas fa-user"></i>:<i className="far fa-user"></i>}
                 {" "+getAuthorFormattedPseudonym(pseudo)}

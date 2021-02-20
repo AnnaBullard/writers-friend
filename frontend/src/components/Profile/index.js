@@ -1,5 +1,5 @@
 import {useDispatch, useSelector} from "react-redux";
-import {useState, useEffect} from "react";
+import {useState, useEffect, useMemo} from "react";
 import {useHistory} from "react-router-dom";
 import Cookies from "js-cookie";
 import {getEntities} from "../../store/entities";
@@ -16,25 +16,28 @@ export default function Profile () {
     const [isLoaded, setIsLoaded] = useState(false);
     const [activePseudonym, setActivePseudonym] = useState();
     const [isOpen, setIsOpen] = useState("entities");
-    const tabsList = ["entities","pseudonyms"];
+    
+    const tabsList = useMemo(()=>["entities","pseudonyms"],[]);
 
     let user = useSelector(state => state.session.user)
     const pseudonyms = useSelector(state=> state.pseudonyms);
 
     useEffect(()=>{
-        if (user){
+        if (user!==null){
             document.title = `Writer's Friend - Workshop`;
             setAuthorized(true);
-            if (Cookies.get("profile-open") && tabsList.includes(Cookies.get("profile-open"))){
-                setIsOpen(Cookies.get("profile-open"))
-            }else {
-                Cookies.set("profile-open","entities")
+            if (!isLoaded) {
+                if (Cookies.get("profile-open") && tabsList.includes(Cookies.get("profile-open"))){
+                    setIsOpen(Cookies.get("profile-open"))
+                } else {
+                    Cookies.set("profile-open","entities")
+                }
+                dispatch(getEntities()).then(res=>{setIsLoaded(true)});
             }
-            dispatch(getEntities()).then(res=>{setIsLoaded(true)});
         } else {
             setAuthorized(false);
         }
-    },[dispatch, user])
+    },[dispatch, user, tabsList, isLoaded])
 
     useEffect(()=>{
         setActivePseudonym(pseudonyms.find(pseudo => pseudo.isActive))

@@ -87,8 +87,7 @@ export const saveScenes = (id, updates) => async (dispatch) => {
         method: "PATCH",
         body: JSON.stringify({updates})
     });
-    if (res.ok)
-        dispatch(setSaved(res.data.newScenes))
+    return dispatch(setSaved(res.data.newScenes));
 }
 
 export const quickStart = () => async (dispatch) => {
