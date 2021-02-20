@@ -1,0 +1,329 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=Open+Sans:wght@300&display=swap');
+
+:root {
+    
+    --logo-text-color: #fff;
+    --logo-color: #000;
+    --modal-bg: rgba(0, 0, 0, 0.7);
+
+}
+
+.peach {
+    --bg-color1: #efdbb0;
+    --text-color1: #333;
+    --text-hover1: #b08260;
+
+    --bg-color2: #dba279;
+    --text-color2: #333;
+    --text-hover2: #b08260;
+    
+    --bg-color3: #b08260;
+    --text-color3: #fff;
+    --text-hover3: #efdbb0;
+    --text-color3alt: #333;
+    --text-hover3alt: #efdbb0;
+
+    --bg-color4: #fff;
+    --text-color4: #333;
+    --text-hover4: #b08260;
+
+    --bg-color5: #333;
+    --text-color5: #fff;
+    --text-hover5: #efdbb0;
+}
+
+.beach {
+    --bg-color1: #e9c46a;
+    --text-color1: #000;
+    --text-hover1: #2a9d8f;
+
+    --bg-color2: #2a9d8f;
+    --text-color2: #333;
+    --text-hover2: #f4a261;
+    
+    --bg-color3: #264653;
+    --text-color3: #f4a261;
+    --text-hover3: #2a9d8f;
+    --text-color3alt: #2a9d8f;
+    --text-hover3alt: #f4a261;
+
+    --bg-color4: #f4a261;
+    --text-color4: #264653;
+    --text-hover4: #2a9d8f;
+
+    --bg-color5: #e76f51;
+    --text-color5: #000;
+    --text-hover5: #f4a261;
+  }
+
+.midnight {
+    --bg-color1: #245579;
+    --text-color1: #000;
+    --text-hover1: #ffbc42;
+
+    --bg-color2: #d81159;
+    --text-color2: #333;
+    --text-hover2: #ffbc42;
+    
+    --bg-color3: #8f2d56;
+    --text-color3: #ffbc42;
+    --text-hover3: #d81159;
+    --text-color3alt: #333;
+    --text-hover3alt: #ffbc42;
+
+    --bg-color4: #ffbc42;
+    --text-color4: #8f2d56;
+    --text-hover4: #245579;
+
+    --bg-color5: #006ba6;
+    --text-color5: #000;
+    --text-hover5: #ffbc42;
+  }
+
+.dark {
+    --bg-color1: #0D2329;
+    --text-color1: #a39f9f;
+    --text-hover1: #4e8d9e;
+
+    --bg-color2: #054759;
+    --text-color2: #081214;
+    --text-hover2: #4e8d9e;
+    
+    --bg-color3: #24505C;
+    --text-color3: #a39f9f;
+    --text-hover3: #081214;
+    --text-color3alt: #a39f9f;
+    --text-hover3alt: #4e8d9e;
+
+    --bg-color4: #081214;
+    --text-color4: #a39f9f;
+    --text-hover4: #4e8d9e;
+
+    --bg-color5: #183240;
+    --text-color5: #a39f9f;
+    --text-hover5: #000;
+  }
+
+
+
+.theme-button.peach-theme {
+    background-color: #dba279;
+}
+.theme-button.beach-theme {
+    background-color: #264653;
+}
+.theme-button.midnight-theme {
+    background-color: #8f2d56;
+}
+.theme-button.dark-theme {
+    background-color: #353535;
+}
+
+.theme-button {
+    border-color: var(--text-hover1);
+}
+.theme-button.active,
+.theme-button:hover {
+    border-color: var(--text-hover2);
+}
+
+/*BACKGROUND*/
+#modal-background {
+    background-color: var(--modal-bg);
+}
+
+.logo > div > span::before, 
+.book-cover::before {
+    background-color: var(--logo-color);
+}
+
+.navbar .logo,
+.navbar .logo:hover,
+.home-logo-navbar .logo,
+.home-logo-navbar .logo:hover {
+    color: var(--logo-text-color);
+}
+
+body,
+button,
+.mobile-nav span.open,
+#modal-content,
+.mobile-nav span.open:hover,
+.new-scene,
+.add-entity {
+    background-color: var(--bg-color1);
+}
+
+body,
+a,
+button,
+.mobile-nav span.open,
+#modal-content,
+.new-scene,
+.add-entity {
+    color: var(--text-color1);
+}
+
+a:hover,
+button:hover,
+.modal-close:hover,
+.home-logo-navbar > div,
+.mobile-nav span.open,
+.mobile-nav span.open:hover,
+.pseudonym-list i:hover,
+.new-scene:hover,
+.add-entity:hover {
+    color: var(--text-hover1);
+}
+
+.new-scene,
+button {
+    border-color: var(--text-color1);
+}
+
+.home-logo-navbar > div,
+button:hover,
+.new-scene:hover,
+.add-entity:hover {
+    border-color: var(--text-hover1);
+}
+
+.navbar,
+.profile-dropdown,
+footer,
+.sidebar button,
+.mobile-nav span:hover {
+    background-color: var(--bg-color2);
+}
+
+.navbar,
+footer,
+.profile-dropdown,
+.navbar a,
+footer a,
+.profile-dropdown a,
+.navbar button,
+footer button,
+.profile-dropdown button,
+.sidebar button,
+.sidebar button[disabled],
+.sidebar button[disabled]:hover,
+.mobile-nav span:hover {
+    color: var(--text-color2);
+}
+
+.navbar a:hover,
+footer a:hover,
+.profile-dropdown a:hover,
+.navbar button:hover,
+footer button:hover,
+.profile-dropdown button:hover {
+    color: var(--text-hover2);
+}
+
+.sidebar button,
+.sidebar button[disabled],
+.sidebar button[disabled]:hover {
+    border-color: var(--text-color2);
+}
+
+
+.book-cover,
+.mobile-nav span,
+.sidebar,
+.sidebar button:hover,
+.sidebar button[disabled],
+.sidebar button[disabled]:hover,
+.open-sidebar,
+.connect-block {
+    background-color: var(--bg-color3);
+}
+
+.book-content {
+    border-color: var(--bg-color3);
+}
+
+.book-cover,
+.mobile-nav span,
+.sidebar,
+.sidebar button:hover,
+.open-sidebar,
+.connect-block {
+    color: var(--text-color3);
+}
+
+.open-sidebar:hover,
+.close-sidebar:hover,
+.connect-block:hover {
+    color: var(--text-hover3);
+}
+
+.book-cover .controls i {
+    color: var(--text-color3alt);
+}
+.book-cover .controls i:hover {
+    color: var(--text-hover3alt);
+}
+
+.mobile-nav, .mobile-nav span {
+    border-color: var(--text-hover2);
+}
+.sidebar button:hover {
+    border-color: var(--text-color3);
+}
+.mobile-nav span.open{
+    border-bottom-color: var(--bg-color1);
+}
+
+.main-content input,
+.scene-text,
+.scene-handle,
+#modal-content input,
+#modal-content select,
+#modal-content textarea,
+.confirm-box .text{
+    background-color: var(--bg-color4);
+    color: var(--text-color4);
+}
+
+.scene-handle i:hover{
+    color: var(--text-hover4);
+}
+
+#modal-content button {
+    background-color: var(--bg-color5);
+    color: var(--text-color5);
+}
+
+#modal-content button:hover{
+    color: var(--text-hover5);
+}
+
+/*Dance Script*/
+#modal-content h3,
+.book-cover > div:first-child,
+h1 {
+    font-family: 'Dancing Script', cursive;
+} 
+
+/*Open Sans*/
+body, button, input, textarea, select,
+.book-cover .entity-type {
+    font-family: 'Open Sans', sans-serif;
+ }
+
+/*Scrollbar settings*/
+*::-webkit-scrollbar {
+    width: 7px;
+    background-color: var(--bg-color4);
+}
+ 
+*::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px var(--text-color2);
+}
+ 
+*::-webkit-scrollbar-thumb {
+  background-color: var(--bg-color2);
+  border: 1px solid var(--text-color2);
+  border-radius: 3px;
+}

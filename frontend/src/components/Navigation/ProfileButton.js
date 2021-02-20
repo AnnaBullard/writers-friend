@@ -2,8 +2,9 @@ import { useState, useEffect } from "react";
 import { useDispatch } from 'react-redux';
 import { useHistory, Link } from "react-router-dom";
 import * as sessionActions from '../../store/session';
+import Theme from "../Theme";
 
-function ProfileButton({ user }) {
+function ProfileButton({ user, themeSettings }) {
   const dispatch = useDispatch();
   const history = useHistory();
   const [showMenu, setShowMenu] = useState(false);
@@ -43,6 +44,11 @@ function ProfileButton({ user }) {
           <li>{user.email}</li>
           <li>
             <button onClick={logout}>Log Out</button>
+          </li>
+          <li>
+            <div>
+              <Theme themeSettings={themeSettings} />
+            </div>
           </li>
         </ul>
       )}

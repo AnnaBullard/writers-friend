@@ -14,6 +14,12 @@ export default function ConfirmReset ({onSubmit, onClose}) {
         }
     }
 
+    const handleCancel = e => {
+        e.preventDefault();
+        setConfirmed(false);
+        onClose();
+    }
+
     return <form onSubmit={onReset}>
         <h3>Confirm reset</h3>
         {error?(<div>{error}</div>):""}
@@ -21,6 +27,9 @@ export default function ConfirmReset ({onSubmit, onClose}) {
         <input type="checkbox" checked={confirmed?"checked":false} onChange={()=>{setConfirmed(!confirmed)}}/>
         Yes, reset all the changes and lose all the progress
         </label>
-        <button>Reset</button>
+        <div>
+            <button type="submit">Reset</button>
+            <button type="reset" onClick={handleCancel}>Cancel</button>
+        </div>
     </form>
 }

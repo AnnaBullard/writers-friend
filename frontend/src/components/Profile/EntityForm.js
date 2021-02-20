@@ -7,10 +7,10 @@ import {createEntity} from "../../store/entities";
 export default function EntityForm({entity, onClose}) {
   const dispatch = useDispatch();
   const [title, setTitle] = useState(entity?entity.title:"");
-  const [description, setDescription] = useState(entity?entity.description:"");
-  const [pseudonymId, setPseudonymId] = useState((entity && entity.pseudonymId)?entity.pseudonymId:undefined);
+  const [description, setDescription] = useState((entity && entity.description)?entity.description:"");
+  const [pseudonymId, setPseudonymId] = useState((entity && entity.pseudonymId)?entity.pseudonymId:0);
   const [typeId, setTypeId] = useState(entity.typeId);
-  const [parentId, setParentId] = useState(entity.parentId);
+  const [parentId, setParentId] = useState(entity.parentId?entity.parentId:0);
   const [isPublished, setIsPublished] = useState(entity?entity.isPublished:false);
   const [entitiesList, setEntititesList] = useState([])
   const [isLoaded, setIsLoaded] = useState(false)
@@ -44,6 +44,11 @@ export default function EntityForm({entity, onClose}) {
     }
   };
 
+  const handleCancel = e => {
+    e.preventDefault();
+    onClose();
+  }
+
   return (
     <form onSubmit={handleSubmit}>
       <h3>{entity.id?`Edit `:`Create new `}{entityTypes[typeId]}</h3>
@@ -60,7 +65,9 @@ export default function EntityForm({entity, onClose}) {
           <option value={2}>book</option>
           <option value={1}>{parentId?"chapter":"story"}</option>
         </select>
+        <label htmlFor="entity-title" className="only-mobile">Title:</label>
         <input style={{gridColumn: "span 2"}}
+          id="entity-title"
           type="text"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
@@ -73,11 +80,10 @@ export default function EntityForm({entity, onClose}) {
           id="entity-pseudonym"
         >
           <option value={0}>anonymous</option>
-          {pseudonyms.map(pseudonym =>{
-            return <option value={pseudonym.id} key={`pseudonym-option-${pseudonym.id}`}>
+          {pseudonyms.map(pseudonym => <option value={pseudonym.id} key={`pseudonym-option-${pseudonym.id}`}>
               {getAuthorFormattedPseudonym(pseudonym)}
             </option>
-          })}
+          )}
         </select>
         <label htmlFor="entity-parent">Part of:</label>
         <select value={parentId} 
@@ -85,13 +91,12 @@ export default function EntityForm({entity, onClose}) {
           id="entity-parent"
         >
           <option value={0}>set as standalone</option>
-          {entitiesList.map(entity =>{
-            return <option value={entity.id} key={`entity-parent-option-${entity.id}`}>
+          {entitiesList.map(entity => <option value={entity.id} key={`entity-parent-option-${entity.id}`}>
               {repeat(entity.level,"-")}
               {(entity.title?entity.title:"untitled")}
               {entity.author}
             </option>
-          })}
+          )}
         </select>
         {!!entity.id && 
         <label style={{gridColumn: "span 2"}} onClick={()=>setIsPublished(!isPublished)} >
@@ -99,14 +104,19 @@ export default function EntityForm({entity, onClose}) {
           {!isPublished && (<><i className="fas fa-eye-slash"></i>{` Not `}</>)}
           {` Public`}
         </label>}
+        <label htmlFor="entity-description" className="only-mobile">Description:</label>
         <textarea
+          id="entity-description"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           placeholder="Description"
         />
         
       </div>
-      <button type="submit">{entity.id?`Edit `:`Create `}{entityTypes[typeId]}</button>
+      <div>
+        <button type="submit">{entity.id?`Edit `:`Create `}{entityTypes[typeId]}</button>
+        <button type="reset" onClick={handleCancel}>Cancel</button>
+      </div>
     </form>
   );
 }

@@ -32,6 +32,16 @@ export default function PseudoForm({pseudo, onClose}) {
     }
   };
 
+  const handleCancel = e => {
+    e.preventDefault();
+    setFirstName("");
+    setMiddleName("");
+    setLastName("");
+    setIsActive(false);
+    setErrors([]);
+    onClose();
+  }
+
   return (
     <form onSubmit={handleSubmit}>
       <h3>{pseudo?"Edit":"Create new"}{` pseudonym`}</h3>
@@ -64,7 +74,10 @@ export default function PseudoForm({pseudo, onClose}) {
           {isActive && <><i className="fas fa-user"></i>{` Use to introduce myself`}</>}
           </label>
       </div>
-      <button type="submit">{pseudo?"Save changes":"Create pseudonym"}</button>
+      <div>
+        <button type="submit">{pseudo?"Save changes":"Create pseudonym"}</button>
+        <button type="reset" onClick={handleCancel}>Cancel</button>
+      </div>
     </form>
   );
 }
