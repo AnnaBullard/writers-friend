@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { useDispatch } from 'react-redux';
 import { useHistory, Link } from "react-router-dom";
-import Cookies from 'js-cookie';
 import * as sessionActions from '../../store/session';
+import Theme from "../Theme";
 
 function ProfileButton({ user, themeSettings }) {
   const dispatch = useDispatch();
@@ -31,13 +31,6 @@ function ProfileButton({ user, themeSettings }) {
     dispatch(sessionActions.logout()).then(res => {history.push("/")})
   };
 
-  const changeTheme = (themeName) => {
-    if (themeSettings.themeList.includes(themeName)) {
-      themeSettings.setTheme(themeName);
-      Cookies.set('color-theme',themeName)
-    }
-  }
-
   return (
     <>
       <button onClick={openMenu}>
@@ -54,8 +47,7 @@ function ProfileButton({ user, themeSettings }) {
           </li>
           <li>
             <div>
-              <span className={`theme-button peach-theme${themeSettings.theme==="peach"?" active":""}`} onClick={()=>{changeTheme('peach')}} ></span>
-              <span className={`theme-button beach-theme${themeSettings.theme==="beach"?" active":""}`} onClick={()=>{changeTheme('beach')}} ></span>
+              <Theme themeSettings={themeSettings} />
             </div>
           </li>
         </ul>

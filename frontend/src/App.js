@@ -16,7 +16,7 @@ function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
   const [theme, setTheme] = useState("peach")
-  const themeList = ["peach", "beach"]
+  const themeList = ["peach", "beach", "midnight", "dark"]
 
   const user = useSelector(state => state.session.user)
 

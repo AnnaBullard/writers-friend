@@ -4,7 +4,7 @@
     font-family: 'Dancing Script', cursive;
     position: relative;
     text-decoration: none;
-    text-shadow: 1px 1px var(--logo-color2);
+    text-shadow: 1px 1px var(--logo-color);
     z-index: 1;
   }
   .logo > div {
@@ -20,7 +20,6 @@
   }
   
   .logo > div > span::before{
-    background-color: var(--logo-color2);
     border-radius: 50%;
     content: "";
     display: block;
