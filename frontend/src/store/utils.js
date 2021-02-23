@@ -139,7 +139,6 @@ export let moveEntity = (entityArray, child) => {
     let newChild = {...oldChild, ...child}
     let newArray = [...entityArray]
 
-    console.log(oldChild,child,newChild);
     // Remove child from old position
     if (oldChild.parentId === null) {
         newArray = [...newArray.filter(entity => entity.id !== child.id)]
@@ -148,12 +147,10 @@ export let moveEntity = (entityArray, child) => {
         oldParent.children = [...oldParent.children.filter(entity => entity.id !== child.id)]
         updateEntity(newArray, oldParent)
     }
-    console.log("removed", newArray);
     // Place entity
     
     newArray = addEntity(newArray, newChild)
     
-    console.log("placed", newArray);
     return newArray;
 }
 
