@@ -68,9 +68,9 @@ asyncHandler(async (req,res) => {
     
     let newEntity = await Entity.create({...entity, order, userId: user.id})
 
-    const entities = await EntitiesForUser(user.id)
+    // const entities = await EntitiesForUser(user.id)
 
-    return res.json(entities)
+    return res.json(newEntity)
 }))
 
 router.delete("/:id(\\d+)",

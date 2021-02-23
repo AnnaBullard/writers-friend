@@ -31,7 +31,6 @@ function App() {
         }
         setIsLoaded(true)
       });
-
   }, [dispatch, themeList]);
 
   useEffect(()=>{

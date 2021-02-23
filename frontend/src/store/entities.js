@@ -1,10 +1,17 @@
 import { fetch } from './csrf.js';
+import {addEntity, updateEntity} from "./utils";
 
 const GET_ENTITIES = "entities/get";
+const ADD_ENTITY = "entities/add";
 
 const setEntities = (entities) => ({
     type: GET_ENTITIES,
     entities
+  });
+
+const addNewEntitiy = (entity) => ({
+    type: ADD_ENTITY,
+    entity
   });
 
 const deepSort = (entitiesArray) => {
@@ -34,6 +41,14 @@ export const createEntity = (entity) => async dispatch => {
         method: "POST",
         body: JSON.stringify({entity})
     })
+    return dispatch(addNewEntitiy(res.data));
+}
+
+export const editEntity = (entity) => async dispatch => {
+    const res = await fetch("/api/entities",{
+        method: "PATCH",
+        body: JSON.stringify({entity})
+    })
     return dispatch(setEntities(res.data));
 }
 
@@ -50,6 +65,10 @@ export default function reducer(state = [], action) {
             let newState = [...deepSort(action.entities)]
             return newState;
         }
+        case ADD_ENTITY:
+            let newState = [...state];
+            newState = addEntity(newState, action.entity);
+            return newState;
         default:
             return state
     }

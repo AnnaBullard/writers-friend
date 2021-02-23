@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {flattenTree,repeat,getAuthorFormattedPseudonym} from "./utils"
-import {createEntity} from "../../store/entities";
+import {createEntity, editEntity} from "../../store/entities";
 
 
 export default function EntityForm({entity, onClose}) {
@@ -12,8 +12,8 @@ export default function EntityForm({entity, onClose}) {
   const [typeId, setTypeId] = useState(entity.typeId);
   const [parentId, setParentId] = useState(entity.parentId?entity.parentId:0);
   const [isPublished, setIsPublished] = useState(entity?entity.isPublished:false);
-  const [entitiesList, setEntititesList] = useState([])
-  const [isLoaded, setIsLoaded] = useState(false)
+  const [entitiesList, setEntititesList] = useState([]);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   const entityTypes = [null, "chapter/story", "book", "book series", "world"]
 
@@ -23,24 +23,39 @@ export default function EntityForm({entity, onClose}) {
   useEffect(()=>{
     setEntititesList(flattenTree(entities, 0, typeId));
     setIsLoaded(true);
+
   },[entities,typeId])
 
   useEffect(()=>{
-    if (isLoaded && parentId !==0 && !entitiesList.find(entity => entity.id === parentId)) setParentId(0)
+    if (isLoaded && parentId !==0 
+      && !entitiesList.find(entity => entity.id === parentId)) setParentId(0)
   },[entitiesList, isLoaded, parentId])
+
+  useEffect(()=>{
+    console.log({parentId})
+  },[parentId])
+
+  useEffect(()=>{
+    console.log({entitiesList})
+  },[entitiesList])
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    let newEntity = {
+      ...entity,
+      title,
+      pseudonymId:(pseudonymId>0?pseudonymId:null),
+      typeId,
+      parentId:(parentId>0?parentId:null),
+      isPublished};
     if (!entity.id) {
-      dispatch(createEntity({
-        ...entity,
-        title,
-        pseudonymId:(pseudonymId>0?pseudonymId:null),
-        typeId,
-        parentId:(parentId>0?parentId:null),
-        isPublished})).then(res => {
+      dispatch(createEntity(newEntity)).then(res => {
           onClose();
         });
+    } else {
+      dispatch(editEntity(newEntity)).then(res => {
+        onClose();
+      });
     }
   };
 
@@ -87,7 +102,7 @@ export default function EntityForm({entity, onClose}) {
         </select>
         <label htmlFor="entity-parent">Part of:</label>
         <select value={parentId} 
-          onChange={e => setParentId(e.target.value)}
+          onChange={e => setParentId(parseInt(e.target.value))}
           id="entity-parent"
         >
           <option value={0}>set as standalone</option>
