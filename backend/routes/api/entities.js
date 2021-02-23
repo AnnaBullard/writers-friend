@@ -16,19 +16,16 @@ async function EntitiesForUser(id) {
             model:Entity,                   //Series
             as: "children",
             required: false,
-            include: {
+            include: [{
                 model:Entity,               //Book
                 as: "children",
                 required: false,
-                include: {
+                include: [{
                     model:Entity,           // Story/Chapter
                     as: "children"
-                }
-            }
-        },{
-            model: Pseudonym
-        }
-    ]
+                },{model: Pseudonym}]
+            },{model: Pseudonym}]
+        },{model: Pseudonym}]
     })
 
     return entities;
@@ -68,9 +65,67 @@ asyncHandler(async (req,res) => {
     
     let newEntity = await Entity.create({...entity, order, userId: user.id})
 
-    const entities = await EntitiesForUser(user.id)
+    return res.json(newEntity)
+}))
 
-    return res.json(entities)
+router.patch("/",
+restoreUser,
+asyncHandler(async (req,res) => {
+    let { user } = req;
+    user = user.toJSON();
+    let {entity} = req.body;
+    
+    let newEntity = await Entity.findByPk(entity.id, {
+        where: {
+            userId: user.id
+        }
+    });
+    
+    if (newEntity) {
+        
+        await sequelize.transaction(async (tx) => {
+            
+            let order = 0;
+
+            if(newEntity.parentId !== null) {
+                let siblings = await Entity.findAll({
+                    where: {
+                        parentId: newEntity.parentId,
+                        id: {
+                            [Op.ne]: newEntity.id
+                        },
+                        userId: user.id
+                    },
+                    order: ["order"]
+                },{transaction: tx})
+                
+                await siblings.forEach(async (child,idx)=>{
+                    if (child.order !== idx) {
+                        await child.update({
+                            order: idx
+                        },{transaction: tx})
+                    }
+                })
+            }
+            
+            if(entity.parentId !== null) {
+                let newSiblings = await Entity.findAll({
+                    where: {
+                        parentId: entity.parentId,
+                        id: {
+                            [Op.ne]: newEntity.id
+                        },
+                        userId: user.id
+                    }
+                },{transaction: tx})
+                
+                order = newSiblings.length;
+            }
+
+            await newEntity.update({...entity, order},{transaction: tx})
+        })
+    }
+    return res.json(newEntity)
 }))
 
 router.delete("/:id(\\d+)",
@@ -107,9 +162,7 @@ asyncHandler(async (req,res) => {
 
     })
 
-    const entities = await EntitiesForUser(user.id)
-
-    return res.json(entities)
+    return res.json(entity)
 }))
 
 
