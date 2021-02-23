@@ -27,32 +27,24 @@ export default function EntityForm({entity, onClose}) {
   },[entities,typeId])
 
   useEffect(()=>{
-    if (isLoaded && parentId !==0 
-      && !entitiesList.find(entity => entity.id === parentId)) setParentId(0)
+    if (isLoaded && parseInt(parentId) !==0 
+      && !entitiesList.find(entity => entity.id === parseInt(parentId))) setParentId(0)
   },[entitiesList, isLoaded, parentId])
-
-  useEffect(()=>{
-    console.log({parentId})
-  },[parentId])
-
-  useEffect(()=>{
-    console.log({entitiesList})
-  },[entitiesList])
 
   const handleSubmit = (e) => {
     e.preventDefault();
     let newEntity = {
-      ...entity,
       title,
       pseudonymId:(pseudonymId>0?pseudonymId:null),
       typeId,
-      parentId:(parentId>0?parentId:null),
+      parentId:(parentId>0?parseInt(parentId):null),
       isPublished};
     if (!entity.id) {
       dispatch(createEntity(newEntity)).then(res => {
           onClose();
         });
     } else {
+      newEntity.id = entity.id;
       dispatch(editEntity(newEntity)).then(res => {
         onClose();
       });
@@ -102,7 +94,7 @@ export default function EntityForm({entity, onClose}) {
         </select>
         <label htmlFor="entity-parent">Part of:</label>
         <select value={parentId} 
-          onChange={e => setParentId(parseInt(e.target.value))}
+          onChange={e => setParentId(e.target.value)}
           id="entity-parent"
         >
           <option value={0}>set as standalone</option>
