@@ -35,9 +35,9 @@ export default function EntityForm({entity, onClose}) {
     e.preventDefault();
     let newEntity = {
       title,
-      pseudonymId:(pseudonymId>0?pseudonymId:null),
-      typeId,
-      parentId:(parentId>0?parseInt(parentId):null),
+      pseudonymId:(parseInt(pseudonymId)>0?parseInt(pseudonymId):null),
+      typeId: parseInt(typeId),
+      parentId:(parseInt(parentId)>0?parseInt(parentId):null),
       isPublished};
     if (!entity.id) {
       dispatch(createEntity(newEntity)).then(res => {

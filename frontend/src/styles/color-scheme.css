@@ -1,5 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=Open+Sans:wght@300&display=swap');
 
+
+/*Dance Script*/
+#modal-content h3,
+.book-cover > div:first-child,
+h1 {
+    font-family: 'Dancing Script', cursive;
+} 
+
+/*Open Sans*/
+body, button, input, textarea, select,
+.book-cover .entity-type {
+    font-family: 'Open Sans', sans-serif;
+ }
+ 
 :root {
     
     --logo-text-color: #fff;
@@ -298,19 +312,6 @@ footer button:hover,
 #modal-content button:hover{
     color: var(--text-hover5);
 }
-
-/*Dance Script*/
-#modal-content h3,
-.book-cover > div:first-child,
-h1 {
-    font-family: 'Dancing Script', cursive;
-} 
-
-/*Open Sans*/
-body, button, input, textarea, select,
-.book-cover .entity-type {
-    font-family: 'Open Sans', sans-serif;
- }
 
 /*Scrollbar settings*/
 *::-webkit-scrollbar {

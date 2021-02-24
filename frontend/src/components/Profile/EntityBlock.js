@@ -41,7 +41,7 @@ export default function EntityBlock({entity}) {
         </div>
     </div>
     {isOpen && <div className="book-content">
-        {entity.children.map((entity,idx) => <EntityBlock entity={entity} key={`entity-${entity.id}`} /> )}
+        {!!entity.children && entity.children.map((entity,idx) => <EntityBlock entity={entity} key={`entity-${entity.id}`} /> )}
         <NewEntity parentEntity={entity} />
     </div>}
     {showModal && (

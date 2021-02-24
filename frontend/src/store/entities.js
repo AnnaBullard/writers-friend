@@ -18,7 +18,7 @@ const addNewEntitiy = (entity) => ({
   });
 
 const removeEntitiyAction = (entity) => ({
-    type: ADD_ENTITY,
+    type: REMOVE_ENTITY,
     entity
   });
 

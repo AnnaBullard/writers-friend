@@ -67,7 +67,7 @@ export default function Profile () {
             <div className="profile-header"><h1>Hello, {activePseudonym? getAuthorFormattedPseudonym(activePseudonym) : user.username}</h1><button onClick={onQuickStart}>Start Writing</button></div>
             <div className="mobile-nav">
                 <span onClick={()=>{changeTab("pseudonyms")}} className={isOpen==="pseudonyms"?"open":""}>Pseudonyms</span>
-                <span onClick={()=>{changeTab("entities")}} className={isOpen==="entities"?"open":""}>My creations</span>
+                <span onClick={()=>{changeTab("entities")}} className={isOpen==="entities"?"open":""}>My works</span>
             </div>
             {isOpen==="pseudonyms" && <PseudonymsList />}
             {isOpen==="entities" && <EntitiesList />}

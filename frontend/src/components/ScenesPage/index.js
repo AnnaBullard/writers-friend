@@ -47,7 +47,7 @@ export default function ScenesPage () {
     
     useEffect(()=>{
         if (story.chapter) {
-            setTitle(story.chapter.title)
+            setTitle(story.chapter.title?story.chapter.title:"")
             document.title = `Writer's Friend - ${story.chapter.title||"untitled"} (edit)`
         }        
     },[story])
