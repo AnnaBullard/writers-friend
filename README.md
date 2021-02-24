@@ -1,28 +1,16 @@
-
-<style>@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=Open+Sans:wght@300&display=swap');</style>
-<div style="background: #000; width: 60px; height: 60px; border-radius: 50%; display: inline-flex; justify-content: center; align-items: center; font-size: 55px;font-family: 'Dancing Script'">
-W
-</div><span style="height: 600px; font-size: 55px;font-family: 'Dancing Script'">riter's Friend</span>
-<hr>
+![](/wiki/writers-friend.png)
 
 ## Table of Contents
 
 1. [Introduction](#introduction)
 2.  [Dependencies](#dependencies)
 3.  [Features](#features)
-	- [Register](#register)
-	- [Login](#login)
-	- [Parks](#parks)
-	- [Search](#search)
-	- [User Experience](#user-experience)
-		- [Create List](#create-list)
-		- [Add Park](#add-park)
-		- [Remove Park](#remove-park)
-		- [Rate Park](#rate-park)
-		- [Review Park](#review-park)
-		- [View](#view)
-			- [View Routes](#view-routes)
-			- [View Visited](#view-visited)
+	- [Sign-up / Login](#signup)
+	- [Entities](#entities)
+	- [Chapters/stories](#chapter)
+	- [Scenes](#scenes)
+	- [Pseudonyms](#pseudonyms)
+	- [Themes](#themes)
 
 ## Introduction
 
@@ -44,9 +32,9 @@ W
 
 ## Features
 
-- ### Sign-up / Login
+- ### Sign-up / Login <a id="signup" ></a>
 
-- ### Entity
+- ### Entities
 	Users can create entities, like trees with following levels:
 	1. world
 	2. book series
@@ -95,7 +83,7 @@ W
 	```
 	Updating and removing of entities is solved in the similar way
 
-- ### Chapters and stories
+- ### Chapters/stories<a id="chapter" ></a>
 	`Chapters` and `stories` are leaf-entities.
 	
 	There are 2 ways to `create new story/chapter`:
