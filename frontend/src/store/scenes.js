@@ -6,6 +6,7 @@ const SET_TITLE="scenes/set_title";
 const EDIT_TEXT="scenes/edit_text";
 const SAVE_SCENES = "scenes/save";
 const UNSAVE_SCENES = "scenes/unsaved";
+const SPLIT_SCENES = "scenes/split";
 const JOIN_SCENES = "scenes/join";
 const DELETE_SCENE = "scenes/delete";
 const CREATE_SCENE = "scenes/create";
@@ -41,6 +42,13 @@ export const setUnsaved = (id, text) => ({
     type: UNSAVE_SCENES,
     id,
     text
+})
+
+export const splitScenes = (id, left, right) => ({
+    type: SPLIT_SCENES,
+    id,
+    left, 
+    right
 })
 
 export const joinScenes = (id1, id2) => ({
@@ -177,6 +185,25 @@ export default function reducer(state = initialState, action) {
             let newState = {...state, scenes, saved: false}
             return newState;
         }
+        case SPLIT_SCENES: {
+            let scenes = [];
+            let count = state.scenes.filter(scene => typeof scene.id !== "number").length;
+            let passed = false;
+            state.scenes.forEach(scene => {
+                if (scene.id === action.id) {
+                    let leftScene = {...scene, text: action.left, updated:true};
+                    let rightScene = {id: "new"+count, text: action.right, order:scene.order+1, updated:true};
+                    scenes.push(leftScene,rightScene);
+                    passed = true;
+                } else if (passed) {
+                    scenes.push({...scene, order: scene.order+1, updated:true});
+                } else {
+                    scenes.push(scene);
+                }
+            })
+            let newState = {...state, scenes, saved: false}
+            return newState;
+        }
         case JOIN_SCENES: {
             let sceneToDelete = state.scenes.find(scene => scene.id === action.id2)
             let scenes = state.scenes.filter(scene => scene.id !== action.id2)
@@ -213,7 +240,7 @@ export default function reducer(state = initialState, action) {
         case CREATE_SCENE: {
             let count = state.scenes.filter(scene => typeof scene.id !== "number").length;
             let scene = {id: "new"+count, text: "", order:state.scenes.length, updated:true};
-            let newState = {...state, scenes: [...state.scenes, scene], saved: true};
+            let newState = {...state, scenes: [...state.scenes, scene], saved: false};
             return newState
         }
         default:
