@@ -78,7 +78,8 @@ export default function SceneBlock ({scene, index, joinFn, isLast, splitBlock, s
             let ancestorsArray = ancestors(selection.anchorNode);
             
             let result = split(e.currentTarget, ancestorsArray, selection.anchorOffset, selection.anchorNode)
-            dispatch(splitScenes(scene.id,result.leftTree.innerHTML, result.rightTree.innerHTML ));
+            dispatch(splitScenes(scene.id,result.leftTree.innerHTML, result.rightTree.innerHTML ))
+            setSplitBlock(0);
         }
     }
 

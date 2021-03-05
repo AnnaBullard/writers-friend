@@ -44,6 +44,8 @@ body, button, input, textarea, select,
     --bg-color5: #333;
     --text-color5: #fff;
     --text-hover5: #efdbb0;
+
+    --alert: tomato;
 }
 
 .beach {
@@ -68,6 +70,8 @@ body, button, input, textarea, select,
     --bg-color5: #e76f51;
     --text-color5: #000;
     --text-hover5: #f4a261;
+
+    --alert: #d81159;
   }
 
 .midnight {
@@ -92,6 +96,8 @@ body, button, input, textarea, select,
     --bg-color5: #006ba6;
     --text-color5: #000;
     --text-hover5: #ffbc42;
+
+    --alert: green;
   }
 
 .dark {
@@ -116,6 +122,8 @@ body, button, input, textarea, select,
     --bg-color5: #183240;
     --text-color5: #a39f9f;
     --text-hover5: #000;
+
+    --alert: green;
   }
 
 
@@ -217,6 +225,7 @@ footer,
 footer a,
 .profile-dropdown a,
 .navbar button,
+.navbar a,
 footer button,
 .profile-dropdown button,
 .sidebar button,
@@ -230,6 +239,7 @@ footer button,
 footer a:hover,
 .profile-dropdown a:hover,
 .navbar button:hover,
+.navbar a:hover,
 footer button:hover,
 .profile-dropdown button:hover {
     color: var(--text-hover2);
@@ -302,6 +312,10 @@ footer button:hover,
 
 .scene-handle i:hover{
     color: var(--text-hover4);
+}
+
+.split-mode ~ .scene-handle > .fa-cut {
+    color: var(--alert);
 }
 
 #modal-content button {

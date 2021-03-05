@@ -43,7 +43,8 @@
 	3. book
 	4. chapter/story
 
-	![](/wiki/gifs/new-book.gif)
+	<img src="./wiki/gifs/new-book.gif" alt="drawing" style="max-width:300px;"/>
+	
 
 	Entities are stored in Redux store as an ordered array of entities of highest level, with nested array of children-entities.
 	Nesting goes up to 4 levels.
@@ -90,16 +91,27 @@
 	
 	There are 2 ways to `create new story/chapter`:
 	1. Through entity creation form:
-		![](/wiki/gifs/new-chapter.gif)
+
+	<img src="./wiki/gifs/new-chapter.gif" alt="drawing" style="max-width:300px;"/>
+
 	2. Pressing Start writing button - that would create story on the hiest level.
-		![](/wiki/gifs/start-writing.gif)
+
+	<img src="./wiki/gifs/start-writing.gif" alt="drawing" style="max-width:300px;"/>
 
 - ### Scenes
 	- To write a text users can create several blocks of text - `scenes`.
 	- Users can `re-order scenes`
-		![](/wiki/gifs/switch-scenes.gif)
+
+		<img src="./wiki/gifs/switch-scenes.gif" alt="drawing" style="max-width:300px;"/>
+
 	- Users can `join scenes`
-		![](/wiki/gifs/join-scenes.gif)
+
+		<img src="./wiki/gifs/join-scenes.gif" alt="drawing" style="max-width:300px;"/>
+	
+	- Users can `split scenes`
+
+		<img src="./wiki/gifs/split-text.gif" alt="drawing" style="max-width:300px;" />
+
 	- Users can `delete scenes` after a confirmation.
 	
 	- All of the changes preserved in the `Redux store` unless saved.
@@ -108,11 +120,13 @@
 - ### Pseudonyms
 	- Users can create multiple `pseudonyms`.
 	- Users can set one `pseudonym` to represent as themself.
-		![](/wiki/gifs/pseudonym.gif)
+
+		<img src="./wiki/gifs/pseudonym.gif" alt="drawing" style="max-width:300px;"/>
 
 - ### Themes
 	- User can change color theme of the app
-		![](/wiki/gifs/themes.gif)
+
+		<img src="./wiki/gifs/themes.gif" alt="drawing" style="max-width:300px;"/>
 
 	- Theme setting is preserved in cookies
 

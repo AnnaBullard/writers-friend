@@ -162,3 +162,10 @@
 .story-controls button span {
     display: inline;
 }
+
+.scene-text.split-mode p {
+    margin: 0;
+    padding: 0;
+}
+
+

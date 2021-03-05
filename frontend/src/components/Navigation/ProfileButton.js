@@ -33,25 +33,26 @@ function ProfileButton({ user, themeSettings }) {
 
   return (
     <>
+      <Link to="/profile">
+        <i className="fas fa-user-circle" title="Profile"></i>
+      </Link>
+      <Link to="/pseudonyms">
+        <i className="fas fa-theater-masks" title="Pseudonyms"></i>
+      </Link>
+      <Link to="/books">
+        <i className="fas fa-book" title="Workshop"></i>
+      </Link>
       <button onClick={openMenu}>
-        <i className="fas fa-user-circle" />
+        <i className="fas fa-palette" title="Theme"></i>
       </button>
       {showMenu && (
         <ul className="profile-dropdown">
-          <li>
-            <Link to ="/profile" >Workshop</Link>
-          </li>
-          <li>{user.email}</li>
-          <li>
-            <button onClick={logout}>Log Out</button>
-          </li>
-          <li>
-            <div>
-              <Theme themeSettings={themeSettings} />
-            </div>
-          </li>
+            <Theme themeSettings={themeSettings} />
         </ul>
       )}
+      <button onClick={logout} title="Log Out" className="logout" >
+        <i className="fas fa-door-open"></i><span>Log Out</span>
+      </button>
     </>
   );
 }
