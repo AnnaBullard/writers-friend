@@ -7,26 +7,8 @@ const { Op } = require('sequelize');
 const router = express.Router();
 
 async function EntitiesForUser(id) {
-    const entities = await Entity.findAll({ //World
-        where: {
-            userId: id,
-            parentId: null
-        },
-        include: [{
-            model:Entity,                   //Series
-            as: "children",
-            required: false,
-            include: [{
-                model:Entity,               //Book
-                as: "children",
-                required: false,
-                include: [{
-                    model:Entity,           // Story/Chapter
-                    as: "children"
-                },{model: Pseudonym}]
-            },{model: Pseudonym}]
-        },{model: Pseudonym}]
-    })
+
+    const entities = await Entity.getEntitiesPerUser(id);
 
     return entities;
 }

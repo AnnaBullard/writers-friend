@@ -41,6 +41,49 @@ module.exports = (sequelize, DataTypes) => {
       hooks:true
     })
 
+    Entity.addScope("fullInfo", {
+      include: {
+          model: models.Pseudonym
+      }
+    })
+
   };
+
+  Entity.getEntitiesPerUser = async function (id) {
+    let entities = await Entity.scope('fullInfo')
+      .findAll({
+        where:{ 
+          userId: id
+        },
+        order: ["parentId", "order"]
+      });
+
+      let parentsObject = {0:[]};
+
+      entities = entities.map(entity => entity.toJSON());
+
+      entities.forEach(entity => {
+        if (entity.parentId === null) {
+          parentsObject[0].push(entity);
+        } else {
+          if (!parentsObject[entity.parentId]) {
+            parentsObject[entity.parentId] = [];
+          }
+          parentsObject[entity.parentId].push(entity);
+        }
+      });
+
+      entities.forEach(entity => {
+        if (parentsObject[entity.id]){
+          entity.children = [...parentsObject[entity.id]]
+        }
+      });
+
+      let entitiesTree = [...parentsObject[0]];
+
+      return entitiesTree
+  };
+
   return Entity;
 };
+
