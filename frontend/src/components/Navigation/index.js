@@ -23,7 +23,7 @@ function Navigation({ isLoaded, themeSettings }){
   return (
     <div className="navbar">
         <span><Logo /></span>
-        <span>{isLoaded && sessionLinks}</span>
+        <span className="nav-links">{isLoaded && sessionLinks}</span>
     </div>
   );
 }

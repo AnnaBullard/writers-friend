@@ -32,7 +32,7 @@ export default function Homepage ({themeSettings}) {
         <Logo extraClass="home" />
         <div>
             <span>{`Welcome, ${sessionUser?(getAuthorFormattedPseudonym(activePseudonym) || sessionUser.username):"stranger"}!` }</span>
-            <span>{sessionLinks}</span>
+            <span className="nav-links">{sessionLinks}</span>
         </div>
     </div>
 }

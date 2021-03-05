@@ -19,6 +19,7 @@ export default function ScenesPage () {
     const [showModal, setShowModal] = useState(false);
     const [fromType, setFormType] = useState("reset");
     const [title, setTitle] = useState("");
+    const [splitBlock, setSplitBlock] = useState(0);
     const dispatch = useDispatch();
 
     const saved = useSelector(state => state.scenes.saved)
@@ -110,7 +111,11 @@ export default function ScenesPage () {
                         {(provided, snapshot) => (
                             <div className={`scenes-list${snapshot.isDraggingOver?" active":""}`} ref={provided.innerRef} {...provided.droppableProps}>
                                 {story.scenes.map((scene, index) => (
-                                    <SceneBlock  key={`scene-${scene.id}`} scene={scene} index={index} joinFn={()=>{dispatch(joinScenes(story.scenes[index-1].id,scene.id))}} isLast={index===story.scenes.length-1} />
+                                    <SceneBlock key={`scene-${scene.id}`} scene={scene} 
+                                                index={index} 
+                                                joinFn={()=>{dispatch(joinScenes(story.scenes[index-1].id,scene.id))}} 
+                                                isLast={index===story.scenes.length-1} 
+                                                splitBlock={splitBlock} setSplitBlock={setSplitBlock} />
                                 ))}
                                 {provided.placeholder}
                             </div>

@@ -86,6 +86,10 @@
     .scenes-list .scene-handle {
         right: 0;
     }
+    
+    .new-scene {
+        width: 100%;
+    }
 }
 
 @media screen and (max-width: 500px){
@@ -106,6 +110,14 @@
     }
 
     .only-mobile {
+        display: inline-block;
+    }
+
+    .logout span {
+        display: none;
+    }
+    
+    .logout i {
         display: inline-block;
     }
 }
