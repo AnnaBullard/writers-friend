@@ -3,9 +3,9 @@ import {useEffect, useState} from "react";
 import {Modal} from '../../context/Modal';
 import PseudoForm from "./PseudoForm";
 import ConfirmDelete from "./ConfirmDelete";
-import {getAuthorFormattedPseudonym} from "../Profile/utils";
+import {getAuthorFormattedPseudonym} from "../Workshop/utils";
 
-export default function PseudonymsList () {
+export default function Pseudonyms () {
     const [isLoaded, setIsLoaded] = useState(false);
     const [showModal, setShowModal] = useState(false);
     const [modalType, setModalType] = useState("edit");
@@ -13,11 +13,14 @@ export default function PseudonymsList () {
     
     useEffect(()=>{
         setIsLoaded(true);
+        document.title = `Writer's Friend - Pseudonyms`;
     },[])
 
     const pseudonyms = useSelector(state => state.pseudonyms)
 
-    return isLoaded && <><div className="pseudonym-list">
+    return isLoaded && <>
+    <h1>Pseudonyms</h1>
+    <div className="pseudonym-list">
         {pseudonyms.map(pseudo => <div key={`pseudo-${pseudo.id}`} >
             <span>
                 {pseudo.isActive?<i className="fas fa-user"></i>:<i className="far fa-user"></i>}

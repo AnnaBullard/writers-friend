@@ -2,8 +2,10 @@ import { useState, useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Route, Switch } from "react-router-dom";
 import Cookies from 'js-cookie';
+
 import * as sessionActions from "./store/session";
 import {getPseudonyms} from "./store/pseudonyms";
+
 import Navigation from "./components/Navigation";
 import Homepage from "./components/Homepage";
 import ScenesPage from "./components/ScenesPage";
@@ -11,6 +13,9 @@ import Profile from "./components/Profile";
 import Story from "./components/Story";
 import PageNotFound from "./components/PageNotFound";
 import Footer from "./components/Footer";
+import AuthRoute from "./components/AuthRoute";
+import Workshop from "./components/Workshop";
+import Pseudonyms from "./components/Pseudonyms";
 
 function App() {
   const dispatch = useDispatch();
@@ -51,15 +56,21 @@ function App() {
             <Route exact path="/">
               <Homepage themeSettings={{theme, setTheme, themeList}} />
             </Route>
-            <Route path="/scenes/:chapterId">
+            <AuthRoute path="/scenes/:chapterId">
               <ScenesPage />
-            </Route>
-            <Route path="/story/:storyId">
+            </AuthRoute>
+            <AuthRoute path="/story/:storyId">
               <Story />
-            </Route>
-            <Route path="/profile">
+            </AuthRoute>
+            <AuthRoute path="/profile">
               <Profile />
-            </Route>
+            </AuthRoute>
+            <AuthRoute path="/workshop">
+              <Workshop />
+            </AuthRoute>
+            <AuthRoute path="/pseudonyms">
+              <Pseudonyms />
+            </AuthRoute>
             <Route>
               <PageNotFound/>
             </Route>

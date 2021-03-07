@@ -39,7 +39,7 @@ function ProfileButton({ user, themeSettings }) {
       <Link to="/pseudonyms">
         <i className="fas fa-theater-masks" title="Pseudonyms"></i>
       </Link>
-      <Link to="/books">
+      <Link to="/workshop">
         <i className="fas fa-book" title="Workshop"></i>
       </Link>
       <button onClick={openMenu}>
