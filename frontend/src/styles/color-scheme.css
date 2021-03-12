@@ -214,7 +214,8 @@ button:hover,
 .profile-dropdown,
 footer,
 .sidebar button,
-.mobile-nav span:hover {
+.mobile-nav span:hover,
+h3.entities-top-link {
     background-color: var(--bg-color2);
 }
 
@@ -231,7 +232,8 @@ footer button,
 .sidebar button,
 .sidebar button[disabled],
 .sidebar button[disabled]:hover,
-.mobile-nav span:hover {
+.mobile-nav span:hover,
+h3.entities-top-link {
     color: var(--text-color2);
 }
 
@@ -241,7 +243,8 @@ footer a:hover,
 .navbar button:hover,
 .navbar a:hover,
 footer button:hover,
-.profile-dropdown button:hover {
+.profile-dropdown button:hover,
+h3.entities-top-link a:hover {
     color: var(--text-hover2);
 }
 

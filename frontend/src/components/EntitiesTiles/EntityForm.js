@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {flattenTree,repeat,getAuthorFormattedPseudonym} from "./utils"
+import {flattenTree,repeat,getAuthorFormattedPseudonym} from "../Workshop/utils"
 import {createEntity, editEntity} from "../../store/entities";
 
 

@@ -13,7 +13,8 @@ body, #root {
 }
 
 .page-content{
+    box-sizing: border-box;
     margin: 0;
-    padding: 50px 0;
+    padding: 50px 15px;
     width: 100%;
 }

@@ -61,3 +61,47 @@ export function repeat(times, char){
     }
     return str
 }
+
+export function getPath(id, entities) {
+    let queue = [...entities];
+    let i = 0;
+    let target = null;
+
+    while (i < queue.length) {
+        let current = queue[i];
+
+        if (current.id === id) {
+            target = current;
+            i = queue.length;
+        } else if(current.children) {
+            queue.push(...current.children)
+        }
+        i++;
+    }
+    if (!target) return [];
+
+    return [...getPath(target.parentId, entities), {...target} ]
+    
+}
+
+export function getTarget(id, entities) {
+    let queue = [...entities];
+    let i = 0;
+    let target = null;
+
+    while (i < queue.length) {
+        let current = queue[i];
+
+        if (current.id === id) {
+            target = current;
+            i = queue.length;
+        } else if(current.children) {
+            queue.push(...current.children)
+        }
+        i++;
+    }
+    if (!target) return null;
+
+    return target;
+    
+}

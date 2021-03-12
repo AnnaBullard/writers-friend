@@ -42,7 +42,7 @@ export default function Story () {
                         {user.id === story.chapter.userId && !story.chapter.isPublished && <i className="fas fa-eye-slash"></i>}
                     </span>
                 </h1>
-                {story.scenes.map(scene => <div dangerouslySetInnerHTML={{__html: sanitizeHtml(scene.text)}}></div>)}
+                {story.scenes.map(scene => <div key={`story-scene-${scene.id}`} dangerouslySetInnerHTML={{__html: sanitizeHtml(scene.text)}}></div>)}
             </div>
         </div>
     }

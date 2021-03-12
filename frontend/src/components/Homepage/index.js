@@ -3,7 +3,7 @@ import {useEffect, useState} from "react";
 import { useSelector } from 'react-redux';
 import ProfileButton from '../Navigation/ProfileButton';
 import LoginFormModal from '../LoginFormModal';
-import {getAuthorFormattedPseudonym} from "../Profile/utils";
+import {getAuthorFormattedPseudonym} from "../Workshop/utils";
 
 export default function Homepage ({themeSettings}) {
     const sessionUser = useSelector(state => state.session.user);
