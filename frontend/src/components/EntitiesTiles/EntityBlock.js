@@ -3,16 +3,14 @@ import {Link} from "react-router-dom";
 import {Modal} from '../../context/Modal';
 import EntityForm from "./EntityForm";
 import ConfirmDelete from "./ConfirmDelete";
-import {getAuthorFormatted, getType} from "./utils";
-import NewEntity from "./NewEntity";
+import {getAuthorFormatted, getType} from "../Workshop/utils";
 
 
 export default function EntityBlock({entity}) {
-    const [isOpen, setIsOpen] = useState(false);
     const [showModal, setShowModal] = useState(false);
     const [modalType, setModalType] = useState("edit");
 
-    return <><div className={`book-cover${isOpen?" open":""}`}>
+    return <><div className={`book-cover`}>
         <div className="book-header">
             <span className="entity-type">
                 {getType(entity)}
@@ -30,8 +28,7 @@ export default function EntityBlock({entity}) {
                     setModalType("edit")
                     setShowModal(true)
                     }} ></i>
-                {isOpen && <i className="fas fa-book-open active" onClick={()=>setIsOpen(!isOpen)} ></i>}
-                {!isOpen && <i className="fas fa-book" onClick={()=>setIsOpen(!isOpen)} ></i>}
+                <Link to={`/workshop/${entity.id}`}><i className="fas fa-book"></i></Link>
             </>}
             {(entity.typeId === 1) && <>
                 <Link to={`/scenes/${entity.id}`}><i className="fas fa-pen-nib"></i></Link>
@@ -40,10 +37,6 @@ export default function EntityBlock({entity}) {
             }
         </div>
     </div>
-    {isOpen && <div className="book-content">
-        {!!entity.children && entity.children.map((entity,idx) => <EntityBlock entity={entity} key={`entity-${entity.id}`} /> )}
-        <NewEntity parentEntity={entity} />
-    </div>}
     {showModal && (
         <Modal onClose={() => setShowModal(false)}>
             {modalType==="edit" && <EntityForm onClose={() => setShowModal(false)} entity={entity}/>}

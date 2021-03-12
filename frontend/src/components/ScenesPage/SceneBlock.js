@@ -20,7 +20,7 @@ export default function SceneBlock ({scene, index, joinFn, isLast, splitBlock, s
         } else {
             setSplitMode(false);
         }
-    },[splitBlock])
+    },[splitBlock, scene.id])
 
     // Split textblock
     const ancestors = (child, parents = new Set()) => {

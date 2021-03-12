@@ -1,7 +1,7 @@
 import {useState} from "react";
 import {useDispatch} from "react-redux";
 import {deleteEntity} from "../../store/entities";
-import {flattenTree,repeat} from "./utils";
+import {flattenTree,repeat} from "../Workshop/utils";
 import sanitizeHtml from 'sanitize-html';
 
 export default function ConfirmDelete ({onSubmit, onClose, entity}) {

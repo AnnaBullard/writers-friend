@@ -65,7 +65,7 @@ function App() {
             <AuthRoute path="/profile">
               <Profile />
             </AuthRoute>
-            <AuthRoute path="/workshop">
+            <AuthRoute path={["/workshop","/workshop/:entityId"]} exact>
               <Workshop />
             </AuthRoute>
             <AuthRoute path="/pseudonyms">

@@ -1,3 +1,10 @@
+@media screen and (max-width: 835px){
+    .book-cover, .add-entity {
+        height: 200px;
+    }
+
+}
+
 @media screen and (max-width: 725px){
     .home-logo-navbar {
         width: 100%;
@@ -22,10 +29,6 @@
 
     .main-content, .main-content.open{
         padding-top: 50px;
-    }
-
-    .book-cover, .add-entity {
-        height: 200px;
     }
 
     .only-mobile {
@@ -73,6 +76,16 @@
         padding: 50px 0;
     }
 
+}
+
+@media screen and (max-width: 575px){
+    .entities {
+        flex-direction: column;
+    }
+
+    .entities-tree {
+        width: 100%;
+    }
 }
 
 @media screen and (max-width: 535px){

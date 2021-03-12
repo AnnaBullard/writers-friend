@@ -1,9 +1,11 @@
 import {useDispatch, useSelector} from "react-redux";
-import {useState, useEffect, useMemo} from "react";
-import {useHistory} from "react-router-dom";
+import {useState, useEffect} from "react";
+import {useHistory,Link} from "react-router-dom";
 import {getEntities} from "../../store/entities";
 import {quickStart} from "../../store/scenes";
-import EntitiesList from "./EntitiesList";
+import EntitiesTiles from "../EntitiesTiles";
+// import EntitiesList from "./EntitiesList";
+import EntitiesTree from "../EntitiesTree";
 
 export default function Workshop () {
     const dispatch = useDispatch();
@@ -11,7 +13,6 @@ export default function Workshop () {
     const [isLoaded, setIsLoaded] = useState(false);
 
     const user = useSelector(state => state.session.user)
-    const pseudonyms = useSelector(state=> state.pseudonyms);
 
     useEffect(()=>{
         if (user!==null){
@@ -33,6 +34,10 @@ export default function Workshop () {
             <h1>Workshop</h1>
             <button onClick={onQuickStart}>Start Writing</button>
         </div>
-        <EntitiesList />
+        <h3 className="entities-top-link"><Link to="/workshop">All</Link></h3>
+        <div className="entities">
+            <EntitiesTree />
+            <EntitiesTiles />
+        </div>
     </>
 }

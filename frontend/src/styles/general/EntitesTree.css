@@ -1,0 +1,42 @@
+.entities {
+    display: flex;
+    flex-direction: row;
+}
+
+.entities-tree {
+    box-sizing: border-box;
+    flex-shrink: 0;
+    margin: 0 5px 0 0;
+    padding: 0;
+    width: 300px;
+}
+
+.entities-tiles {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+div.entities-tree div {
+    margin-left: 10px;
+}
+
+div.entities a, h3 a {
+    text-decoration: none;
+}
+
+h3.entities-top-link {
+    border-radius: 5px 5px 0 0;
+    margin: 0;
+    padding: 7px;
+}
+
+.entities ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.active-entity {
+    font-weight: bold;
+}
