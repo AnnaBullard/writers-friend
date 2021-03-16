@@ -17,7 +17,7 @@ export default function ScenesPage () {
     const [isOpen, setIsOpen] = useState(false);
     const [authorized, setAuthorized] = useState(false);
     const [showModal, setShowModal] = useState(false);
-    const [fromType, setFormType] = useState("reset");
+    const [formType, setFormType] = useState("reset");  
     const [title, setTitle] = useState("");
     const [splitBlock, setSplitBlock] = useState(0);
     const dispatch = useDispatch();
@@ -126,7 +126,7 @@ export default function ScenesPage () {
             </div>
             {showModal && (
                 <Modal onClose={() => setShowModal(false)}>
-                {(fromType==="reset") &&
+                {(formType==="reset") &&
                     <ConfirmReset onSubmit={()=>{dispatch(getScenes(chapterId))}} onClose={() => setShowModal(false)}/>
                 }
                 </Modal>

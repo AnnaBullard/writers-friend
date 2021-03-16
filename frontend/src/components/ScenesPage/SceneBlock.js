@@ -12,7 +12,7 @@ export default function SceneBlock ({scene, index, joinFn, isLast, splitBlock, s
 
     const [splitMode, setSplitMode] = useState(false);
     const [showModal, setShowModal] = useState(false);
-    const [fromType, setFormType] = useState("delete");
+    const [formType, setFormType] = useState("delete");
 
     useEffect(()=>{
         if (splitBlock === scene.id) {
@@ -108,7 +108,7 @@ export default function SceneBlock ({scene, index, joinFn, isLast, splitBlock, s
                 </div>
                 {showModal && (
                 <Modal onClose={() => setShowModal(false)}>
-                {(fromType==="delete") &&
+                {(formType==="delete") &&
                     <ConfirmDelete onClose={() => setShowModal(false)} scene={scene}/>
                 }
                 </Modal>

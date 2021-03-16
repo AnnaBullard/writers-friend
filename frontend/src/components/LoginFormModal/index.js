@@ -8,7 +8,7 @@ import * as sessionActions from "../../store/session";
 function LoginFormModal() {
   const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
-  const [fromType, setFormType] = useState("login");
+  const [formType, setFormType] = useState("login");
 
   return (
     <>
@@ -29,10 +29,10 @@ function LoginFormModal() {
       }} >Demo</button>
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>
-          {(fromType==="login") &&
+          {(formType==="login") &&
             <LoginForm />
           }
-          {(fromType==="signup") &&
+          {(formType==="signup") &&
             <SignupForm />
           }
         </Modal>
