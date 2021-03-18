@@ -12,10 +12,8 @@ export default function Position ({parentId, order, parentTypeId, last}) {
         drop: (item, monitor) => {
             if (parentTypeId > item.typeId){
                 if (last) {
-                    console.log({id: item.id, parentId, order:"last"})
                     moveEntity({id: item.id, parentId, order:"last"})
                 } else {
-                    console.log({id: item.id, parentId, order})
                     moveEntity({id: item.id, parentId, order})
                 }
             }
@@ -33,5 +31,5 @@ export default function Position ({parentId, order, parentTypeId, last}) {
         })
     }))
 
-    return <div className={`position-divider${allowed && isOver?" over":""}${last?" last":""}`} ref={drop}>{!last? order : "last"}</div>
+    return <div className={`position-divider${allowed && isOver?" over":""}${last?" last":""}`} ref={drop}></div>
 }

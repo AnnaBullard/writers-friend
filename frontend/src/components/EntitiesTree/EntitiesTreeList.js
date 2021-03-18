@@ -12,18 +12,16 @@ export default function EntitiesTreeList ({entities, parentTypeId}) {
     
     useEffect(()=>{
         if (!entities && stateEntities.length) 
-            setList(stateEntities.filter(entity => entity.typeId !== 1))
+            setList(stateEntities)
         else if (entities) 
-            setList(entities.filter(entity => entity.typeId !== 1))
+            setList(entities)
     },[stateEntities, entities])
-
-    useEffect(()=>{
-        console.log({list})
-    },[list])
     
     return <>
-        {list.map(entity => 
+        {list.map(entity => <>
+            <Position parentId={entity.parentId} order={entity.order} parentTypeId={parentTypeId} last={false} />
             <EntityTreeItem key={`entity-tree-${entity.id}`} entity={entity}  parentTypeId={parentTypeId}/>
+            </>
          )}
         {parentTypeId!==2 && <Position parentId={entities[0].parentId} parentTypeId={parentTypeId} last={true}/>}
     </>;

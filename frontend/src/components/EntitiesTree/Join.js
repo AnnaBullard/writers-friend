@@ -42,5 +42,5 @@ export default function Join ({entity}) {
     }))
 
     return isDragging ? <div ref={dragPreview}></div> 
-                      : <NavLink to={`/workshop/${entity.id}`} className={`join-block${isOver&&allowed?" over":""}`} ref={drop}><span ref={drag}>{entity.id}. {entity.title}</span></NavLink>
+                      : <NavLink to={`/workshop/${entity.id}`} className={`join-block${isOver&&allowed?" over":""}`} ref={drop}><span ref={drag}>{entity.title}</span></NavLink>
 }
