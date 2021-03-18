@@ -17,13 +17,14 @@
     flex-wrap: wrap;
 }
 
-div.entities-tree div {
+div.entities-tree div,
+div.entities-tree div.last {
     margin-left: 10px;
 }
 
 div.entities-tree .position-divider {
     box-sizing: border-box;
-    height: 3px;
+    /* height: 3px; */
     margin: 0;
     padding: 0;
 }

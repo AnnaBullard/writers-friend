@@ -62,6 +62,11 @@ let addFn = (siblings, child) => {
 }
 
 let addAtFn = (siblings, child) => {
+    console.log({siblings, child});
+    let left = siblings.slice(0,child.order)
+    let right = siblings.slice(child.order)
+    console.log({left, right})
+    let newArr = [...siblings.slice(0,child.order),child,...siblings.slice(child.order)]
     return [...siblings.slice(0,child.order),child,...siblings.slice(child.order)]
                 .map((entity, idx) => ({...entity, order: idx}))
 }
@@ -69,9 +74,11 @@ let addAtFn = (siblings, child) => {
 let copyArray = (array, child, path, cb) => {
     let newArr = [];
     for (let i = 0; i < array.length; i++) {
-        let item = array[i];
+        let item = {...array[i]};
         if (item.id===child.parentId) {
+            console.log("copy_array_before",{children:item.children, cb})
             let childrenArray = cb(item.children, child)
+            console.log("after",{children:childrenArray})
             item.children = childrenArray;
         } else if (path.includes(item.id)) {
             item.children = copyArray(item.children, child, path, cb)
@@ -112,33 +119,43 @@ export let removeEntity = (array, id) => {
 }
 
 export let addEntity = (array, child) => {
-    if (!child.parentId && !child.order) return addFn(array, child);
+    if (!child.parentId && child.order===undefined) return addFn(array, child);
 
-    if (!child.parentId && child.order) return addAtFn(array, child);
+    if (!child.parentId && child.order!==undefined) return addAtFn(array, child);
     
     let path = findPath(array, child.id, child);
     
-    if (!child.order) return copyArray(array, child, path, addFn);
+    if (child.order===undefined) return copyArray(array, child, path, addFn);
     
     return copyArray(array, child, path, addAtFn);
 }
 
 export let updateEntity = (array, child) => {
-    console.log("!!!",{array, child});
-
+    console.log({array, child})
     let oldChild = findEntity(array, child.id);
-    
+
     let newChild = {...oldChild, ...child};
 
-    if (!child.order) delete newChild.order;
+    if (child.order===undefined) delete newChild.order;
     
     let newArray = deepCopy(array);
-    
+    console.log("oldChild.parentId !== newChild.parentId",oldChild.parentId !== newChild.parentId)
+    console.log("newChild.order!==undefined",newChild.order!==undefined)
+    console.log("oldChild.order !== newChild.order",oldChild.order !== newChild.order)
+    console.log("newChild.order!==undefined && oldChild.order !== newChild.order",newChild.order!==undefined && oldChild.order !== newChild.order)
+    console.log("oldChild.parentId: ",oldChild.parentId,"newChild.parentId: ",newChild.parentId)
+    console.log("oldChild.order: ",oldChild.order,"newChild.order: ",newChild.order)
     if (oldChild.parentId !== newChild.parentId 
-        || (newChild.order && oldChild.order !== newChild.order)) {
-        newArray = removeEntity(array, oldChild.id)
+        || (newChild.order!==undefined && oldChild.order !== newChild.order)) {
+        console.log("remove+add")
+        newArray = removeEntity(array, oldChild.id);
+        if (newChild.order === "last"){
+            delete newChild.order;
+        }
+        console.log("removed "+oldChild.id,{newArray , newChild})
         newArray = addEntity(newArray, newChild);
     } else {
+        console.log("update")
         let path = findPath(array, newChild.id)
         newArray = copyArray(array, newChild, path, updateFn)
     }

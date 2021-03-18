@@ -14,6 +14,7 @@ export default function EntityBlock({entity}) {
     const [{isDragging}, drag, dragPreview] = useDrag(()=>({
         item: {
             id: entity.id,
+            parentId: entity.parentId,
             typeId: entity.typeId,
             type: ItemTypes.ENTITY_TILE
         },

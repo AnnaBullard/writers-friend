@@ -16,11 +16,15 @@ export default function EntitiesTreeList ({entities, parentTypeId}) {
         else if (entities) 
             setList(entities.filter(entity => entity.typeId !== 1))
     },[stateEntities, entities])
+
+    useEffect(()=>{
+        console.log({list})
+    },[list])
     
     return <>
         {list.map(entity => 
             <EntityTreeItem key={`entity-tree-${entity.id}`} entity={entity}  parentTypeId={parentTypeId}/>
          )}
-         <Position parentId={entities[0].parentId} parentTypeId={parentTypeId}/>
+        {parentTypeId!==2 && <Position parentId={entities[0].parentId} parentTypeId={parentTypeId} last={true}/>}
     </>;
 }

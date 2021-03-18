@@ -3,16 +3,22 @@ import ItemTypes from "../Workshop/itemTypes";
 import {useContext, useState} from "react";
 import {WorkshopContext} from "../Workshop";
 
-export default function Position ({parentId, order, parentTypeId}) {
+export default function Position ({parentId, order, parentTypeId, last}) {
     const moveEntity = useContext(WorkshopContext);
     const [allowed, setAllowed] = useState(false);
 
     const [{isOver}, drop] = useDrop(() => ({
-        accept: ItemTypes.ENTITY_TILE,
+        accept: [ItemTypes.ENTITY_TILE, ItemTypes.ENTITY_BRANCH],
         drop: (item, monitor) => {
-            console.log({parentTypeId, item:item.typeId})
-            if (parentTypeId > item.typeId)
-                moveEntity({id: item.id, parentId, order})
+            if (parentTypeId > item.typeId){
+                if (last) {
+                    console.log({id: item.id, parentId, order:"last"})
+                    moveEntity({id: item.id, parentId, order:"last"})
+                } else {
+                    console.log({id: item.id, parentId, order})
+                    moveEntity({id: item.id, parentId, order})
+                }
+            }
         },
         hover: (item, monitor) => {
             if (parentTypeId > item.typeId){
@@ -21,11 +27,11 @@ export default function Position ({parentId, order, parentTypeId}) {
                 setAllowed(false)
             }
         },
-        // canDrop: (item, monitor) => (parentTypeId > item.typeId),
+        canDrop: (item, monitor) => (parentTypeId > item.typeId),
         collect: monitor => ({
             isOver: !!monitor.isOver()
         })
     }))
 
-    return <div className={`position-divider${allowed && isOver?" over":""}`} ref={drop}></div>
+    return <div className={`position-divider${allowed && isOver?" over":""}${last?" last":""}`} ref={drop}>{!last? order : "last"}</div>
 }
