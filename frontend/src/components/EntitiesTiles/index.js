@@ -10,7 +10,7 @@ export default function EntitiesTiles () {
     let entities = useSelector(state => state.entities);
     let {entityId} = useParams();
 
-    const [targetEntity, setTargetEntity] = useState()
+    const [targetEntity, setTargetEntity] = useState();
     
     useEffect(()=>{
         if(entityId) {

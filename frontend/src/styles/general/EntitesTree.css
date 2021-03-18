@@ -21,6 +21,26 @@ div.entities-tree div {
     margin-left: 10px;
 }
 
+div.entities-tree .position-divider {
+    box-sizing: border-box;
+    height: 3px;
+    margin: 0;
+    padding: 0;
+}
+
+div.entities-tree .join-block {
+    display: block;
+}
+
+div.entities-tree .position-divider.over {
+    padding: 1px 0;
+}
+
+div.entities-tree .join-block.over,
+div.entities-tree .position-divider.over {
+    background-color: var(--bg-color2);
+}
+
 div.entities a, h3 a {
     text-decoration: none;
 }

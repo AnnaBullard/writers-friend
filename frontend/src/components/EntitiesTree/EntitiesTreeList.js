@@ -1,6 +1,7 @@
 import {useEffect, useState} from "react";
 import {useSelector} from "react-redux";
-import {NavLink} from "react-router-dom";
+import EntityTreeItem from "./EntityTreeItem";
+import Position from "./Position";
 
 export default function EntitiesTreeList ({entities}) {
     let stateEntities = useSelector(state => state.entities);
@@ -15,11 +16,9 @@ export default function EntitiesTreeList ({entities}) {
     },[stateEntities, entities])
     
     return <>
-        {list.map(entity => {
-            return <div key={`entity-tree-${entity.id}`}>
-                <NavLink to={`/workshop/${entity.id}`} activeClassName="active-entity">{entity.title}</NavLink>
-                {entity.children && entity.children.length > 0 && <EntitiesTreeList entities={entity.children} />}
-            </div>
-        })}
+        {list.map(entity => 
+            <EntityTreeItem key={`entity-tree-${entity.id}`} entity={entity} />
+         )}
+         <Position parentId={entities[0].parentId} />
     </>;
 }

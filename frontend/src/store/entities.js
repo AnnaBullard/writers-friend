@@ -22,7 +22,7 @@ const remove = (id) => ({
     id
   });
 
-const update = (entity) => ({
+export const update = (entity) => ({
     type: EDIT_ENTITY,
     entity
   });

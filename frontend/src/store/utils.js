@@ -52,8 +52,13 @@ let updateFn = (siblings, child) => {
 
 let addFn = (siblings, child) => {
     let newChild = {...child}
-    newChild.order = siblings.length;
-    return [...siblings, newChild]
+    if (siblings) {
+        newChild.order = siblings.length;
+        return [...siblings, newChild]
+    } else {
+        newChild.order = 0
+        return [newChild]
+    }
 }
 
 let addAtFn = (siblings, child) => {
@@ -119,7 +124,8 @@ export let addEntity = (array, child) => {
 }
 
 export let updateEntity = (array, child) => {
-    
+    console.log("!!!",{array, child});
+
     let oldChild = findEntity(array, child.id);
     
     let newChild = {...oldChild, ...child};
