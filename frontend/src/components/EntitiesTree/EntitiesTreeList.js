@@ -3,9 +3,11 @@ import {useSelector} from "react-redux";
 import EntityTreeItem from "./EntityTreeItem";
 import Position from "./Position";
 
-export default function EntitiesTreeList ({entities}) {
+export default function EntitiesTreeList ({entities, parentTypeId}) {
     let stateEntities = useSelector(state => state.entities);
     
+    parentTypeId = parentTypeId?parentTypeId:+Infinity;
+
     const [list, setList] = useState([]);
     
     useEffect(()=>{
@@ -17,8 +19,8 @@ export default function EntitiesTreeList ({entities}) {
     
     return <>
         {list.map(entity => 
-            <EntityTreeItem key={`entity-tree-${entity.id}`} entity={entity} />
+            <EntityTreeItem key={`entity-tree-${entity.id}`} entity={entity}  parentTypeId={parentTypeId}/>
          )}
-         <Position parentId={entities[0].parentId} />
+         <Position parentId={entities[0].parentId} parentTypeId={parentTypeId}/>
     </>;
 }
