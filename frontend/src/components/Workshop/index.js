@@ -1,5 +1,5 @@
 import {useDispatch, useSelector} from "react-redux";
-import {useState, useEffect, createContext} from "react";
+import {useState, useEffect, createContext, useCallback} from "react";
 import {useHistory,Link} from "react-router-dom";
 import {getEntities, update} from "../../store/entities";
 import {quickStart} from "../../store/scenes";
@@ -16,6 +16,7 @@ export default function Workshop () {
     const [isLoaded, setIsLoaded] = useState(false);
 
     const user = useSelector(state => state.session.user)
+    const entities = useSelector(state => state.entities)
 
     useEffect(()=>{
         if (user!==null){
@@ -32,9 +33,9 @@ export default function Workshop () {
         })
     }
 
-    const moveEntity = entity => {
+    const moveEntity = useCallback(entity => {
         dispatch(update(entity))
-    }
+    },[entities])
 
     return isLoaded && <>
         <div className="profile-header">

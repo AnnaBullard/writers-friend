@@ -1,20 +1,27 @@
-.entities-grid {
+.entities-tiles {
     display: flex;
     flex-wrap: wrap;
     margin: 10px;
 }
 
-.book-cover {
+.preview-tile,
+.book-cover,
+.add-entity {
     align-items: center;
     box-sizing: border-box;
     border-radius: 5px;
     display: flex;
-    height: 330px;
+    /* height: 330px; */
+    height: 200px;
     justify-content: center;
     margin-top: 10px;
     margin-left: 10px;
     position: relative;
     width: 230px;
+}
+
+.add-entity {
+    border-style: dashed;
 }
 
 .book-cover.open {
@@ -89,6 +96,7 @@
     margin: 5px;
 }
 
+
 .book-content {
     border-style: solid;
     border-width: 1px;
@@ -103,19 +111,6 @@
     position: relative;
     top: -1px;
     width: 100%;
-}
-
-.add-entity {
-    align-items: center;
-    border-style: dashed;
-    box-sizing: border-box;
-    border-radius: 5px;
-    display: flex;
-    height: 330px;
-    justify-content: center;
-    margin-top: 10px;
-    margin-left: 10px;
-    width: 230px;
 }
 
 .profile-header {

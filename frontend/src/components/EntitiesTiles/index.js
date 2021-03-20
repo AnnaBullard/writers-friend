@@ -11,6 +11,7 @@ export default function EntitiesTiles () {
     let {entityId} = useParams();
 
     const [targetEntity, setTargetEntity] = useState();
+    const [prev, setPrev] = useState();
     
     useEffect(()=>{
         if(entityId) {
@@ -18,15 +19,22 @@ export default function EntitiesTiles () {
         }else {
             setTargetEntity()
         }
-
     },[entityId, entities]);
+
+    useEffect(()=>{
+        console.log("prev", prev)
+    },[prev])
+
+    let renderBlock = (entity, idx) => {
+        return <EntityBlock entity={entity} key={`entity-${entity.id}`} idx={idx} prev={prev} setPrev={setPrev} />
+    }
     
     return <div>
         <Breadcrumbs />
         <div className="entities-tiles">
             {!!targetEntity && !!targetEntity.children 
-            && targetEntity.children.map(entity => <EntityBlock entity={entity} key={`entity-${entity.id}`}/>)}
-            {!targetEntity && entities.map(entity => <EntityBlock entity={entity} key={`entity-${entity.id}`}/>)}
+            && targetEntity.children.map(renderBlock)}
+            {!targetEntity && entities.map(renderBlock)}
             <NewEntity parentEntity={targetEntity} />
         </div>
     </div>;

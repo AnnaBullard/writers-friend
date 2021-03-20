@@ -10,7 +10,7 @@ h1 {
 
 /*Open Sans*/
 body, button, input, textarea, select,
-.book-cover .entity-type {
+.book-cover .entity-type, button.join-block {
     font-family: 'Open Sans', sans-serif;
  }
  
@@ -210,6 +210,7 @@ button:hover,
     border-color: var(--text-hover1);
 }
 
+.preview-tile,
 .navbar,
 .profile-dropdown,
 footer,

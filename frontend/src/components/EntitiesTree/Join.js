@@ -1,5 +1,5 @@
 import {NavLink} from "react-router-dom";
-import { useDrop,useDrag } from 'react-dnd';
+import {useDrop, useDrag} from 'react-dnd';
 import ItemTypes from "../Workshop/itemTypes";
 import {useContext, useState} from "react";
 import {WorkshopContext} from "../Workshop";
@@ -41,6 +41,10 @@ export default function Join ({entity}) {
         })
     }))
 
-    return isDragging ? <div ref={dragPreview}></div> 
-                      : <NavLink to={`/workshop/${entity.id}`} className={`join-block${isOver&&allowed?" over":""}`} ref={drop}><span ref={drag}>{entity.title}</span></NavLink>
+    return isDragging ? 
+            <div ref={dragPreview}></div> 
+            : (entity.typeId === 1 ? 
+                <button className={`join-block${isOver&&allowed?" over":""}`} ref={drop}><span ref={drag}>{entity.title}</span></button>
+                : <NavLink to={`/workshop/${entity.id}`} className={`join-block${isOver&&allowed?" over":""}`} ref={drop}><span ref={drag}>{entity.title}</span></NavLink>)
+
 }
