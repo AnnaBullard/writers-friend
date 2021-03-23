@@ -1,4 +1,4 @@
-import {useState,useContext, useRef, useEffect} from "react";
+import {useState,useContext, useRef} from "react";
 import {Link} from "react-router-dom";
 import {Modal} from '../../context/Modal';
 import EntityForm from "./EntityForm";
@@ -8,9 +8,8 @@ import {useDrop, useDrag} from "react-dnd";
 import ItemTypes from "../Workshop/itemTypes";
 import {WorkshopContext} from "../Workshop";
 
-export default function EntityBlock({entity, prev, setPrev}) {
+export default function EntityBlock({entity, idx}) {
     const ref = useRef(null);
-    const orderRef = useRef();
 
     const [showModal, setShowModal] = useState(false);
     const [modalType, setModalType] = useState("edit");
@@ -18,21 +17,17 @@ export default function EntityBlock({entity, prev, setPrev}) {
     const moveEntity = useContext(WorkshopContext);
 
     const [{isOver}, drop] = useDrop(() => ({
-        accept: [ItemTypes.ENTITY_TILE, ItemTypes.ENTITY_BRANCH],
+        accept: [ItemTypes.ENTITY_TILE],
         drop: (item, monitor) => {
-            console.log("whatever")
+            console.log("drop")
         },
         hover: (item, monitor) => {
-            console.log(prev, entity.id)
-            if(prev===undefined || prev !== entity.id) {
-                console.log(item)
-                console.log(entity)
-            }
-            setPrev(entity.id)
-            console.log("item.parentId", item.parentId, "entity.parentId", entity.parentId, 
-            "item.order", item.order, "entity.order",entity.order)
-            if (item.parentId !== entity.parentId || item.order !== entity.order){
-                moveEntity({id: item.id, parentId: entity.parentId, order:entity.order})
+            if (item.id !== idx){
+                moveEntity({id: item.id, order:idx})
+                let i = item.order
+                let e = idx
+                idx = i
+                item.order = e 
             }
         },
         collect: (monitor) => ({
@@ -46,7 +41,7 @@ export default function EntityBlock({entity, prev, setPrev}) {
             parentId: entity.parentId,
             typeId: entity.typeId,
             type: ItemTypes.ENTITY_TILE,
-            order: entity.order
+            order: idx
         },
         collect: monitor => ({
             isDragging: !!monitor.isDragging()
@@ -63,7 +58,7 @@ export default function EntityBlock({entity, prev, setPrev}) {
                     <span className="entity-type">
                         {getType(entity)}
                     </span>
-                    <span className="book-title"><span ref={orderRef}>{entity.order}</span>. {entity.title || "untitled"}</span>
+                    <span className="book-title">{entity.title || "untitled"}</span>
                     {!!entity.Pseudonym && <span className="book-author">by {getAuthorFormatted(entity)}</span>}
                 </div>
                 <div className="controls">

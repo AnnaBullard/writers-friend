@@ -11,7 +11,6 @@ export default function EntitiesTiles () {
     let {entityId} = useParams();
 
     const [targetEntity, setTargetEntity] = useState();
-    const [prev, setPrev] = useState();
     
     useEffect(()=>{
         if(entityId) {
@@ -21,12 +20,8 @@ export default function EntitiesTiles () {
         }
     },[entityId, entities]);
 
-    useEffect(()=>{
-        console.log("prev", prev)
-    },[prev])
-
     let renderBlock = (entity, idx) => {
-        return <EntityBlock entity={entity} key={`entity-${entity.id}`} idx={idx} prev={prev} setPrev={setPrev} />
+        return <EntityBlock entity={entity} key={`entity-${entity.id}`} idx={idx} />
     }
     
     return <div>
