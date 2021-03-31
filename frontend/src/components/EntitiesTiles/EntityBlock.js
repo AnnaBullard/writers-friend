@@ -17,18 +17,18 @@ export default function EntityBlock({entity, idx}) {
     const moveEntity = useContext(WorkshopContext);
 
     const [{isOver}, drop] = useDrop(() => ({
-        accept: [ItemTypes.ENTITY_TILE],
+        accept: [ItemTypes.ENTITY_TILE, ItemTypes.ENTITY_BRANCH],
         drop: (item, monitor) => {
             console.log("drop")
         },
         hover: (item, monitor) => {
-            if (item.id !== idx){
-                moveEntity({id: item.id, order:idx})
-                let i = item.order
-                let e = idx
-                idx = i
-                item.order = e 
-            }
+            // if (item.id !== idx){
+            //     moveEntity({id: item.id, order:idx})
+            //     let i = item.order
+            //     let e = idx
+            //     idx = i
+            //     item.order = e 
+            // }
         },
         collect: (monitor) => ({
             isOver: !!monitor.isOver()
@@ -52,8 +52,8 @@ export default function EntityBlock({entity, idx}) {
 
     return <>
         {isDragging ? 
-        <div ref={dragPreview} className="preview-tile" style={{border: isOver?"2px solid red":""}} ></div> 
-        : ( <div className={`book-cover`} ref={ref}>
+        <div ref={dragPreview} className="preview-tile" ></div> 
+        : ( <div className={`book-cover`} ref={ref} style={{border: isOver?"2px solid red":""}}>
                 <div className="book-header">
                     <span className="entity-type">
                         {getType(entity)}

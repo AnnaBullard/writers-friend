@@ -137,6 +137,8 @@ export let updateEntity = (array, child) => {
         newArray = removeEntity(array, oldChild.id);
         if (newChild.order === "last"){
             delete newChild.order;
+        } else if (oldChild.parentId === newChild.parentId && newChild.order > oldChild.order) {
+            newChild.order--;
         }
         newArray = addEntity(newArray, newChild);
     } else {

@@ -11,12 +11,6 @@
     width: 300px;
 }
 
-.entities-tiles {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-}
-
 div.entities-tree div,
 div.entities-tree div.last {
     margin-left: 10px;

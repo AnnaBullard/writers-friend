@@ -1,12 +1,14 @@
 .entities-tiles {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 10px 230px);
     margin: 10px;
+    width: 100%;
 }
 
 .preview-tile,
 .book-cover,
-.add-entity {
+.add-entity,
+.tile-position.over {
     align-items: center;
     box-sizing: border-box;
     border-radius: 5px;
@@ -15,9 +17,21 @@
     height: 200px;
     justify-content: center;
     margin-top: 10px;
-    margin-left: 10px;
+    /* margin-left: 10px; */
     position: relative;
     width: 230px;
+}
+
+.tile-position {
+    box-sizing: border-box;
+    height: 200px;
+    margin-top: 10px;
+    width: 10px;
+}
+
+.tile-position.over {
+    margin-right: 10px;
+    grid-column-end: span 2 ;
 }
 
 .add-entity {
