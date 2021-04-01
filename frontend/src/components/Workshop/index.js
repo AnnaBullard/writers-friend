@@ -10,7 +10,8 @@ import { DndProvider } from 'react-dnd'
 
 export const WorkshopContext = createContext()
 
-export default function Workshop () {
+export default function Workshop ({setPageTitle}) {
+    setPageTitle();
     const dispatch = useDispatch();
     const history = useHistory();
     const [isLoaded, setIsLoaded] = useState(false);
@@ -38,11 +39,6 @@ export default function Workshop () {
     },[entities])
 
     return isLoaded && <>
-        <div className="profile-header">
-            <h1>Workshop</h1>
-            <button onClick={onQuickStart}>Start Writing</button>
-        </div>
-        <h3 className="entities-top-link"><Link to="/workshop">All</Link></h3>
         <div className="entities">
             <DndProvider backend={HTML5Backend}>
             <WorkshopContext.Provider value={moveEntity}>

@@ -2,7 +2,8 @@ import {useSelector} from "react-redux";
 import {useState, useEffect} from "react";
 import {getAuthorFormattedPseudonym} from "../Workshop/utils";
 
-export default function Profile () {
+export default function Profile ({setPageTitle}) {
+    setPageTitle();
     const [isLoaded, setIsLoaded] = useState(false);
     const [activePseudonym, setActivePseudonym] = useState();
 

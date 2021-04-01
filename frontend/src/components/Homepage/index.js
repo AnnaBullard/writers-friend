@@ -5,7 +5,8 @@ import ProfileButton from '../Navigation/ProfileButton';
 import LoginFormModal from '../LoginFormModal';
 import {getAuthorFormattedPseudonym} from "../Workshop/utils";
 
-export default function Homepage ({themeSettings}) {
+export default function Homepage ({themeSettings, setPageTitle}) {
+    setPageTitle();
     const sessionUser = useSelector(state => state.session.user);
     const pseudonyms = useSelector(state=> state.pseudonyms);
     const [activePseudonym, setActivePseudonym] = useState();

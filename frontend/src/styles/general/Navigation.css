@@ -55,6 +55,11 @@
   padding: 1px 6px;
 }
 
+.nav-links a,
+.nav-links button {
+  cursor: pointer;
+}
+
 .theme-button {
   border-radius: 50%;
   border-style: solid;
@@ -72,4 +77,8 @@
 
 .logout i {
   display: none;
+}
+
+.page-title {
+  font-size: 30px;
 }

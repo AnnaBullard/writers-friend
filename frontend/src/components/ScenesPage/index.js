@@ -9,10 +9,11 @@ import ConfirmReset from "./ConfirmReset";
 import {getScenes, setNewOrder, setNewTitle, 
         saveScenes, joinScenes, createScene} from "../../store/scenes";
 import SceneBlock from "./SceneBlock";
-import Sidebar from "./Sidebar";
+import SidebarControls from "./SidebarControls";
 import PageNotFound from "../PageNotFound"
 
-export default function ScenesPage () {
+export default function ScenesPage ({setPageTitle}) {
+    setPageTitle();
     const [isLoaded, setIsLoaded] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
     const [authorized, setAuthorized] = useState(false);
@@ -34,7 +35,7 @@ export default function ScenesPage () {
     
     window.onbeforeunload = handleOnBeforeUnload;
 
-    let {chapterId} =useParams();
+    let {chapterId} = useParams();
     chapterId = parseInt(chapterId);
 
     let story = useSelector(state => state.scenes);
@@ -98,7 +99,7 @@ export default function ScenesPage () {
             when={!saved}
             message='You have unsaved changes, are you sure you want to leave?'
             />
-            <Sidebar onSave={onSave} onReset={onReset} isOpen={isOpen} setIsOpen={setIsOpen} saved={saved}/>
+            <SidebarControls onSave={onSave} onReset={onReset} isOpen={isOpen} setIsOpen={setIsOpen} saved={saved}/>
             <div className={`main-content${isOpen?" open":""}`}>
                 <input 
                     type="text" 

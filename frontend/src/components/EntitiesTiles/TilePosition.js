@@ -32,6 +32,6 @@ export default function TilePosition ({order, parentId, parentTypeId, last}) {
     }))
 
     return <div className={`tile-position ${isOver?"over":""}`} ref={drop}>
-        <div style={{background: "red", borderRadius: isOver?"5px":"0", height: "100%", width:isOver?"230px":"10px", marginLeft: isOver?"10px":"0"}}></div>
+        <div style={{background: "red", borderRadius: isOver?"5px":"0", height: "10px", width: "530px", marginLeft: isOver?"10px":"0"}}></div>
     </div>
 }

@@ -3,14 +3,6 @@
     flex-direction: row;
 }
 
-.entities-tree {
-    box-sizing: border-box;
-    flex-shrink: 0;
-    margin: 0 5px 0 0;
-    padding: 0;
-    width: 300px;
-}
-
 div.entities-tree div,
 div.entities-tree div.last {
     margin-left: 10px;
@@ -46,10 +38,22 @@ h3.entities-top-link {
     padding: 7px;
 }
 
-.entities ul {
+ul.breadcrumbs {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
     list-style: none;
-    margin: 0;
     padding: 0;
+}
+
+ul.breadcrumbs li::after {
+    content: ">>";
+    margin: 0 5px;
+}
+
+ul.breadcrumbs li:last-child::after{
+    content: "";
+    margin: 0 5px;
 }
 
 button.join-block {

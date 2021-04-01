@@ -18,9 +18,10 @@ export default function Breadcrumbs () {
 
     },[entityId, entities])
 
-    return <ul>
-        {breadcrumbs.map((parent,idx) => {
-            return <li key={`breadcrumb-${parent.id}`} style={{paddingLeft: `${(idx+1)*10}px`}} >
+    return <ul className="breadcrumbs">
+        <li><Link to={`/workshop`} ><i className="fas fa-book-open"></i> All</Link></li>
+        {breadcrumbs.map((parent) => {
+            return <li key={`breadcrumb-${parent.id}`} >
                 <Link to={`/workshop/${parent.id}`} ><i className="fas fa-book-open"></i> {parent.title}</Link>
             </li>
         })}

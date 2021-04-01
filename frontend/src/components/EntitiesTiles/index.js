@@ -28,7 +28,7 @@ export default function EntitiesTiles () {
         </>
     }
     
-    return <div style={{width: "100%"}}>
+    return <div className="main-content open">
         <Breadcrumbs />
         <div className="entities-tiles">
             {!!targetEntity && !!targetEntity.children 

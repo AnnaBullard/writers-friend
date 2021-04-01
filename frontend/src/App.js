@@ -20,7 +20,8 @@ import Pseudonyms from "./components/Pseudonyms";
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
-  const [theme, setTheme] = useState("peach")
+  const [theme, setTheme] = useState("peach");
+  const [pageTitle, setPageTitle] = useState("")
   const themeList = useMemo(()=>["peach", "beach", "midnight", "dark"],[]);
   
 
@@ -49,27 +50,27 @@ function App() {
 
   return (
     <>
-      <Navigation isLoaded={isLoaded} themeSettings={{theme, setTheme, themeList}}/>
+      <Navigation isLoaded={isLoaded} themeSettings={{theme, setTheme, themeList}} pageTitle={pageTitle} />
       <div className="page-content">
         {isLoaded && (
           <Switch>
             <Route exact path="/">
-              <Homepage themeSettings={{theme, setTheme, themeList}} />
+              <Homepage themeSettings={{theme, setTheme, themeList}} setPageTitle={()=>setPageTitle("")} />
             </Route>
             <AuthRoute path="/scenes/:chapterId">
-              <ScenesPage />
+              <ScenesPage setPageTitle={()=>setPageTitle("")} />
             </AuthRoute>
             <AuthRoute path="/story/:storyId">
-              <Story />
+              <Story setPageTitle={()=>setPageTitle("")} />
             </AuthRoute>
             <AuthRoute path="/profile">
-              <Profile />
+              <Profile setPageTitle={()=>{setPageTitle("Profile")}} />
             </AuthRoute>
             <AuthRoute path={["/workshop","/workshop/:entityId"]} exact>
-              <Workshop />
+              <Workshop setPageTitle={()=>setPageTitle("Workshop")} />
             </AuthRoute>
             <AuthRoute path="/pseudonyms">
-              <Pseudonyms />
+              <Pseudonyms setPageTitle={()=>setPageTitle("Pseudonyms")} />
             </AuthRoute>
             <Route>
               <PageNotFound/>

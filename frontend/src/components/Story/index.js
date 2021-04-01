@@ -5,7 +5,8 @@ import {getScenes} from "../../store/scenes";
 import sanitizeHtml from 'sanitize-html';
 import PageNotFound from "../PageNotFound";
 
-export default function Story () {
+export default function Story ({setPageTitle}) {
+    setPageTitle()
     let {storyId} = useParams();
     storyId = parseInt(storyId);
     const dispatch = useDispatch();

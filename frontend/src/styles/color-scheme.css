@@ -4,7 +4,8 @@
 /*Dance Script*/
 #modal-content h3,
 .book-cover > div:first-child,
-h1 {
+h1,
+.page-title {
     font-family: 'Dancing Script', cursive;
 } 
 
