@@ -13,11 +13,17 @@
     border-radius: 5px;
     display: flex;
     justify-content: center;
+    padding: 5px 10px;
     position: relative;
     width: 530px;
 }
 
+.book-cover {
+    justify-content: space-between;
+}
+
 .tile-position {
+    background-color: blueviolet;
     box-sizing: border-box;
     height: 10px;
     width: 530px;
@@ -46,18 +52,6 @@
     margin-left: 30px;
 }
 
-/* .book-cover::before {
-    border-radius: 50%;
-    content: "";
-    display:block;
-    height: 150px;
-    left: 50%;
-    position: absolute;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    width: 150px;
-} */
-
 .book-cover.open::before {
     height: 20px;
     left: 5px;
@@ -67,20 +61,13 @@
 }
 
 .book-cover > div:first-child {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
     font-size: 25px;
     z-index: 2;
 }
 
 .book-cover .entity-type {
-    font-size: 14px;
-    text-transform: uppercase;
-}
-
-.book-cover.open .entity-type {
-    display: none;
+    font-size: 25px;
+    margin-right: 10px;
 }
 
 .book-cover > div > span {

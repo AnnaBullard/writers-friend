@@ -42,9 +42,7 @@ export default function Join ({entity}) {
     }))
 
     return isDragging ? 
-            <>
-                <button className={`join-block${isOver&&allowed?" over":""}`} ref={dragPreview}><span>{entity.title}</span></button> 
-            </>:
+            <div ref={dragPreview}></div>:
             <>
             {(entity.typeId === 1 ? 
             

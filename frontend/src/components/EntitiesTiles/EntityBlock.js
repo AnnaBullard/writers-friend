@@ -1,4 +1,4 @@
-import {useState,useContext, useRef} from "react";
+import {useState, useContext, useRef} from "react";
 import {Link} from "react-router-dom";
 import {Modal} from '../../context/Modal';
 import EntityForm from "./EntityForm";
@@ -56,7 +56,7 @@ export default function EntityBlock({entity, idx}) {
         : ( <div className={`book-cover`} ref={ref} style={{border: isOver?"2px solid red":""}}>
                 <div className="book-header">
                     <span className="entity-type">
-                        {getType(entity)}
+                        {getType(entity)} 
                     </span>
                     <span className="book-title">{entity.title || "untitled"}</span>
                     {!!entity.Pseudonym && <span className="book-author">by {getAuthorFormatted(entity)}</span>}

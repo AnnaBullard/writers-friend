@@ -21,16 +21,16 @@ export function getAuthorFormattedPseudonym(pseudonym) {
 export function getType(entity){
     switch (entity.typeId) {
         case 4: 
-            return "world"
+            return <i className="fas fa-globe" title="world" ></i>
         case 3:
-            return "book series"
+            return <i className="fas fa-swatchbook" title="book series" ></i>
         case 2:
-            return "book"
+            return <i className="fas fa-book" title="book" ></i>
         default:
             if (entity.parentId === null)
-                return "story"
+                return <i className="fas fa-file-alt" title="story" ></i>
             else 
-                return "chapter"
+                return <i className="fas fa-file-alt" title="chapter" ></i>
     }
 }
 
