@@ -7,7 +7,7 @@ import NewEntity from "./NewEntity";
 import TilePosition from "./TilePosition";
 import {getTarget} from "../Workshop/utils";
 
-export default function EntitiesTiles ({isRoot}) {
+export default function EntitiesTiles () {
     let entities = useSelector(state => state.entities);
     let {entityId} = useParams();
 
@@ -25,7 +25,7 @@ export default function EntitiesTiles ({isRoot}) {
         return <EntityBlock entity={entity} key={`entity-${entity.id}`} idx={idx} targetEntity={targetEntity} />
     }
     
-    return (isRoot || !!targetEntity) && <>
+    return (!entityId || !!targetEntity) && <>
         <Breadcrumbs />
         <div className="entities-tiles">
             {!!targetEntity && !!targetEntity.children 
