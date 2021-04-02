@@ -12,8 +12,14 @@ export default function Join ({entity}) {
     const [{isOver}, drop] = useDrop(() => ({
         accept: [ItemTypes.ENTITY_TILE, ItemTypes.ENTITY_BRANCH],
         drop: (item, monitor) => {
-            if (entity.typeId > item.typeId)
-                moveEntity({id: item.id, parentId: entity.id})
+            let origItem = {parentId: item.parentId, order: item.order}
+            let res;
+            if (entity.typeId > item.typeId) {
+                res = moveEntity({id: item.id, parentId: entity.id})
+            }
+            if (res.error) {
+                moveEntity(origItem, true)
+            }
         },
         hover: (item, monitor) => {
             if (entity.typeId > item.typeId){
@@ -45,8 +51,7 @@ export default function Join ({entity}) {
             <div ref={dragPreview}></div>:
             <>
             {(entity.typeId === 1 ? 
-            
-                <button className={`join-block${isOver&&allowed?" over":""}`} ref={drop}><span ref={drag}>{entity.title}</span></button>
+                <button className={`join-block${isOver&&allowed?" over":""}`} ref={drop}><span ref={drag}>{entity.title || "untitled"}</span></button>
                 : <NavLink to={`/workshop/${entity.id}`} className={`join-block${isOver&&allowed?" over":""}`} ref={drop}><span ref={drag}>{entity.title}</span></NavLink>)
             }</>
 }

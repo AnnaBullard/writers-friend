@@ -7,7 +7,7 @@ import NewEntity from "./NewEntity";
 import TilePosition from "./TilePosition";
 import {getTarget} from "../Workshop/utils";
 
-export default function EntitiesTiles () {
+export default function EntitiesTiles ({isRoot}) {
     let entities = useSelector(state => state.entities);
     let {entityId} = useParams();
 
@@ -22,13 +22,10 @@ export default function EntitiesTiles () {
     },[entityId, entities]);
 
     let renderBlock = (entity, idx) => {
-        return <>
-            <TilePosition order={idx} parentId={targetEntity?targetEntity.id:null} parentTypeId={!targetEntity?100:targetEntity.typeId} />
-            <EntityBlock entity={entity} key={`entity-${entity.id}`} idx={idx} />
-        </>
+        return <EntityBlock entity={entity} key={`entity-${entity.id}`} idx={idx} targetEntity={targetEntity} />
     }
     
-    return <div className="main-content open">
+    return (isRoot || !!targetEntity) && <>
         <Breadcrumbs />
         <div className="entities-tiles">
             {!!targetEntity && !!targetEntity.children 
@@ -37,5 +34,5 @@ export default function EntitiesTiles () {
             <TilePosition order="last" parentId={targetEntity?targetEntity.id:null} parentTypeId={!targetEntity?100:targetEntity.typeId} />
             <NewEntity parentEntity={targetEntity} />
         </div>
-    </div>;
+    </>;
 }

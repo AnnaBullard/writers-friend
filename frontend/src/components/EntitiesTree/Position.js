@@ -10,11 +10,16 @@ export default function Position ({parentId, order, parentTypeId, last}) {
     const [{isOver}, drop] = useDrop(() => ({
         accept: [ItemTypes.ENTITY_TILE, ItemTypes.ENTITY_BRANCH],
         drop: (item, monitor) => {
+            let origItem = {parentId: item.parentId, order: item.order}
+            let res;
             if (parentTypeId > item.typeId){
                 if (last) {
-                    moveEntity({id: item.id, parentId, order:"last"})
+                    res = moveEntity({id: item.id, parentId, order:"last"})
                 } else {
-                    moveEntity({id: item.id, parentId, order})
+                    res = moveEntity({id: item.id, parentId, order})
+                }
+                if (res.error) {
+                    moveEntity(origItem, true)
                 }
             }
         },

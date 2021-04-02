@@ -8,13 +8,18 @@ export default function TilePosition ({order, parentId, parentTypeId, last}) {
     const [allowed, setAllowed] = useState(false);
     
     const [{isOver}, drop] = useDrop(() => ({
-        accept: [ItemTypes.ENTITY_TILE, ItemTypes.ENTITY_BRANCH],
+        accept: [ItemTypes.ENTITY_TILE],
         drop: (item, monitor) => {
             if (parentTypeId > item.typeId){
+                let origItem = {parentId: item.parentId, order: item.order}
+                let res;
                 if (last) {
-                    moveEntity({id: item.id, parentId, order:"last"})
+                    res = moveEntity({id: item.id, parentId, order:"last"})
                 } else {
-                    moveEntity({id: item.id, parentId, order})
+                    res = moveEntity({id: item.id, parentId, order})
+                }
+                if (res.error) {
+                    moveEntity(origItem, true)
                 }
             }
         },
@@ -26,11 +31,10 @@ export default function TilePosition ({order, parentId, parentTypeId, last}) {
             }
         },
         canDrop: (item, monitor) => (parentTypeId > item.typeId),
-        collect: (monitor) => ({
+        collect: monitor => ({
             isOver: !!monitor.isOver()
         })
     }))
 
-    return <div className={`tile-position ${isOver?"over":""}`} ref={drop}>
-    </div>
+    return <div className={`tile-position ${(isOver && allowed) ?"over":""}`} ref={drop}></div>
 }

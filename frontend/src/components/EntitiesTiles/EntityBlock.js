@@ -1,41 +1,19 @@
-import {useState, useContext, useRef} from "react";
+import {useState} from "react";
 import {Link} from "react-router-dom";
 import {Modal} from '../../context/Modal';
 import EntityForm from "./EntityForm";
 import ConfirmDelete from "./ConfirmDelete";
 import {getAuthorFormatted, getType} from "../Workshop/utils";
-import {useDrop, useDrag} from "react-dnd";
+import {useDrag} from "react-dnd";
 import ItemTypes from "../Workshop/itemTypes";
-import {WorkshopContext} from "../Workshop";
+import TilePosition from "./TilePosition";
 
-export default function EntityBlock({entity, idx}) {
-    const ref = useRef(null);
+export default function EntityBlock({entity, idx, targetEntity}) {
 
     const [showModal, setShowModal] = useState(false);
     const [modalType, setModalType] = useState("edit");
 
-    const moveEntity = useContext(WorkshopContext);
-
-    const [{isOver}, drop] = useDrop(() => ({
-        accept: [ItemTypes.ENTITY_TILE, ItemTypes.ENTITY_BRANCH],
-        drop: (item, monitor) => {
-            console.log("drop")
-        },
-        hover: (item, monitor) => {
-            // if (item.id !== idx){
-            //     moveEntity({id: item.id, order:idx})
-            //     let i = item.order
-            //     let e = idx
-            //     idx = i
-            //     item.order = e 
-            // }
-        },
-        collect: (monitor) => ({
-            isOver: !!monitor.isOver()
-        })
-    }))
-
-    const [{isDragging}, drag, dragPreview] = useDrag(()=>({
+    const [{isDragging}, drag] = useDrag(()=>({
         item: {
             id: entity.id,
             parentId: entity.parentId,
@@ -47,13 +25,10 @@ export default function EntityBlock({entity, idx}) {
             isDragging: !!monitor.isDragging()
         })
     }))
-    
-    drag(drop(ref));
 
-    return <>
-        {isDragging ? 
-        <div ref={dragPreview} className="preview-tile" ></div> 
-        : ( <div className={`book-cover`} ref={ref} style={{border: isOver?"2px solid red":""}}>
+    return !isDragging && <>
+        <TilePosition order={idx} parentId={targetEntity?targetEntity.id:null} parentTypeId={!targetEntity?100:targetEntity.typeId} />
+        <div className={`book-cover`} ref={drag} >
                 <div className="book-header">
                     <span className="entity-type">
                         {getType(entity)} 
@@ -80,7 +55,6 @@ export default function EntityBlock({entity, idx}) {
                     }
                 </div>
             </div>
-        )}
         {showModal && (
             <Modal onClose={() => setShowModal(false)}>
                 {modalType==="edit" && <EntityForm onClose={() => setShowModal(false)} entity={entity}/>}

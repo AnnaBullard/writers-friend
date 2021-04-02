@@ -46,8 +46,25 @@ export const editEntity = (entity) => async dispatch => {
         method: "PATCH",
         body: JSON.stringify({entity})
     })
-    if (!res.errors)
-    return dispatch(update(entity));
+    if (!res.errors){
+        dispatch(update(entity))
+        return {ok: "success"}
+    }
+    else return {error: "Something went wrong"}
+}
+
+export const changeEntityPosition = (entity, locally) => async dispatch => {
+    dispatch(update(entity));
+    if (!locally) {
+        const res = await fetch("/api/entities",{
+            method: "PATCH",
+            body: JSON.stringify({entity})
+        })
+        if (!res.errors){
+            return {ok: "success"}
+        }
+        else return {error: "Something went wrong"}
+    }
 }
 
 export const deleteEntity = (id) => async dispatch => {

@@ -23,7 +23,6 @@
 }
 
 .tile-position {
-    background-color: blueviolet;
     box-sizing: border-box;
     height: 10px;
     width: 530px;
@@ -159,3 +158,8 @@
     top: 1px;
 }
 
+.main-content .breadcrumbs,
+.main-content .entities-tiles {
+    max-width: 530px;
+    margin: 0 auto;
+}

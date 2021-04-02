@@ -19,6 +19,11 @@ div.entities-tree .join-block {
     display: block;
 }
 
+div.entities-tree a.join-block,
+div.entities-tree button.join-block {
+    text-decoration: none;
+}
+
 div.entities-tree .position-divider.over {
     height: 22px;
 }
@@ -54,6 +59,10 @@ ul.breadcrumbs li::after {
 ul.breadcrumbs li:last-child::after{
     content: "";
     margin: 0 5px;
+}
+
+ul.breadcrumbs a {
+    text-decoration: none;
 }
 
 button.join-block {
