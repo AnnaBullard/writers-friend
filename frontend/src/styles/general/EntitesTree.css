@@ -3,22 +3,34 @@
     flex-direction: row;
 }
 
-.entities-tree {
-    box-sizing: border-box;
-    flex-shrink: 0;
-    margin: 0 5px 0 0;
-    padding: 0;
-    width: 300px;
-}
-
-.entities-tiles {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-}
-
-div.entities-tree div {
+div.entities-tree div,
+div.entities-tree div.last {
     margin-left: 10px;
+}
+
+div.entities-tree .position-divider {
+    box-sizing: border-box;
+    height: 3px;
+    margin: 0;
+    padding: 0;
+}
+
+div.entities-tree .join-block {
+    display: block;
+}
+
+div.entities-tree a.join-block,
+div.entities-tree button.join-block {
+    text-decoration: none;
+}
+
+div.entities-tree .position-divider.over {
+    height: 22px;
+}
+
+div.entities-tree .join-block.over,
+div.entities-tree .position-divider.over {
+    background-color: var(--bg-color2);
 }
 
 div.entities a, h3 a {
@@ -31,10 +43,33 @@ h3.entities-top-link {
     padding: 7px;
 }
 
-.entities ul {
+ul.breadcrumbs {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
     list-style: none;
+    padding: 0;
+}
+
+ul.breadcrumbs li::after {
+    content: ">>";
+    margin: 0 5px;
+}
+
+ul.breadcrumbs li:last-child::after{
+    content: "";
+    margin: 0 5px;
+}
+
+ul.breadcrumbs a {
+    text-decoration: none;
+}
+
+button.join-block {
+    border: 0;
     margin: 0;
     padding: 0;
+    font-size: 16px;
 }
 
 .active-entity {

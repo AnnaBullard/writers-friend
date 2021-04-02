@@ -4,13 +4,14 @@
 /*Dance Script*/
 #modal-content h3,
 .book-cover > div:first-child,
-h1 {
+h1,
+.page-title {
     font-family: 'Dancing Script', cursive;
 } 
 
 /*Open Sans*/
 body, button, input, textarea, select,
-.book-cover .entity-type {
+.book-cover .entity-type, button.join-block {
     font-family: 'Open Sans', sans-serif;
  }
  
@@ -150,6 +151,11 @@ body, button, input, textarea, select,
 }
 
 /*BACKGROUND*/
+div.entities-tree a.join-block,
+div.entities-tree button.join-block {
+    background-color: transparent;
+}
+
 #modal-background {
     background-color: var(--modal-bg);
 }
@@ -172,7 +178,8 @@ button,
 #modal-content,
 .mobile-nav span.open:hover,
 .new-scene,
-.add-entity {
+.add-entity,
+.tile-position {
     background-color: var(--bg-color1);
 }
 
@@ -210,12 +217,14 @@ button:hover,
     border-color: var(--text-hover1);
 }
 
+.preview-tile,
 .navbar,
 .profile-dropdown,
 footer,
 .sidebar button,
 .mobile-nav span:hover,
-h3.entities-top-link {
+h3.entities-top-link,
+.tile-position.over {
     background-color: var(--bg-color2);
 }
 
@@ -275,13 +284,17 @@ h3.entities-top-link a:hover {
 .sidebar,
 .sidebar button:hover,
 .open-sidebar,
-.connect-block {
+.connect-block,
+div.entities-tree a.join-block,
+div.entities-tree button.join-block {
     color: var(--text-color3);
 }
 
 .open-sidebar:hover,
 .close-sidebar:hover,
-.connect-block:hover {
+.connect-block:hover,
+div.entities-tree a.join-block:hover,
+div.entities-tree button.join-block:hover {
     color: var(--text-hover3);
 }
 

@@ -1,20 +1,40 @@
-.entities-grid {
+.entities-tiles {
     display: flex;
-    flex-wrap: wrap;
-    margin: 10px;
+    flex-direction: column;
+    width: 100%;
 }
 
-.book-cover {
+.preview-tile,
+.book-cover,
+.add-entity,
+.tile-position.over {
     align-items: center;
     box-sizing: border-box;
     border-radius: 5px;
     display: flex;
-    height: 330px;
     justify-content: center;
-    margin-top: 10px;
-    margin-left: 10px;
+    padding: 5px 10px;
     position: relative;
-    width: 230px;
+    width: 530px;
+}
+
+.book-cover {
+    justify-content: space-between;
+}
+
+.tile-position {
+    box-sizing: border-box;
+    height: 10px;
+    width: 530px;
+}
+
+.tile-position.over {
+    margin-right: 10px;
+    grid-column-end: span 2 ;
+}
+
+.add-entity {
+    border-style: dashed;
 }
 
 .book-cover.open {
@@ -31,18 +51,6 @@
     margin-left: 30px;
 }
 
-.book-cover::before {
-    border-radius: 50%;
-    content: "";
-    display:block;
-    height: 150px;
-    left: 50%;
-    position: absolute;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    width: 150px;
-}
-
 .book-cover.open::before {
     height: 20px;
     left: 5px;
@@ -52,20 +60,13 @@
 }
 
 .book-cover > div:first-child {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
     font-size: 25px;
     z-index: 2;
 }
 
 .book-cover .entity-type {
-    font-size: 14px;
-    text-transform: uppercase;
-}
-
-.book-cover.open .entity-type {
-    display: none;
+    font-size: 25px;
+    margin-right: 10px;
 }
 
 .book-cover > div > span {
@@ -89,6 +90,7 @@
     margin: 5px;
 }
 
+
 .book-content {
     border-style: solid;
     border-width: 1px;
@@ -103,19 +105,6 @@
     position: relative;
     top: -1px;
     width: 100%;
-}
-
-.add-entity {
-    align-items: center;
-    border-style: dashed;
-    box-sizing: border-box;
-    border-radius: 5px;
-    display: flex;
-    height: 330px;
-    justify-content: center;
-    margin-top: 10px;
-    margin-left: 10px;
-    width: 230px;
 }
 
 .profile-header {
@@ -169,3 +158,8 @@
     top: 1px;
 }
 
+.main-content .breadcrumbs,
+.main-content .entities-tiles {
+    max-width: 530px;
+    margin: 0 auto;
+}

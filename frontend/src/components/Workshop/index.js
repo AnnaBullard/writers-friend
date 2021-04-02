@@ -1,16 +1,19 @@
 import {useDispatch, useSelector} from "react-redux";
-import {useState, useEffect} from "react";
-import {useHistory,Link} from "react-router-dom";
-import {getEntities} from "../../store/entities";
-import {quickStart} from "../../store/scenes";
+import {useState, useEffect, createContext, useCallback} from "react";
+import {getEntities,changeEntityPosition} from "../../store/entities";
 import EntitiesTiles from "../EntitiesTiles";
-// import EntitiesList from "./EntitiesList";
 import EntitiesTree from "../EntitiesTree";
+import { HTML5Backend } from 'react-dnd-html5-backend'
+import { DndProvider } from 'react-dnd';
+import Sidebar from "../Sidebar";
 
-export default function Workshop () {
+export const WorkshopContext = createContext()
+
+export default function Workshop ({setPageTitle}) {
+    setPageTitle();
     const dispatch = useDispatch();
-    const history = useHistory();
     const [isLoaded, setIsLoaded] = useState(false);
+    let [isOpen, setIsOpen] = useState(true);
 
     const user = useSelector(state => state.session.user)
 
@@ -21,23 +24,20 @@ export default function Workshop () {
         }
     },[dispatch, user])
 
-    const onQuickStart = () =>{
-        dispatch(quickStart()).then(id => {
-            if (id) {
-                history.push(`/scenes/${id}`)
-            }
-        })
-    }
+    const moveEntity = useCallback((entity, locally) => {
+        return dispatch(changeEntityPosition(entity,locally))
+    },[dispatch])
 
     return isLoaded && <>
-        <div className="profile-header">
-            <h1>Workshop</h1>
-            <button onClick={onQuickStart}>Start Writing</button>
-        </div>
-        <h3 className="entities-top-link"><Link to="/workshop">All</Link></h3>
-        <div className="entities">
-            <EntitiesTree />
-            <EntitiesTiles />
-        </div>
+            <DndProvider backend={HTML5Backend}>
+            <WorkshopContext.Provider value={moveEntity}>
+                <Sidebar isOpen={isOpen} setIsOpen={setIsOpen} active={true}>
+                    <EntitiesTree />
+                </Sidebar>
+                <div className={`main-content${isOpen?" open":""}`}>
+                    <EntitiesTiles />
+                </div>
+            </WorkshopContext.Provider>
+            </DndProvider>
     </>
 }

@@ -6,5 +6,5 @@ export default function EntitiesTree () {
     
     return <div className="entities-tree">
         <EntitiesTreeList entities={entities} />
-    </div>;
+    </div>
 }

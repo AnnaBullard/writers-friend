@@ -1,5 +1,5 @@
 import { fetch } from './csrf.js';
-import {addEntity, removeEntity, deepSort, moveEntity} from "./utils";
+import {addEntity, removeEntity, updateEntity, deepSort} from "./utils";
 
 const GET_ENTITIES = "entities/get";
 const ADD_ENTITY = "entities/add";
@@ -12,17 +12,17 @@ const setEntities = (entities) => ({
     entities
   });
 
-const addNewEntitiy = (entity) => ({
+const add = (entity) => ({
     type: ADD_ENTITY,
     entity
   });
 
-const removeEntitiyAction = (entity) => ({
+const remove = (id) => ({
     type: REMOVE_ENTITY,
-    entity
+    id
   });
 
-const updateEntitiy = (entity) => ({
+export const update = (entity) => ({
     type: EDIT_ENTITY,
     entity
   });
@@ -37,7 +37,8 @@ export const createEntity = (entity) => async dispatch => {
         method: "POST",
         body: JSON.stringify({entity})
     })
-    return dispatch(addNewEntitiy(res.data));
+    if (!res.errors)
+        return dispatch(add(res.data));
 }
 
 export const editEntity = (entity) => async dispatch => {
@@ -45,14 +46,33 @@ export const editEntity = (entity) => async dispatch => {
         method: "PATCH",
         body: JSON.stringify({entity})
     })
-    return dispatch(updateEntitiy(res.data));
+    if (!res.errors){
+        dispatch(update(entity))
+        return {ok: "success"}
+    }
+    else return {error: "Something went wrong"}
+}
+
+export const changeEntityPosition = (entity, locally) => async dispatch => {
+    dispatch(update(entity));
+    if (!locally) {
+        const res = await fetch("/api/entities",{
+            method: "PATCH",
+            body: JSON.stringify({entity})
+        })
+        if (!res.errors){
+            return {ok: "success"}
+        }
+        else return {error: "Something went wrong"}
+    }
 }
 
 export const deleteEntity = (id) => async dispatch => {
     const res = await fetch(`/api/entities/${id}`,{
         method: "DELETE"
     })
-    return dispatch(removeEntitiyAction(res.data));
+    if (!res.errors)
+        return dispatch(remove(id));
 }
 
 export default function reducer(state = [], action) {
@@ -68,12 +88,12 @@ export default function reducer(state = [], action) {
         }
         case REMOVE_ENTITY:{
             let newState = [...state];
-            newState = removeEntity(newState, action.entity);
+            newState = removeEntity(newState, action.id);
             return newState;
         }
         case EDIT_ENTITY: {
             let newState = [...state];
-            newState = moveEntity(newState, action.entity);
+            newState = updateEntity(newState, action.entity);
             return newState;
         }
         default:

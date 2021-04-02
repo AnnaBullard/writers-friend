@@ -88,11 +88,11 @@
     box-sizing: border-box;
     display: block;
     height: 100vh;
-    left:-200px;
+    left:-300px;
     padding: 45px 0 0 0;
     position:fixed;
     top:0;
-    width: 200px;
+    width: 300px;
     transition: all 0.5s;
 }
 
@@ -114,8 +114,9 @@
     padding: 0px;
     transition: all 0.5s;
 }
+
 .main-content.open {
-    padding-left: 200px;
+    padding-left: 300px;
     transition: all 0.5s;
 }
 

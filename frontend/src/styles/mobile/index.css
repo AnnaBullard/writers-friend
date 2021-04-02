@@ -1,5 +1,7 @@
 @media screen and (max-width: 835px){
-    .book-cover, .add-entity {
+    .book-cover, 
+    .preview-tile,
+    .add-entity {
         height: 200px;
     }
 
@@ -79,10 +81,6 @@
 }
 
 @media screen and (max-width: 575px){
-    .entities {
-        flex-direction: column;
-    }
-
     .entities-tree {
         width: 100%;
     }
