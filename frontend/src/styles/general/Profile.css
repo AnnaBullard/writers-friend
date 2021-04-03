@@ -80,9 +80,6 @@
 .book-cover .controls {
     display: flex;
     flex-direction: row;
-    position: absolute;
-    bottom: 0;
-    right: 0;
     font-size: 20px;
 }
 

@@ -89,9 +89,9 @@
     display: block;
     height: 100vh;
     left:-300px;
-    padding: 45px 0 0 0;
+    padding: 0;
     position:fixed;
-    top:0;
+    top: 45px;
     width: 300px;
     transition: all 0.5s;
 }
@@ -121,17 +121,19 @@
 }
 
 .open-sidebar {
+    align-items: center;
+    box-sizing: border-box;
     border-radius: 0 5px 5px 0;
     cursor: pointer;
     display: flex;
+    height: 40px;
     justify-content: center;
     opacity: 1;
-    padding: 7px;
     position: absolute;
-    right: -50px;
-    top: 50px;
+    right: -25px;
+    top: 5px;
     transition: right 0.5s;
-    width: 50px;
+    width: 25px;
 }
 
 .sidebar-container.open .open-sidebar {

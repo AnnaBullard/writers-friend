@@ -1,8 +1,19 @@
 @media screen and (max-width: 835px){
+    .main-content .breadcrumbs, .main-content .entities-tiles {
+        padding-left: 30px;
+        width: 100%;
+    }
+
     .book-cover, 
     .preview-tile,
     .add-entity {
-        height: 200px;
+        flex-direction: column;
+        align-items: flex-start;
+        height: auto;
+    }
+
+    .book-cover .controls {
+        align-self: flex-end;
     }
 
 }
@@ -30,7 +41,8 @@
     }
 
     .main-content, .main-content.open{
-        padding-top: 50px;
+        padding-top: 0;
+        padding-left: 0;
     }
 
     .only-mobile {
@@ -39,12 +51,13 @@
 
     .sidebar-container{
         width: 100%;
-        height: 55px;
-        left: 0;
+        left: -100%;
         padding: 0;
-        position: fixed;
-        top: 45px;
+        /* top: 45px; */
         z-index: 80;
+    }
+    .sidebar-container.open {
+        left: 0;
     }
 
     .sidebar-container .sidebar {
@@ -66,12 +79,6 @@
 
     .story-controls button > i {
         display: inline;
-    }
-
-    .story-controls button > span,
-    .close-sidebar,
-    .open-sidebar {
-        display: none;
     }
 
     .page-content{
