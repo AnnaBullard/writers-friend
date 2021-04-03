@@ -26,6 +26,7 @@
 .scenes-list .scene-text {
     border-radius: 5px 0 0 5px;
     box-sizing: border-box;
+    min-height: 80px;
     padding: 25px 15px;
     position: relative;
     width: 100%;

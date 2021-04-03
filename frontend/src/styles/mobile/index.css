@@ -67,20 +67,6 @@
         padding: 0;
     }
 
-    .story-controls {
-        display: flex;
-        flex-direction: row;
-    }
-
-    .story-controls button {
-        margin: 5px;
-        padding: 0 15px;
-    }
-
-    .story-controls button > i {
-        display: inline;
-    }
-
     .page-content{
         padding: 50px 0;
     }
