@@ -13,7 +13,7 @@ export default function Workshop ({setPageTitle}) {
     setPageTitle();
     const dispatch = useDispatch();
     const [isLoaded, setIsLoaded] = useState(false);
-    let [isOpen, setIsOpen] = useState(true);
+    const [isOpen, setIsOpen] = useState(true);
 
     const user = useSelector(state => state.session.user)
 
