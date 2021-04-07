@@ -27,14 +27,15 @@ export default function EntityBlock({entity, idx, targetEntity}) {
     }))
 
     return !isDragging && <>
-        <TilePosition order={idx} parentId={targetEntity?targetEntity.id:null} parentTypeId={!targetEntity?100:targetEntity.typeId} />
+        {!!targetEntity && <TilePosition order={idx} parentId={targetEntity?targetEntity.id:null} parentTypeId={!targetEntity?100:targetEntity.typeId} />}
+        {!targetEntity && <div className="tile-position"></div>}
         <div className={`book-cover`} ref={drag} >
                 <div className="book-header">
                     <span className="entity-type">
                         {getType(entity)} 
                     </span>
-                    <span className="book-title">{entity.title || "untitled"}</span>
-                    {!!entity.Pseudonym && <span className="book-author">by {getAuthorFormatted(entity)}</span>}
+                    <span className="book-title">"{entity.title || "untitled"}"</span>
+                    {!!entity.Pseudonym && <span className="book-author"> by {getAuthorFormatted(entity)}</span>}
                 </div>
                 <div className="controls">
                     <i className="fas fa-eraser" onClick={()=>{

@@ -126,6 +126,26 @@
     .logout i {
         display: inline-block;
     }
+
+    .navbar {
+        flex-direction: column;
+        position: relative;
+        height: auto;
+    }
+
+    .page-content {
+        padding: 15px 0;
+        position: relative;
+    }
+
+    .sidebar-container {
+        top: 0;
+        z-index: 101;
+    }
+
+    .sidebar-container .sidebar {
+        padding: 20px;
+    }
 }
 
 @media screen and (max-width: 300px){

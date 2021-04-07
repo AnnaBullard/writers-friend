@@ -61,6 +61,21 @@ let addFn = (siblings, child) => {
     }
 }
 
+let addToRootFn = (siblings, child) => {
+    let newChild = {...child}
+    if (siblings) {
+        newChild.order = 0;
+        let arr = [...siblings, newChild].sort((a,b)=>{
+            if (!a.title || a.title < b.title) return -1;
+            else return 1;
+        })
+        return arr
+    } else {
+        newChild.order = 0;
+        return [newChild];
+    }
+}
+
 let addAtFn = (siblings, child) => {
     return [...siblings.slice(0,child.order),child,...siblings.slice(child.order)]
                 .map((entity, idx) => ({...entity, order: idx}))
@@ -112,7 +127,7 @@ export let removeEntity = (array, id) => {
 }
 
 export let addEntity = (array, child) => {
-    if (!child.parentId && child.order===undefined) return addFn(array, child);
+    if (!child.parentId && child.order===undefined) return addToRootFn(array, child);
 
     if (!child.parentId && child.order!==undefined) return addAtFn(array, child);
     
@@ -124,6 +139,7 @@ export let addEntity = (array, child) => {
 }
 
 export let updateEntity = (array, child) => {
+    console.log({child})
     let oldChild = findEntity(array, child.id);
 
     let newChild = {...oldChild, ...child};
@@ -135,17 +151,17 @@ export let updateEntity = (array, child) => {
     if (oldChild.parentId !== newChild.parentId 
         || (newChild.order!==undefined && oldChild.order !== newChild.order)) {
         newArray = removeEntity(array, oldChild.id);
-        if (newChild.order === "last"){
+        if (newChild.order === "last" || newChild.parentId === null){
             delete newChild.order;
         } else if (oldChild.parentId === newChild.parentId && newChild.order > oldChild.order) {
             newChild.order--;
         }
+
         newArray = addEntity(newArray, newChild);
     } else {
         let path = findPath(array, newChild.id)
         newArray = copyArray(array, newChild, path, updateFn)
     }
-
 
     return newArray;
 
@@ -153,11 +169,10 @@ export let updateEntity = (array, child) => {
 
 export const deepSort = (entitiesArray) => {
     let arr = entitiesArray.sort((a,b)=>{
-        let result
-        if (a.order<b.order || (a.order===b.order && a.title < b.title)) result = -1;
-        else result = 1;
-        return result;
+        if ((a.parentId !==null && (a.order<b.order)) || (a.parentId===null && (!a.title || a.title < b.title))) return -1;
+        else return 1;
     })
+    
     arr = arr.map(entity=>{
         if (entity.typeId > 1 && entity.children && entity.children.length){
             entity.children = deepSort(entity.children);
