@@ -3,12 +3,15 @@ import {useState, useEffect} from "react";
 import {getAuthorFormattedPseudonym} from "../Workshop/utils";
 
 export default function Profile ({setPageTitle}) {
-    setPageTitle();
     const [isLoaded, setIsLoaded] = useState(false);
     const [activePseudonym, setActivePseudonym] = useState();
 
     const user = useSelector(state => state.session.user)
     const pseudonyms = useSelector(state=> state.pseudonyms);
+    
+    useEffect(()=>{
+        setPageTitle("Profile");
+    },[setPageTitle])
 
     useEffect(()=>{
         setActivePseudonym(pseudonyms.find(pseudo => pseudo.isActive))

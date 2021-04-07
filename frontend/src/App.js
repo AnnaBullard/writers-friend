@@ -58,19 +58,19 @@ function App() {
               <Homepage themeSettings={{theme, setTheme, themeList}} setPageTitle={()=>setPageTitle("")} />
             </Route>
             <AuthRoute path="/scenes/:chapterId">
-              <ScenesPage setPageTitle={()=>setPageTitle("")} />
+              <ScenesPage setPageTitle={setPageTitle} />
             </AuthRoute>
             <AuthRoute path="/story/:storyId">
-              <Story setPageTitle={()=>setPageTitle("")} />
+              <Story setPageTitle={setPageTitle} />
             </AuthRoute>
             <AuthRoute path="/profile">
-              <Profile setPageTitle={()=>{setPageTitle("Profile")}} />
+              <Profile setPageTitle={setPageTitle} />
             </AuthRoute>
             <AuthRoute path={["/workshop","/workshop/:entityId"]} exact>
-              <Workshop setPageTitle={()=>setPageTitle("Workshop")} />
+              <Workshop setPageTitle={setPageTitle} />
             </AuthRoute>
             <AuthRoute path="/pseudonyms">
-              <Pseudonyms setPageTitle={()=>setPageTitle("Pseudonyms")} />
+              <Pseudonyms setPageTitle={setPageTitle} />
             </AuthRoute>
             <Route>
               <PageNotFound/>

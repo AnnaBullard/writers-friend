@@ -6,7 +6,6 @@ import sanitizeHtml from 'sanitize-html';
 import PageNotFound from "../PageNotFound";
 
 export default function Story ({setPageTitle}) {
-    setPageTitle()
     let {storyId} = useParams();
     storyId = parseInt(storyId);
     const dispatch = useDispatch();
@@ -15,6 +14,10 @@ export default function Story ({setPageTitle}) {
 
     const story = useSelector(state => state.scenes)
     const user = useSelector(state => state.session.user)
+
+    useEffect(()=>{
+        setPageTitle("");
+    },[setPageTitle])
 
     useEffect(()=>{
         dispatch(getScenes(storyId)).then(res => {

@@ -6,12 +6,16 @@ import ConfirmDelete from "./ConfirmDelete";
 import {getAuthorFormattedPseudonym} from "../Workshop/utils";
 
 export default function Pseudonyms ({setPageTitle}) {
-    setPageTitle()
+    
     const [isLoaded, setIsLoaded] = useState(false);
     const [showModal, setShowModal] = useState(false);
     const [modalType, setModalType] = useState("edit");
     const [pseudo, setPseudo] = useState();
     
+    useEffect(()=>{
+        setPageTitle("Pseudonyms");
+    },[setPageTitle])
+
     useEffect(()=>{
         setIsLoaded(true);
         document.title = `Writer's Friend - Pseudonyms`;

@@ -13,7 +13,6 @@ import SidebarControls from "./SidebarControls";
 import PageNotFound from "../PageNotFound"
 
 export default function ScenesPage ({setPageTitle}) {
-    setPageTitle();
     const [isLoaded, setIsLoaded] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
     const [authorized, setAuthorized] = useState(false);
@@ -39,6 +38,10 @@ export default function ScenesPage ({setPageTitle}) {
     chapterId = parseInt(chapterId);
 
     let story = useSelector(state => state.scenes);
+    
+    useEffect(()=>{
+        setPageTitle("");
+    },[setPageTitle])
 
     useEffect(()=>{
         dispatch(getScenes(chapterId)).then(res => {

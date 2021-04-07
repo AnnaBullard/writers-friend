@@ -10,12 +10,15 @@ import Sidebar from "../Sidebar";
 export const WorkshopContext = createContext()
 
 export default function Workshop ({setPageTitle}) {
-    setPageTitle();
     const dispatch = useDispatch();
     const [isLoaded, setIsLoaded] = useState(false);
     const [isOpen, setIsOpen] = useState(true);
 
     const user = useSelector(state => state.session.user)
+
+    useEffect(()=>{
+        setPageTitle("Workshop");
+    },[setPageTitle])
 
     useEffect(()=>{
         if (user!==null){
