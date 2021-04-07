@@ -60,10 +60,7 @@ export const changeEntityPosition = (entity, locally) => async dispatch => {
             method: "PATCH",
             body: JSON.stringify({entity})
         })
-        if (!res.errors){
-            return {ok: "success"}
-        }
-        else return {error: "Something went wrong"}
+        return res;
     }
 }
 
