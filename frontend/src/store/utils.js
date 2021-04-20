@@ -139,7 +139,6 @@ export let addEntity = (array, child) => {
 }
 
 export let updateEntity = (array, child) => {
-    console.log({child})
     let oldChild = findEntity(array, child.id);
 
     let newChild = {...oldChild, ...child};

@@ -3,8 +3,8 @@ import {useState, useEffect, createContext, useCallback} from "react";
 import {getEntities,changeEntityPosition} from "../../store/entities";
 import EntitiesTiles from "../EntitiesTiles";
 import EntitiesTree from "../EntitiesTree";
-import { HTML5Backend } from 'react-dnd-html5-backend'
-import { DndProvider } from 'react-dnd';
+import {TouchBackend} from 'react-dnd-touch-backend';
+import {DndProvider} from 'react-dnd';
 import Sidebar from "../Sidebar";
 
 export const WorkshopContext = createContext()
@@ -32,7 +32,7 @@ export default function Workshop ({setPageTitle}) {
     },[dispatch])
 
     return isLoaded && <>
-            <DndProvider backend={HTML5Backend}>
+            <DndProvider backend={TouchBackend} options={{enableMouseEvents:true}}>
             <WorkshopContext.Provider value={moveEntity}>
                 <Sidebar isOpen={isOpen} setIsOpen={setIsOpen} active={true}>
                     <EntitiesTree />

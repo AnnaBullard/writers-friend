@@ -1,10 +1,13 @@
 import {NavLink} from "react-router-dom";
 import {useDrop, useDrag} from 'react-dnd';
 import ItemTypes from "../Workshop/itemTypes";
+import EntitiesTreeList from "./EntitiesTreeList";
+import Position from "./Position";
 import {useContext, useState} from "react";
 import {WorkshopContext} from "../Workshop";
+import {getAuthorFormatted, getType} from "../Workshop/utils";
 
-export default function Join ({entity}) {
+export default function Join ({entity, idx, parentTypeId}) {
     const [allowed, setAllowed] = useState(false);
 
     const moveEntity = useContext(WorkshopContext);
@@ -35,23 +38,37 @@ export default function Join ({entity}) {
         
     }))
 
-    const [{isDragging}, drag, dragPreview] = useDrag(()=>({
+    const [{isDragging, getSourceClientOffset}, drag, dragPreview] = useDrag(()=>({
         item: {
             id: entity.id,
             parentId: entity.parentId,
             typeId: entity.typeId,
-            type: ItemTypes.ENTITY_BRANCH
+            type: ItemTypes.ENTITY_BRANCH,
+            order: idx
         },
         collect: monitor => ({
-            isDragging: !!monitor.isDragging()
+            isDragging: !!monitor.isDragging(),
+            getSourceClientOffset: monitor.getClientOffset(),
         })
     }))
 
-    return isDragging ? 
-            <div ref={dragPreview}></div>:
-            <>
+    return isDragging ? <div className="book-cover dragged" ref={dragPreview} style={{top: getSourceClientOffset?(getSourceClientOffset.y-30)+"px":"0", left: getSourceClientOffset?getSourceClientOffset.x+"px":"0"}}>
+        <div className="book-header">
+            <span className="entity-type" ref={drag}>
+                {getType(entity)} 
+            </span>
+            <span className="book-title">"{entity.title || "untitled"}"</span>
+            {!!entity.Pseudonym && <span className="book-author"> by {getAuthorFormatted(entity)}</span>}
+        </div>
+    </div> :
+    <>
+        <Position parentId={entity.parentId} order={idx} parentTypeId={parentTypeId} last={false} key={`entity-tree-position-${idx}`}/>
+        <div>
             {(entity.typeId === 1 ? 
                 <button className={`join-block${isOver&&allowed?" over":""}`} ref={drop}><span ref={drag}>{entity.title || "untitled"}</span></button>
                 : <NavLink to={`/workshop/${entity.id}`} className={`join-block${isOver&&allowed?" over":""}`} ref={drop}><span ref={drag}>{entity.title}</span></NavLink>)
-            }</>
+            }
+            {entity.typeId!==2 && entity.children && entity.children.length > 0 && <EntitiesTreeList entities={entity.children} parentTypeId={entity.typeId} />}
+        </div>
+    </>
 }

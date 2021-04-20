@@ -31,7 +31,7 @@ export default function EntitiesTiles () {
             {!!targetEntity && !!targetEntity.children 
             && targetEntity.children.map(renderBlock)}
             {!targetEntity && entities.map(renderBlock)}
-            <TilePosition order="last" parentId={targetEntity?targetEntity.id:null} parentTypeId={!targetEntity?100:targetEntity.typeId} />
+            <TilePosition last={true} parentId={targetEntity?targetEntity.id:null} parentTypeId={!targetEntity?100:targetEntity.typeId} />
             <NewEntity parentEntity={targetEntity} />
         </div>
     </>;

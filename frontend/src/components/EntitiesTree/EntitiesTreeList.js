@@ -1,6 +1,6 @@
 import {useEffect, useState, Fragment} from "react";
 import {useSelector} from "react-redux";
-import EntityTreeItem from "./EntityTreeItem";
+import Join from "./Join";
 import Position from "./Position";
 
 export default function EntitiesTreeList ({entities, parentTypeId}) {
@@ -18,11 +18,7 @@ export default function EntitiesTreeList ({entities, parentTypeId}) {
     },[stateEntities, entities])
     
     return <>
-        {list.map((entity, idx) => <Fragment key={`entity-tree-${entity.id}`}>
-            <Position parentId={entity.parentId} order={idx} parentTypeId={parentTypeId} last={false} />
-            <EntityTreeItem entity={entity}  parentTypeId={parentTypeId}/>
-            </Fragment>
-         )}
+        {list.map((entity, idx) => <Join entity={entity} parentTypeId={parentTypeId} idx={idx} key={`entity-tree-${entity.id}`}/>)}
         {parentTypeId!==2 && <Position parentId={entities[0].parentId} parentTypeId={parentTypeId} last={true}/>}
     </>;
 }

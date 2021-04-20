@@ -8,7 +8,7 @@ export default function TilePosition ({order, parentId, parentTypeId, last}) {
     const [allowed, setAllowed] = useState(false);
     
     const [{isOver}, drop] = useDrop(() => ({
-        accept: [ItemTypes.ENTITY_TILE],
+        accept: [ItemTypes.ENTITY_TILE, ItemTypes.ENTITY_BRANCH],
         drop: (item, monitor) => {
             if (parentTypeId > item.typeId){
                 let origItem = {parentId: item.parentId, order: item.order}
