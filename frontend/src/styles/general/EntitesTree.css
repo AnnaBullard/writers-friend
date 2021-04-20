@@ -9,7 +9,9 @@ div.entities-tree div.last {
 }
 
 div.entities-tree div.dragged {
+    border-radius: 3px;
     height: auto;
+    padding: 3px;
     position: absolute;
     width: auto;
     z-index: 101;

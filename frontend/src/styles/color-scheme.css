@@ -180,7 +180,8 @@ button,
 .new-scene,
 .add-entity,
 .tile-position,
-.book-cover.dragged {
+.book-cover.dragged,
+div.entities-tree div.dragged {
     background-color: var(--bg-color1);
 }
 
@@ -191,7 +192,8 @@ button,
 #modal-content,
 .new-scene,
 .add-entity,
-.book-cover.dragged {
+.book-cover.dragged,
+div.entities-tree div.dragged {
     color: var(--text-color1);
 }
 
