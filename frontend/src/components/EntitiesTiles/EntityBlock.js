@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import {Link} from "react-router-dom";
 import {Modal} from '../../context/Modal';
 import EntityForm from "./EntityForm";
@@ -27,23 +27,19 @@ export default function EntityBlock({entity, idx, targetEntity}) {
         })
     }))
 
-    if (isDragging) 
-        return <div className="book-cover dragged"  ref={dragPreview} 
-            style={{top: getSourceClientOffset.y, 
-                    left: getSourceClientOffset.x}}>
-                <div className="book-header">
-                    <span className="entity-type" ref={drag}>
-                        {getType(entity)} 
-                    </span>
-                    <span className="book-title">"{entity.title || "untitled"}"</span>
-                    {!!entity.Pseudonym && <span className="book-author"> by {getAuthorFormatted(entity)}</span>}
-                </div>
-        </div>
-    else
-        return <>
-            {!!targetEntity && <TilePosition order={idx} parentId={targetEntity?targetEntity.id:null} parentTypeId={!targetEntity?100:targetEntity.typeId} />}
-            {!targetEntity && <div className="tile-position"></div>}
-            <div className="book-cover" >
+    return <>
+        {!!targetEntity && !isDragging && <TilePosition order={idx} parentId={targetEntity?targetEntity.id:null} parentTypeId={!targetEntity?100:targetEntity.typeId} />}
+        {!targetEntity && <div className="tile-position"></div>}
+        {isDragging? <div className="book-cover dragged" ref={dragPreview} style={{top: getSourceClientOffset?getSourceClientOffset.y:"0", left: getSourceClientOffset?(getSourceClientOffset.x+20)+"px":"0"}}>
+            <div className="book-header">
+                <span className="entity-type" ref={drag}>
+                    {getType(entity)} 
+                </span>
+                <span className="book-title">"{entity.title || "untitled"}"</span>
+                {!!entity.Pseudonym && <span className="book-author"> by {getAuthorFormatted(entity)}</span>}
+            </div>
+        </div> :
+        <div className="book-cover" >
                 <div className="book-header">
                     <span className="entity-type" ref={drag}>
                         {getType(entity)} 
@@ -69,7 +65,7 @@ export default function EntityBlock({entity, idx, targetEntity}) {
                     </>
                     }
                 </div>
-            </div>
+            </div>}
             {showModal && (
                 <Modal onClose={() => setShowModal(false)}>
                     {modalType==="edit" && <EntityForm onClose={() => setShowModal(false)} entity={entity}/>}

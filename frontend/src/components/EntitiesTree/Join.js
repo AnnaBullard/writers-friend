@@ -1,6 +1,7 @@
 import {NavLink} from "react-router-dom";
 import {useDrop, useDrag} from 'react-dnd';
 import ItemTypes from "../Workshop/itemTypes";
+import EntitiesTreeList from "./EntitiesTreeList";
 import {useContext, useState} from "react";
 import {WorkshopContext} from "../Workshop";
 
@@ -35,7 +36,7 @@ export default function Join ({entity}) {
         
     }))
 
-    const [{isDragging}, drag, dragPreview] = useDrag(()=>({
+    const [{isDragging, getSourceClientOffset}, drag, dragPreview] = useDrag(()=>({
         item: {
             id: entity.id,
             parentId: entity.parentId,
@@ -43,15 +44,17 @@ export default function Join ({entity}) {
             type: ItemTypes.ENTITY_BRANCH
         },
         collect: monitor => ({
-            isDragging: !!monitor.isDragging()
+            isDragging: !!monitor.isDragging(),
+            getSourceClientOffset: monitor.getSourceClientOffset(),
         })
     }))
+    if (isDragging) return <div class="dragged" ref={dragPreview} style={{top: getSourceClientOffset?(getSourceClientOffset.y-30)+"px":"0", left: getSourceClientOffset?(getSourceClientOffset.x+10)+"px":"0"}}> {entity.title}</div>
 
-    return isDragging ? 
-            <div ref={dragPreview}></div>:
-            <>
-            {(entity.typeId === 1 ? 
-                <button className={`join-block${isOver&&allowed?" over":""}`} ref={drop}><span ref={drag}>{entity.title || "untitled"}</span></button>
-                : <NavLink to={`/workshop/${entity.id}`} className={`join-block${isOver&&allowed?" over":""}`} ref={drop}><span ref={drag}>{entity.title}</span></NavLink>)
-            }</>
+    else return <div>
+        {(entity.typeId === 1 ? 
+            <button className={`join-block${isOver&&allowed?" over":""}`} ref={drop}><span ref={drag}>{entity.title || "untitled"}</span></button>
+            : <NavLink to={`/workshop/${entity.id}`} className={`join-block${isOver&&allowed?" over":""}`} ref={drop}><span ref={drag}>{entity.title}</span></NavLink>)
+        }
+        {entity.typeId!==2 && entity.children && entity.children.length > 0 && <EntitiesTreeList entities={entity.children} parentTypeId={entity.typeId} />}
+    </div>
 }
