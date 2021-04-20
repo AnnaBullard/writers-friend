@@ -179,7 +179,8 @@ button,
 .mobile-nav span.open:hover,
 .new-scene,
 .add-entity,
-.tile-position {
+.tile-position,
+.book-cover.dragged {
     background-color: var(--bg-color1);
 }
 
@@ -189,7 +190,8 @@ button,
 .mobile-nav span.open,
 #modal-content,
 .new-scene,
-.add-entity {
+.add-entity,
+.book-cover.dragged {
     color: var(--text-color1);
 }
 
