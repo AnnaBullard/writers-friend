@@ -56,6 +56,8 @@ asyncHandler(async (req,res) => {
     let { user } = req;
     user = user.toJSON();
     let {entity} = req.body;
+
+    console.log("!!!!!!!!!!!1", entity)
     
     let newEntity = await Entity.findByPk(entity.id, {
         where: {
@@ -67,9 +69,42 @@ asyncHandler(async (req,res) => {
         
         await sequelize.transaction(async (tx) => {
             
-            let order = 0;
+            let order = entity.order === undefined ? newEntity.order : entity.order;
 
-            if(newEntity.parentId !== null) {
+            // if reordered within same parent not on the top level
+            if (newEntity.parentId !== null 
+                && entity.parentId === newEntity.parentId
+                && entity.order !== newEntity.order) {
+                //get all siblings except current
+                let siblings = await Entity.findAll({
+                    where: {
+                        parentId: newEntity.parentId,
+                        id: {
+                            [Op.ne]: newEntity.id
+                        },
+                        userId: user.id
+                    },
+                    order: ["order"]
+                },{transaction: tx})
+
+                //rearrange siblings, placing enity in the right position
+                siblings = [...siblings.slice(0,entity.order), entity, ...siblings.slice(entity.order)]
+                
+                //update all entities that order isn't equal index except current entity
+                await siblings.forEach(async (child,idx)=>{
+                    if (child.order !== idx && child.id !== entity.id) {
+                        await child.update({
+                            order: idx
+                        },{transaction: tx})
+                    }
+                })
+            }
+
+            //if entity moved to different parent and current parent isn't null
+            if (entity.parentId !== undefined 
+                && entity.parentId !== newEntity.parentId 
+                && newEntity.parentId !== null) {
+                //get all siblings except current
                 let siblings = await Entity.findAll({
                     where: {
                         parentId: newEntity.parentId,
@@ -81,6 +116,7 @@ asyncHandler(async (req,res) => {
                     order: ["order"]
                 },{transaction: tx})
                 
+                //update all entities that order isn't equal index except current entity
                 await siblings.forEach(async (child,idx)=>{
                     if (child.order !== idx) {
                         await child.update({
@@ -90,18 +126,33 @@ asyncHandler(async (req,res) => {
                 })
             }
             
-            if(entity.parentId !== null) {
+            //if entity moved to different parent and new parent isn't null
+            if (entity.parentId !== undefined 
+                && entity.parentId !== newEntity.parentId 
+                && entity.parentId !== null) {
                 let newSiblings = await Entity.findAll({
                     where: {
                         parentId: entity.parentId,
-                        id: {
-                            [Op.ne]: newEntity.id
-                        },
                         userId: user.id
-                    }
+                    },
+                    order: ["order"]
                 },{transaction: tx})
                 
-                order = newSiblings.length;
+                if (entity.order === undefined) {
+                    order =  newSiblings.length;
+                } else {
+                    //rearrange siblings, placing enity in the right position
+                    newSiblings = [...newSiblings.slice(0,entity.order), entity, ...newSiblings.slice(entity.order+1)]
+                    
+                    //update all entities that order isn't equal index except current entity
+                    await newSiblings.forEach(async (child,idx)=>{
+                        if (child.order !== idx && child.id !== entity.id) {
+                            await child.update({
+                                order: idx
+                            },{transaction: tx})
+                        }
+                    })
+                }
             }
 
             await newEntity.update({...entity, order},{transaction: tx})
