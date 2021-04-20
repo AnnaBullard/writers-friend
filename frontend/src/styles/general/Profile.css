@@ -14,7 +14,6 @@
     display: flex;
     justify-content: center;
     padding: 5px 10px;
-    position: relative;
     width: 530px;
 }
 
@@ -23,9 +22,11 @@
 }
 
 .book-cover.dragged {
+    border: 1px solid;
+    border-radius: 5px;
     position: absolute;
-    width: auto;
-    z-index: 101;
+    width: 500px;
+    z-index: 5;
 }
 
 .tile-position {
@@ -67,7 +68,6 @@
 
 .book-cover > div:first-child {
     font-size: 25px;
-    z-index: 2;
 }
 
 .book-cover .entity-type {

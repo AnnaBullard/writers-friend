@@ -5,6 +5,7 @@ import EntitiesTreeList from "./EntitiesTreeList";
 import Position from "./Position";
 import {useContext, useState} from "react";
 import {WorkshopContext} from "../Workshop";
+import {getAuthorFormatted, getType} from "../Workshop/utils";
 
 export default function Join ({entity, idx, parentTypeId}) {
     const [allowed, setAllowed] = useState(false);
@@ -50,8 +51,14 @@ export default function Join ({entity, idx, parentTypeId}) {
         })
     }))
 
-    return isDragging ? <div class="dragged" ref={dragPreview} style={{top: getSourceClientOffset?(getSourceClientOffset.y-30)+"px":"0", left: getSourceClientOffset?getSourceClientOffset.x+"px":"0"}}> 
-            {entity.title}
+    return isDragging ? <div className="book-cover dragged" ref={dragPreview} style={{top: getSourceClientOffset?(getSourceClientOffset.y-30)+"px":"0", left: getSourceClientOffset?getSourceClientOffset.x+"px":"0"}}>
+        <div className="book-header">
+            <span className="entity-type" ref={drag}>
+                {getType(entity)} 
+            </span>
+            <span className="book-title">"{entity.title || "untitled"}"</span>
+            {!!entity.Pseudonym && <span className="book-author"> by {getAuthorFormatted(entity)}</span>}
+        </div>
     </div> :
     <>
         <Position parentId={entity.parentId} order={idx} parentTypeId={parentTypeId} last={false} key={`entity-tree-position-${idx}`}/>
