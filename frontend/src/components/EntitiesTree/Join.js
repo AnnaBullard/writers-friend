@@ -2,10 +2,11 @@ import {NavLink} from "react-router-dom";
 import {useDrop, useDrag} from 'react-dnd';
 import ItemTypes from "../Workshop/itemTypes";
 import EntitiesTreeList from "./EntitiesTreeList";
+import Position from "./Position";
 import {useContext, useState} from "react";
 import {WorkshopContext} from "../Workshop";
 
-export default function Join ({entity}) {
+export default function Join ({entity, idx, parentTypeId}) {
     const [allowed, setAllowed] = useState(false);
 
     const moveEntity = useContext(WorkshopContext);
@@ -45,16 +46,21 @@ export default function Join ({entity}) {
         },
         collect: monitor => ({
             isDragging: !!monitor.isDragging(),
-            getSourceClientOffset: monitor.getSourceClientOffset(),
+            getSourceClientOffset: monitor.getClientOffset(),
         })
     }))
-    if (isDragging) return <div class="dragged" ref={dragPreview} style={{top: getSourceClientOffset?(getSourceClientOffset.y-30)+"px":"0", left: getSourceClientOffset?(getSourceClientOffset.x+10)+"px":"0"}}> {entity.title}</div>
 
-    else return <div>
-        {(entity.typeId === 1 ? 
-            <button className={`join-block${isOver&&allowed?" over":""}`} ref={drop}><span ref={drag}>{entity.title || "untitled"}</span></button>
-            : <NavLink to={`/workshop/${entity.id}`} className={`join-block${isOver&&allowed?" over":""}`} ref={drop}><span ref={drag}>{entity.title}</span></NavLink>)
-        }
-        {entity.typeId!==2 && entity.children && entity.children.length > 0 && <EntitiesTreeList entities={entity.children} parentTypeId={entity.typeId} />}
-    </div>
+    return isDragging ? <div class="dragged" ref={dragPreview} style={{top: getSourceClientOffset?(getSourceClientOffset.y-30)+"px":"0", left: getSourceClientOffset?getSourceClientOffset.x+"px":"0"}}> 
+            {entity.title}
+    </div> :
+    <>
+        <Position parentId={entity.parentId} order={idx} parentTypeId={parentTypeId} last={false} key={`entity-tree-position-${idx}`}/>
+        <div>
+            {(entity.typeId === 1 ? 
+                <button className={`join-block${isOver&&allowed?" over":""}`} ref={drop}><span ref={drag}>{entity.title || "untitled"}</span></button>
+                : <NavLink to={`/workshop/${entity.id}`} className={`join-block${isOver&&allowed?" over":""}`} ref={drop}><span ref={drag}>{entity.title}</span></NavLink>)
+            }
+            {entity.typeId!==2 && entity.children && entity.children.length > 0 && <EntitiesTreeList entities={entity.children} parentTypeId={entity.typeId} />}
+        </div>
+    </>
 }

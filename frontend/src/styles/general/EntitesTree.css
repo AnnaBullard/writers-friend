@@ -10,6 +10,7 @@ div.entities-tree div.last {
 
 div.entities-tree div.dragged {
     border-radius: 3px;
+    border: 1px solid;
     height: auto;
     padding: 3px;
     position: absolute;

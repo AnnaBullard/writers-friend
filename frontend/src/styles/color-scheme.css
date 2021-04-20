@@ -210,7 +210,8 @@ button:hover,
 }
 
 .new-scene,
-button {
+button,
+div.entities-tree div.dragged {
     border-color: var(--text-color1);
 }
 
