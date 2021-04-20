@@ -87,8 +87,9 @@ asyncHandler(async (req,res) => {
                     order: ["order"]
                 },{transaction: tx})
 
+                if (entity.order > newEntity.order) order--;
                 //rearrange siblings, placing enity in the right position
-                siblings = [...siblings.slice(0,entity.order), entity, ...siblings.slice(entity.order)]
+                siblings = [...siblings.slice(0,order), entity, ...siblings.slice(order)]
                 
                 //update all entities that order isn't equal index except current entity
                 await siblings.forEach(async (child,idx)=>{
@@ -142,7 +143,7 @@ asyncHandler(async (req,res) => {
                     order =  newSiblings.length;
                 } else {
                     //rearrange siblings, placing enity in the right position
-                    newSiblings = [...newSiblings.slice(0,entity.order), entity, ...newSiblings.slice(entity.order+1)]
+                    newSiblings = [...newSiblings.slice(0,order), entity, ...newSiblings.slice(order)]
                     
                     //update all entities that order isn't equal index except current entity
                     await newSiblings.forEach(async (child,idx)=>{

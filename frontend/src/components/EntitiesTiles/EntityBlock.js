@@ -28,7 +28,7 @@ export default function EntityBlock({entity, idx, targetEntity}) {
     }))
 
     return <>
-        {!!targetEntity && !isDragging && <TilePosition order={idx} parentId={targetEntity?targetEntity.id:null} parentTypeId={!targetEntity?100:targetEntity.typeId} />}
+        {!!targetEntity && !isDragging && <TilePosition key={`tile-position-${idx}`} order={idx} parentId={targetEntity?targetEntity.id:null} parentTypeId={!targetEntity?100:targetEntity.typeId} />}
         {!targetEntity && <div className="tile-position"></div>}
         {isDragging? <div className="book-cover dragged" ref={dragPreview} style={{top: getSourceClientOffset?getSourceClientOffset.y:"0", left: getSourceClientOffset?(getSourceClientOffset.x+20)+"px":"0"}}>
             <div className="book-header">
