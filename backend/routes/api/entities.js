@@ -56,8 +56,6 @@ asyncHandler(async (req,res) => {
     let { user } = req;
     user = user.toJSON();
     let {entity} = req.body;
-
-    console.log("!!!!!!!!!!!1", entity)
     
     let newEntity = await Entity.findByPk(entity.id, {
         where: {
@@ -87,7 +85,9 @@ asyncHandler(async (req,res) => {
                     order: ["order"]
                 },{transaction: tx})
 
-                if (entity.order > newEntity.order) order--;
+                if (order === "last") order = siblings.length+1
+
+                if (order > newEntity.order) order--;
                 //rearrange siblings, placing enity in the right position
                 siblings = [...siblings.slice(0,order), entity, ...siblings.slice(order)]
                 
@@ -116,7 +116,6 @@ asyncHandler(async (req,res) => {
                     },
                     order: ["order"]
                 },{transaction: tx})
-                
                 //update all entities that order isn't equal index except current entity
                 await siblings.forEach(async (child,idx)=>{
                     if (child.order !== idx) {
@@ -139,7 +138,7 @@ asyncHandler(async (req,res) => {
                     order: ["order"]
                 },{transaction: tx})
                 
-                if (entity.order === undefined) {
+                if (entity.order === undefined || entity.order === "last") {
                     order =  newSiblings.length;
                 } else {
                     //rearrange siblings, placing enity in the right position
@@ -154,6 +153,13 @@ asyncHandler(async (req,res) => {
                         }
                     })
                 }
+            }
+
+            if (entity.parentId !== undefined 
+                && entity.parentId !== newEntity.parentId 
+                && entity.parentId === null 
+                && order === "last") {
+                    order = 0
             }
 
             await newEntity.update({...entity, order},{transaction: tx})

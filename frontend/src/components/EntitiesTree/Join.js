@@ -43,7 +43,8 @@ export default function Join ({entity, idx, parentTypeId}) {
             id: entity.id,
             parentId: entity.parentId,
             typeId: entity.typeId,
-            type: ItemTypes.ENTITY_BRANCH
+            type: ItemTypes.ENTITY_BRANCH,
+            order: idx
         },
         collect: monitor => ({
             isDragging: !!monitor.isDragging(),
