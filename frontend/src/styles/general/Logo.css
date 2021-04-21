@@ -42,3 +42,17 @@
     left: -9px;
     width: 110px;
   }
+
+  /*RESPONSIVE*/
+  @media screen and (max-width: 725px){
+    .logo.home {
+        font-size: 14vw;
+    }
+  
+  }
+
+  @media screen and (max-width: 300px){
+    .logo.home {
+        font-size: 25px;
+    }
+}

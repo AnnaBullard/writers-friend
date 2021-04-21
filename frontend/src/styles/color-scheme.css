@@ -174,9 +174,7 @@ div.entities-tree button.join-block {
 
 body,
 button,
-.mobile-nav span.open,
 #modal-content,
-.mobile-nav span.open:hover,
 .new-scene,
 .add-entity,
 .tile-position,
@@ -187,7 +185,6 @@ button,
 body,
 a,
 button,
-.mobile-nav span.open,
 #modal-content,
 .new-scene,
 .add-entity,
@@ -199,8 +196,6 @@ a:hover,
 button:hover,
 .modal-close:hover,
 .home-logo-navbar > div,
-.mobile-nav span.open,
-.mobile-nav span.open:hover,
 .pseudonym-list i:hover,
 .new-scene:hover,
 .add-entity:hover {
@@ -225,7 +220,6 @@ button:hover,
 .profile-dropdown,
 footer,
 .sidebar button,
-.mobile-nav span:hover,
 h3.entities-top-link,
 .tile-position.over,
 .sidebar-tabs-navigation button {
@@ -245,7 +239,6 @@ footer button,
 .sidebar button,
 .sidebar button[disabled],
 .sidebar button[disabled]:hover,
-.mobile-nav span:hover,
 h3.entities-top-link,
 .sidebar-tabs-navigation button {
     color: var(--text-color2);
@@ -271,7 +264,6 @@ h3.entities-top-link a:hover,
 
 
 .book-cover,
-.mobile-nav span,
 .sidebar,
 .sidebar button:hover,
 .sidebar button[disabled],
@@ -288,7 +280,6 @@ h3.entities-top-link a:hover,
 }
 
 .book-cover,
-.mobile-nav span,
 .sidebar,
 .sidebar button:hover,
 .open-sidebar,
@@ -314,14 +305,8 @@ div.entities-tree a.join-block.active {
     color: var(--text-hover3alt);
 }
 
-.mobile-nav, .mobile-nav span {
-    border-color: var(--text-hover2);
-}
 .sidebar button:hover {
     border-color: var(--text-color3);
-}
-.mobile-nav span.open{
-    border-bottom-color: var(--bg-color1);
 }
 
 .main-content input,

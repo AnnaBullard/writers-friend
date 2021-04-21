@@ -46,3 +46,17 @@ form > div {
 form label {
     margin: 10px;
 }
+
+/*RESPONSIVE*/
+@media screen and (max-width: 500px){
+    form > div {
+        display: flex;
+        flex-direction: column;
+        width: 90%;
+    }
+
+    form button {
+        width: 100%;
+        margin: 10px auto;
+    }
+}
