@@ -1,18 +1,16 @@
-import {NavLink, useHistory} from "react-router-dom";
+import {NavLink} from "react-router-dom";
 import {useDrop, useDrag} from 'react-dnd';
 import ItemTypes from "../Workshop/itemTypes";
 import EntitiesTreeList from "./EntitiesTreeList";
 import Position from "./Position";
-import {useCallback, useContext, useState} from "react";
+import {useContext, useState} from "react";
 import {WorkshopContext} from "../Workshop";
 import {getAuthorFormatted, getType} from "../Workshop/utils";
 
 export default function Join ({entity, idx, parentTypeId}) {
     const [allowed, setAllowed] = useState(false);
 
-    const history = useHistory();
-
-    const {moveEntity, setActiveEntity} = useContext(WorkshopContext);
+    const {moveEntity} = useContext(WorkshopContext);
     
     const [{isOver}, drop] = useDrop(() => ({
         accept: [ItemTypes.ENTITY_TILE, ItemTypes.ENTITY_BRANCH],

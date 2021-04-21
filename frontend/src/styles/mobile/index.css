@@ -1,3 +1,13 @@
+@media screen and (max-width: 1130px){
+    .main-content.open.right-open .book-cover, 
+    .main-content.open.right-open .preview-tile,
+    .main-content.open.right-open .add-entity,
+    .main-content.open.right-open .tile-position {
+        width: 100%;
+    }
+}
+
+
 @media screen and (max-width: 850px){
     .main-content .breadcrumbs, .main-content .entities-tiles {
         width: 100%;

@@ -11,7 +11,7 @@ export default function Breadcrumbs () {
     
     useEffect(()=>{
         if(entityId) {
-            setBreadcrumbs(getPath(parseInt(entityId),entities))
+            setBreadcrumbs(getPath(parseInt(entityId),entities).filter(entity => entity.typeId !== 1))
         } else {
             setBreadcrumbs([]);
         }

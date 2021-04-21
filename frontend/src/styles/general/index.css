@@ -1,12 +1,14 @@
 @import './Homepage.css';
 @import './Logo.css';
 @import './Navigation.css';
-@import './Profile.css';
-@import './Pseudonyms.css';
 @import './ScenesPage.css';
 @import './Story.css';
 @import './Footer.css';
+@import './EntitiesTiles.css';
 @import './EntitesTree.css';
+@import './EntityDetails.css';
+@import './Pseudonyms.css';
+@import './Sidebar.css';
 @import './forms.css';
 
 body, #root {

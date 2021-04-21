@@ -14,7 +14,7 @@ export default function EntitiesTiles () {
 
     const [targetEntity, setTargetEntity] = useState();
 
-    const {setActiveEntity,activeEntity} = useContext(WorkshopContext);
+    const {setActiveEntity, activeEntity} = useContext(WorkshopContext);
 
     useEffect(()=>{
         if(entityId) {
@@ -26,14 +26,14 @@ export default function EntitiesTiles () {
                 setActiveEntity(foundEntity)
                 setTargetEntity();
             } else {
-                setActiveEntity();
+                setActiveEntity(foundEntity);
                 setTargetEntity(foundEntity);
             }
         }else {
             setActiveEntity();
             setTargetEntity();
         }
-    },[entityId, entities]);
+    },[entityId, entities, setActiveEntity]);
 
     let renderBlock = (entity, idx) => {
         return <EntityBlock entity={entity} key={`entity-${entity.id}`} idx={idx} targetEntity={targetEntity} />
