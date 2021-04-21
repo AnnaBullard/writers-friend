@@ -3,7 +3,7 @@ import { useState } from "react"
 export default function SidebarWithTabs ({isOpen, setIsOpen, active, children}) {
     const [activeTab, setActiveTab] = useState("left");
 
-    return <div className={`sidebar-container${isOpen?" open":""} mobile-sidebar`}>
+    return <div className={`sidebar-container${isOpen?" open":""} sidebar-with-tabs mobile-sidebar`}>
         <span className={`open-sidebar${active?" active":""}`} onClick={() => {setIsOpen(true)}}><i className="fas fa-chevron-circle-right"></i></span>
         <div className={`sidebar ${activeTab}`}>
             <span className="close-sidebar" onClick={()=>setIsOpen(false)} ><i className="fas fa-times"></i></span>

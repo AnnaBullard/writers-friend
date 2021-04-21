@@ -52,7 +52,7 @@ export default function Workshop ({setPageTitle}) {
                 <div className={`main-content${isOpen?" open":""}${!!activeEntity && isRightOpen?" right-open":""}`}>
                     <EntitiesTiles />
                 </div>
-                <Sidebar isOpen={!!activeEntity && isRightOpen} setIsOpen={setIsRightOpen} active={true} right={true} > 
+                <Sidebar isOpen={isRightOpen} setIsOpen={setIsRightOpen} active={true} right={true} > 
                     <EntityDetails entity={activeEntity} />
                 </Sidebar>
             </WorkshopContext.Provider>

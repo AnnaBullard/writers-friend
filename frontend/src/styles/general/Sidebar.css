@@ -6,8 +6,9 @@
     padding: 0;
     position:fixed;
     top: 45px;
-    width: 300px;
     transition: all 0.5s;
+    width: 300px;
+    z-index: 99;
 }
 
 .sidebar-container.open {
@@ -75,7 +76,7 @@
 
 /*SIDEBAR WITH TABS*/
 
-.sidebar-container.mobile-sidebar {
+.sidebar-container.sidebar-with-tabs {
     display: none;
 }
 
