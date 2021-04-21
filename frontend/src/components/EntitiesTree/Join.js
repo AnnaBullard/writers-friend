@@ -10,7 +10,7 @@ import {getAuthorFormatted, getType} from "../Workshop/utils";
 export default function Join ({entity, idx, parentTypeId}) {
     const [allowed, setAllowed] = useState(false);
 
-    const moveEntity = useContext(WorkshopContext);
+    const {moveEntity} = useContext(WorkshopContext);
     
     const [{isOver}, drop] = useDrop(() => ({
         accept: [ItemTypes.ENTITY_TILE, ItemTypes.ENTITY_BRANCH],
@@ -64,10 +64,7 @@ export default function Join ({entity, idx, parentTypeId}) {
     <>
         <Position parentId={entity.parentId} order={idx} parentTypeId={parentTypeId} last={false} key={`entity-tree-position-${idx}`}/>
         <div>
-            {(entity.typeId === 1 ? 
-                <button className={`join-block${isOver&&allowed?" over":""}`} ref={drop}><span ref={drag}>{entity.title || "untitled"}</span></button>
-                : <NavLink to={`/workshop/${entity.id}`} className={`join-block${isOver&&allowed?" over":""}`} ref={drop}><span ref={drag}>{entity.title}</span></NavLink>)
-            }
+            <NavLink to={`/workshop/${entity.id}`} className={`join-block${isOver&&allowed?" over":""}`} ref={drop}><span ref={drag}>{getType(entity)} {entity.title}</span></NavLink>
             {entity.typeId!==2 && entity.children && entity.children.length > 0 && <EntitiesTreeList entities={entity.children} parentTypeId={entity.typeId} />}
         </div>
     </>

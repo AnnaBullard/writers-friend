@@ -4,7 +4,7 @@ import ItemTypes from "../Workshop/itemTypes";
 import {WorkshopContext} from "../Workshop";
 
 export default function TilePosition ({order, parentId, parentTypeId, last}) {
-    const moveEntity = useContext(WorkshopContext);
+    const {moveEntity} = useContext(WorkshopContext);
     const [allowed, setAllowed] = useState(false);
     
     const [{isOver}, drop] = useDrop(() => ({

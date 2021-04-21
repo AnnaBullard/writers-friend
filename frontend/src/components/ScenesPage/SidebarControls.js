@@ -5,7 +5,7 @@ export default function SidebarControls ({isOpen, setIsOpen, onSave, onReset, sa
     const history = useHistory();
     const {chapterId} = useParams();
 
-    return <Sidebar isOpen={isOpen} setIsOpen={setIsOpen} active={!saved}>
+    return <Sidebar isOpen={isOpen} setIsOpen={setIsOpen} active={!saved} forcedMobile={true}>
             <div className="story-controls">
                     <button onClick={onSave} disabled={saved?"disabled":false}><i className="fas fa-save"></i><span>Save</span></button>
                     <button onClick={onReset} disabled={saved?"disabled":false}><i className="fas fa-undo-alt"></i><span>Reset</span></button>

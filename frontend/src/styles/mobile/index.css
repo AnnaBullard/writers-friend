@@ -1,3 +1,46 @@
+@media screen and (max-width: 1130px){
+    .main-content.open.right-open .book-cover, 
+    .main-content.open.right-open .preview-tile,
+    .main-content.open.right-open .add-entity,
+    .main-content.open.right-open .tile-position {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 900px){
+    .sidebar-container
+    .sidebar-container.right,
+    .sidebar-container.open,
+    .sidebar-container.right.open,
+    .sidebar-container.mobile-sidebar > .right > .left,
+    .sidebar-container.mobile-sidebar > .left > .right,
+    .sidebar-container .open-sidebar,
+    .sidebar-container .sidebar  {
+        display: none;
+    }
+
+    .sidebar-container.mobile-sidebar,
+    .sidebar-container.mobile-sidebar > .right > .right,
+    .sidebar-container.mobile-sidebar > .left > .left,
+    .sidebar-container.mobile-sidebar .sidebar {
+        display: block;
+    }
+    .sidebar-container.mobile-sidebar .open-sidebar {
+        display: flex;
+    }
+   
+    .main-content.right-open {
+        padding-left: 0;
+        padding-right: 0;
+    }
+    .main-content.right-open.open {
+        padding-left: 300px;
+        padding-right: 0;
+    }
+    
+}
+
+
 @media screen and (max-width: 850px){
     .main-content .breadcrumbs, .main-content .entities-tiles {
         width: 100%;
@@ -49,10 +92,14 @@
     .sidebar {
         width:100%;
     }
+    
 
-    .main-content.open {
+    .main-content.open,
+    .main-content.right-open.open,
+    .main-content.right-open {
         width: 100%;
         padding: 0px;
+        padding-left: 0px;
     }
 
     .main-content, .main-content.open{
@@ -79,10 +126,7 @@
     }
 
     .sidebar-container .sidebar {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        padding: 0;
+        justify-content: flex-start;
     }
 
     .page-content{
@@ -153,9 +197,6 @@
         top: 0;
     }
 
-    .sidebar-container .sidebar {
-        padding: 20px;
-    }
 }
 
 @media screen and (max-width: 300px){

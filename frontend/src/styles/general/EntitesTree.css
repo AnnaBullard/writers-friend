@@ -51,18 +51,12 @@ ul.breadcrumbs {
     padding: 0;
 }
 
-ul.breadcrumbs li::after {
-    content: ">>";
-    margin: 0 5px;
-}
-
-ul.breadcrumbs li:last-child::after{
-    content: "";
-    margin: 0 5px;
-}
-
 ul.breadcrumbs a {
     text-decoration: none;
+}
+
+ul.breadcrumbs i {
+    margin: 0 5px;
 }
 
 button.join-block {

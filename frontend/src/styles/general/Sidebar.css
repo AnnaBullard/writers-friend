@@ -1,0 +1,91 @@
+.sidebar-container {
+    box-sizing: border-box;
+    display: block;
+    height: 100vh;
+    left:-300px;
+    padding: 0;
+    position:fixed;
+    top: 45px;
+    transition: all 0.5s;
+    width: 300px;
+    z-index: 99;
+}
+
+.sidebar-container.open {
+    left:0;
+    transition: all 0.5s;
+}
+
+.sidebar-container .sidebar {
+    box-sizing: border-box;
+    display: block;
+    width: 100%;
+    height:100%;
+    padding: 30px 15px 15px 15px;
+    position: relative;
+}
+
+.open-sidebar {
+    align-items: center;
+    box-sizing: border-box;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    display: flex;
+    height: 40px;
+    justify-content: center;
+    opacity: 1;
+    position: absolute;
+    right: -25px;
+    top: 5px;
+    transition: right 0.5s;
+    width: 25px;
+}
+
+.sidebar-container.open .open-sidebar {
+    opacity: 0;
+    right: 0px;
+    transition: right 0.5s;
+}
+
+.close-sidebar {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+/*RIGHT SIDEBAR*/
+.sidebar-container.right {
+    left: auto;
+    right: -300px;
+}
+
+.sidebar-container.open.right {
+    left: auto;
+    right: 0;
+}
+.sidebar-container.right .open-sidebar {
+    right: auto;
+    left: 0;
+}
+
+.sidebar-container.right .open-sidebar.active {
+    border-radius: 5px 0 0 5px;
+    left: -25px;
+    right: auto;
+}
+
+/*SIDEBAR WITH TABS*/
+
+.sidebar-container.sidebar-with-tabs {
+    display: none;
+}
+
+.sidebar-tabs-navigation {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.sidebar-tabs-navigation button {
+    width: 48%;
+}

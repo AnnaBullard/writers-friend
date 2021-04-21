@@ -11,7 +11,7 @@ export default function Breadcrumbs () {
     
     useEffect(()=>{
         if(entityId) {
-            setBreadcrumbs(getPath(parseInt(entityId),entities))
+            setBreadcrumbs(getPath(parseInt(entityId),entities).filter(entity => entity.typeId !== 1))
         } else {
             setBreadcrumbs([]);
         }
@@ -19,10 +19,14 @@ export default function Breadcrumbs () {
     },[entityId, entities])
 
     return <ul className="breadcrumbs">
-        <li><Link to={`/workshop`} ><i className="fas fa-book-open"></i> All</Link></li>
-        {breadcrumbs.map((parent) => {
+        <li>
+            <Link to={`/workshop`} ><i className="fas fa-book-open"></i> All</Link>
+            <i className="fas fa-chevron-right"></i>
+        </li>
+        {breadcrumbs.map((parent, idx) => {
             return <li key={`breadcrumb-${parent.id}`} >
-                <Link to={`/workshop/${parent.id}`} ><i className="fas fa-book-open"></i> {parent.title}</Link>
+                <Link to={`/workshop/${parent.id}`} ><i className="fas fa-book-open"></i> {parent.title}</Link> 
+                {idx !== breadcrumbs.length-1 && <i className="fas fa-chevron-right"></i>}
             </li>
         })}
     </ul>
