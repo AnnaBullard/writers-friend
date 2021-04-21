@@ -7,6 +7,31 @@
     }
 }
 
+@media screen and (max-width: 900px){
+    .sidebar-container
+    .sidebar-container.right,
+    .sidebar-container.open,
+    .sidebar-container.right.open,
+    .sidebar-container.mobile-sidebar > .right > .left,
+    .sidebar-container.mobile-sidebar > .left > .right  {
+        display: none;
+    }
+
+    .sidebar-container.mobile-sidebar,
+    .sidebar-container.mobile-sidebar > .right > .right,
+    .sidebar-container.mobile-sidebar > .left > .left {
+        display: block;
+    }
+
+    
+   
+    .main-content.right-open {
+        padding-left: 300px;
+        padding-right: 0;
+    }
+    
+}
+
 
 @media screen and (max-width: 850px){
     .main-content .breadcrumbs, .main-content .entities-tiles {

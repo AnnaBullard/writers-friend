@@ -73,3 +73,18 @@
     right: auto;
 }
 
+/*SIDEBAR WITH TABS*/
+
+.sidebar-container.mobile-sidebar {
+    display: none;
+}
+
+.sidebar-tabs-navigation {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.sidebar-tabs-navigation button {
+    width: 48%;
+}

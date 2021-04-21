@@ -7,6 +7,7 @@ import EntityDetails from "../EntityDetails";
 import {TouchBackend} from 'react-dnd-touch-backend';
 import {DndProvider} from 'react-dnd';
 import Sidebar from "../Sidebar";
+import SidebarWithTabs from "../SidebarWithTabs";
 
 export const WorkshopContext = createContext()
 
@@ -37,13 +38,21 @@ export default function Workshop ({setPageTitle}) {
     return isLoaded && <>
             <DndProvider backend={TouchBackend} options={{enableMouseEvents:true}}>
             <WorkshopContext.Provider value={{moveEntity,setActiveEntity,activeEntity}}>
-                <Sidebar isOpen={isOpen} setIsOpen={setIsOpen} active={true}>
+                <SidebarWithTabs isOpen={isOpen} setIsOpen={setIsOpen} active={true}>
+                    <div className="left">
+                        <EntitiesTree />
+                    </div>
+                    <div className="right">
+                        <EntityDetails entity={activeEntity} />
+                    </div>
+                </SidebarWithTabs>
+                <Sidebar isOpen={isOpen} setIsOpen={setIsOpen} active={true} >
                     <EntitiesTree />
                 </Sidebar>
                 <div className={`main-content${isOpen?" open":""}${!!activeEntity && isRightOpen?" right-open":""}`}>
                     <EntitiesTiles />
                 </div>
-                <Sidebar isOpen={!!activeEntity && isRightOpen} setIsOpen={setIsRightOpen} active={true} right={true}> 
+                <Sidebar isOpen={!!activeEntity && isRightOpen} setIsOpen={setIsRightOpen} active={true} right={true} > 
                     <EntityDetails entity={activeEntity} />
                 </Sidebar>
             </WorkshopContext.Provider>
