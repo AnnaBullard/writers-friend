@@ -38,21 +38,38 @@ export default function Workshop ({setPageTitle}) {
     return isLoaded && <>
             <DndProvider backend={TouchBackend} options={{enableMouseEvents:true}}>
             <WorkshopContext.Provider value={{moveEntity,setActiveEntity,activeEntity}}>
-                <SidebarWithTabs isOpen={isOpen} setIsOpen={setIsOpen} active={true}>
-                    <div className="left">
+                <SidebarWithTabs 
+                    isOpen={isOpen} 
+                    setIsOpen={setIsOpen}
+                    showOmMobile={true}
+                    showOnDesktop={false}
+                    tabs={["Works","Details"]}
+                    >
+                    <div className="one">
                         <EntitiesTree />
                     </div>
-                    <div className="right">
+                    <div className="two">
                         <EntityDetails entity={activeEntity} />
                     </div>
                 </SidebarWithTabs>
-                <Sidebar isOpen={isOpen} setIsOpen={setIsOpen} active={true} >
+                <Sidebar 
+                    isOpen={isOpen} 
+                    setIsOpen={setIsOpen} 
+                    active={true}
+                    showOmMobile={false}
+                    showOnDesktop={true} >
                     <EntitiesTree />
                 </Sidebar>
-                <div className={`main-content${isOpen?" open":""}${!!activeEntity && isRightOpen?" right-open":""}`}>
+                <div className={`main-content${isOpen?" open":""}${isRightOpen?" right-open":""}`}>
                     <EntitiesTiles />
                 </div>
-                <Sidebar isOpen={isRightOpen} setIsOpen={setIsRightOpen} active={true} right={true} > 
+                <Sidebar 
+                    isOpen={isRightOpen} 
+                    setIsOpen={setIsRightOpen} 
+                    active={true} 
+                    right={true} 
+                    showOmMobile={false}
+                    showOnDesktop={true} > 
                     <EntityDetails entity={activeEntity} />
                 </Sidebar>
             </WorkshopContext.Provider>

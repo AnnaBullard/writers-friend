@@ -16,7 +16,7 @@
     transition: all 0.5s;
 }
 
-.sidebar-container .sidebar {
+.sidebar {
     box-sizing: border-box;
     display: block;
     width: 100%;
@@ -76,10 +76,6 @@
 
 /*SIDEBAR WITH TABS*/
 
-.sidebar-container.sidebar-with-tabs {
-    display: none;
-}
-
 .sidebar-tabs-navigation {
     display: flex;
     flex-direction: row;
@@ -88,4 +84,33 @@
 
 .sidebar-tabs-navigation button {
     width: 48%;
+}
+
+.sidebar .tab-content > div {
+    display: none;
+}
+
+.sidebar.one .tab-content > div.one,
+.sidebar.two .tab-content > div.two,
+.sidebar.three .tab-content > div.three,
+.sidebar.four .tab-content > div.four,
+.sidebar.five .tab-content > div.five {
+    display: block;
+}
+
+
+/*REPONSOVE*/
+.sidebar-container.mobile-only {
+    display: none;
+}
+
+@media screen and (max-width: 900px){
+    .sidebar-container.desktop-only  {
+        display: none;
+    }
+
+    .sidebar-container.mobile-only {
+        display: block;
+    }
+
 }
