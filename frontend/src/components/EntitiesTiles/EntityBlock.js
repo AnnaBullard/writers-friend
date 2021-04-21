@@ -1,12 +1,12 @@
-import {useState} from "react";
-import {Link, NavLink} from "react-router-dom";
-import {Modal} from '../../context/Modal';
+import {useState, useContext} from "react";
+import {Link} from "react-router-dom";
+import {useDrag} from "react-dnd";
 import EntityForm from "./EntityForm";
 import ConfirmDelete from "./ConfirmDelete";
 import {getAuthorFormatted, getType} from "../Workshop/utils";
-import {useDrag} from "react-dnd";
-import ItemTypes from "../Workshop/itemTypes";
 import TilePosition from "./TilePosition";
+import ItemTypes from "../Workshop/itemTypes";
+import {Modal} from '../../context/Modal';
 
 export default function EntityBlock({entity, idx, targetEntity}) {
 

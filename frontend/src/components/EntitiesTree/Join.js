@@ -1,14 +1,16 @@
-import {NavLink} from "react-router-dom";
+import {NavLink, useHistory} from "react-router-dom";
 import {useDrop, useDrag} from 'react-dnd';
 import ItemTypes from "../Workshop/itemTypes";
 import EntitiesTreeList from "./EntitiesTreeList";
 import Position from "./Position";
-import {useContext, useState} from "react";
+import {useCallback, useContext, useState} from "react";
 import {WorkshopContext} from "../Workshop";
 import {getAuthorFormatted, getType} from "../Workshop/utils";
 
 export default function Join ({entity, idx, parentTypeId}) {
     const [allowed, setAllowed] = useState(false);
+
+    const history = useHistory();
 
     const {moveEntity, setActiveEntity} = useContext(WorkshopContext);
     
@@ -64,10 +66,7 @@ export default function Join ({entity, idx, parentTypeId}) {
     <>
         <Position parentId={entity.parentId} order={idx} parentTypeId={parentTypeId} last={false} key={`entity-tree-position-${idx}`}/>
         <div>
-            {(entity.typeId === 1 ? 
-                <button className={`join-block${isOver&&allowed?" over":""}`} ref={drop} onClick={()=>{setActiveEntity(entity)}}><span ref={drag}>{getType(entity)} {entity.title || "untitled"}</span></button>
-                : <NavLink to={`/workshop/${entity.id}`} className={`join-block${isOver&&allowed?" over":""}`} ref={drop}><span ref={drag}>{getType(entity)} {entity.title}</span></NavLink>)
-            }
+            <NavLink to={`/workshop/${entity.id}`} className={`join-block${isOver&&allowed?" over":""}`} ref={drop}><span ref={drag}>{getType(entity)} {entity.title}</span></NavLink>
             {entity.typeId!==2 && entity.children && entity.children.length > 0 && <EntitiesTreeList entities={entity.children} parentTypeId={entity.typeId} />}
         </div>
     </>

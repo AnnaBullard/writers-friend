@@ -51,9 +51,12 @@ ul.breadcrumbs {
     padding: 0;
 }
 
-ul.breadcrumbs a,
-ul.breadcrumbs i {
+ul.breadcrumbs a {
     text-decoration: none;
+}
+
+ul.breadcrumbs i {
+    margin: 0 5px;
 }
 
 button.join-block {

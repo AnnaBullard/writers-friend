@@ -34,7 +34,7 @@ export default function Workshop ({setPageTitle}) {
 
     return isLoaded && <>
             <DndProvider backend={TouchBackend} options={{enableMouseEvents:true}}>
-            <WorkshopContext.Provider value={{moveEntity,setActiveEntity}}>
+            <WorkshopContext.Provider value={{moveEntity,setActiveEntity,activeEntity}}>
                 <Sidebar isOpen={isOpen} setIsOpen={setIsOpen} active={true}>
                     <EntitiesTree />
                 </Sidebar>

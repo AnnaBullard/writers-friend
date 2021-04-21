@@ -1,4 +1,4 @@
-import {useEffect, useState, Fragment} from "react";
+import {useEffect, useState} from "react";
 import {useSelector} from "react-redux";
 import Join from "./Join";
 import Position from "./Position";
