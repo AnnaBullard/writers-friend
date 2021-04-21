@@ -11,7 +11,8 @@
     z-index: 99;
 }
 
-.sidebar-container.open {
+.sidebar-container.open,
+.sidebar-container.sidebar-with-tabs.open {
     left:0;
     transition: all 0.5s;
 }
@@ -75,6 +76,11 @@
 }
 
 /*SIDEBAR WITH TABS*/
+
+.sidebar-container.sidebar-with-tabs {
+    left:-275px;
+    width: 275px;
+}
 
 .sidebar-tabs-navigation button {
     border-radius: 0 5px 5px 0;
