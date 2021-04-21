@@ -4,7 +4,7 @@ import {useContext, useState} from "react";
 import {WorkshopContext} from "../Workshop";
 
 export default function Position ({parentId, order, parentTypeId, last}) {
-    const moveEntity = useContext(WorkshopContext);
+    const {moveEntity} = useContext(WorkshopContext);
     const [allowed, setAllowed] = useState(false);
 
     const [{isOver}, drop] = useDrop(() => ({

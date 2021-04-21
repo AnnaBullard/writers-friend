@@ -13,6 +13,7 @@ export default function Workshop ({setPageTitle}) {
     const dispatch = useDispatch();
     const [isLoaded, setIsLoaded] = useState(false);
     const [isOpen, setIsOpen] = useState(true);
+    const [activeEntity, setActiveEntity] = useState();
 
     const user = useSelector(state => state.session.user)
 
@@ -33,7 +34,7 @@ export default function Workshop ({setPageTitle}) {
 
     return isLoaded && <>
             <DndProvider backend={TouchBackend} options={{enableMouseEvents:true}}>
-            <WorkshopContext.Provider value={moveEntity}>
+            <WorkshopContext.Provider value={{moveEntity,setActiveEntity}}>
                 <Sidebar isOpen={isOpen} setIsOpen={setIsOpen} active={true}>
                     <EntitiesTree />
                 </Sidebar>

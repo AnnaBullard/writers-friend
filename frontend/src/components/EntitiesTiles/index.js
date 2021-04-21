@@ -15,16 +15,21 @@ export default function EntitiesTiles () {
     
     useEffect(()=>{
         if(entityId) {
-            setTargetEntity(getTarget(parseInt(entityId),entities))
+            let foundEntity = getTarget(parseInt(entityId),entities);
+            if (foundEntity) {
+                setTargetEntity(foundEntity)
+            } else {
+                setTargetEntity();
+            }
         }else {
-            setTargetEntity()
+            setTargetEntity();
         }
     },[entityId, entities]);
 
     let renderBlock = (entity, idx) => {
         return <EntityBlock entity={entity} key={`entity-${entity.id}`} idx={idx} targetEntity={targetEntity} />
     }
-    
+
     return (!entityId || !!targetEntity) && <>
         <Breadcrumbs />
         <div className="entities-tiles">

@@ -1,5 +1,5 @@
 import {useState} from "react";
-import {Link} from "react-router-dom";
+import {Link, NavLink} from "react-router-dom";
 import {Modal} from '../../context/Modal';
 import EntityForm from "./EntityForm";
 import ConfirmDelete from "./ConfirmDelete";
@@ -44,8 +44,10 @@ export default function EntityBlock({entity, idx, targetEntity}) {
                     <span className="entity-type" ref={drag}>
                         {getType(entity)} 
                     </span>
-                    <span className="book-title">"{entity.title || "untitled"}"</span>
-                    {!!entity.Pseudonym && <span className="book-author"> by {getAuthorFormatted(entity)}</span>}
+                    <Link to={`/workshop/${entity.id}`}>
+                        <span className="book-title">"{entity.title || "untitled"}"</span>
+                        {!!entity.Pseudonym && <span className="book-author"> by {getAuthorFormatted(entity)}</span>}
+                    </Link>
                 </div>
                 <div className="controls">
                     <i className="fas fa-eraser" onClick={()=>{

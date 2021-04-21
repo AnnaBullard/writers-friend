@@ -297,7 +297,8 @@ div.entities-tree button.join-block {
 .close-sidebar:hover,
 .connect-block:hover,
 div.entities-tree a.join-block:hover,
-div.entities-tree button.join-block:hover {
+div.entities-tree button.join-block:hover,
+div.entities-tree a.join-block.active {
     color: var(--text-hover3);
 }
 

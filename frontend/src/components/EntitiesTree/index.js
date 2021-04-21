@@ -6,7 +6,7 @@ export default function EntitiesTree () {
     let entities = useSelector(state => state.entities);
     
     return <div className="entities-tree">
-        <div><NavLink to="/workshop" className="join-block">All</NavLink></div>
+        <div><NavLink exact to="/workshop" className="join-block" activeClassName="active">All</NavLink></div>
         <EntitiesTreeList entities={entities} />
     </div>
 }

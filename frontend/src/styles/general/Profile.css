@@ -44,28 +44,9 @@
     border-style: dashed;
 }
 
-.book-cover.open {
-    border-radius: 5px 5px 0 5px;
-    flex-direction: row;
-    height: auto;
-    justify-content: space-between;
-    width: 100%;
+.book-cover .book-header a {
+    text-decoration: none;
 }
-
-.book-cover.open .book-header {
-    flex-direction: row;
-    justify-content: space-between;
-    margin-left: 30px;
-}
-
-.book-cover.open::before {
-    height: 20px;
-    left: 5px;
-    top: 5px;
-    transform: translate( 0, 0);
-    width: 20px;
-}
-
 .book-cover > div:first-child {
     font-size: 25px;
 }

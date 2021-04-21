@@ -84,15 +84,15 @@ export function getPath(id, entities) {
     
 }
 
-export function getTarget(id, entities) {
+export function getTarget(id, entities, includeText) {
     let queue = [...entities];
     let i = 0;
     let target = null;
 
     while (i < queue.length) {
         let current = queue[i];
-
-        if (current.id === id) {
+        
+        if (current.id === id && (includeText || current.typeId !== 1)) {
             target = current;
             i = queue.length;
         } else if(current.children) {

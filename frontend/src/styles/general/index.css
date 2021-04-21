@@ -24,3 +24,7 @@ body, #root {
     padding: 50px 15px;
     width: 100%;
 }
+
+button:focus {
+    outline:none;
+}
