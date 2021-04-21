@@ -76,15 +76,19 @@
 
 /*SIDEBAR WITH TABS*/
 
-.sidebar-tabs-navigation {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+.sidebar-tabs-navigation button {
+    border-radius: 0 5px 5px 0;
+    font-size: 16px;
+    margin-bottom: 5px;
+    padding: 5px 0;
 }
 
-.sidebar-tabs-navigation button {
-    width: 48%;
+.sidebar-tabs-navigation button,
+.sidebar-tabs-navigation button:hover {
+    outline: none;
+    border: none;
 }
+
 
 .sidebar .tab-content > div {
     display: none;
@@ -98,6 +102,32 @@
     display: block;
 }
 
+.sidebar-tabs-navigation {
+    align-items: center;
+    box-sizing: border-box;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    opacity: 1;
+    position: absolute;
+    right: -25px;
+    top: 5px;
+    transition: right 0.5s;
+    width: 25px;
+}
+
+.sidebar-tabs-navigation button {
+    height: auto;
+    position: relative;
+    width: 25px;
+}
+
+.sidebar-tabs-navigation button span {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+}
 
 /*REPONSOVE*/
 .sidebar-container.mobile-only {
