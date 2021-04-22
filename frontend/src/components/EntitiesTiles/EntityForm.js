@@ -35,6 +35,7 @@ export default function EntityForm({entity, onClose}) {
     e.preventDefault();
     let newEntity = {
       title,
+      description,
       pseudonymId:(parseInt(pseudonymId)>0?parseInt(pseudonymId):null),
       typeId: parseInt(typeId),
       parentId:(parseInt(parentId)>0?parseInt(parentId):null),
@@ -72,7 +73,7 @@ export default function EntityForm({entity, onClose}) {
           <option value={2}>book</option>
           <option value={1}>{parentId?"chapter":"story"}</option>
         </select>
-        <label htmlFor="entity-title" className="only-mobile">Title:</label>
+        <label htmlFor="entity-title">Title:</label>
         <input style={{gridColumn: "span 2"}}
           id="entity-title"
           type="text"
@@ -111,14 +112,13 @@ export default function EntityForm({entity, onClose}) {
           {!isPublished && (<><i className="fas fa-eye-slash"></i>{` Not `}</>)}
           {` Public`}
         </label>}
-        <label htmlFor="entity-description" className="only-mobile">Description:</label>
+        <label htmlFor="entity-description">Description:</label>
         <textarea
           id="entity-description"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           placeholder="Description"
         />
-        
       </div>
       <div>
         <button type="submit">{entity.id?`Edit `:`Create `}{entityTypes[typeId]}</button>

@@ -5,13 +5,15 @@
 #modal-content h3,
 .book-cover > div:first-child,
 h1,
-.page-title {
+.page-title,
+.entity-details .book-title,
+.entity-details .book-author {
     font-family: 'Dancing Script', cursive;
 } 
 
 /*Open Sans*/
 body, button, input, textarea, select,
-.book-cover .entity-type, button.join-block {
+.entity-details .book-type, button.join-block {
     font-family: 'Open Sans', sans-serif;
  }
  
@@ -174,9 +176,7 @@ div.entities-tree button.join-block {
 
 body,
 button,
-.mobile-nav span.open,
 #modal-content,
-.mobile-nav span.open:hover,
 .new-scene,
 .add-entity,
 .tile-position,
@@ -187,11 +187,10 @@ button,
 body,
 a,
 button,
-.mobile-nav span.open,
 #modal-content,
 .new-scene,
 .add-entity,
-.book-cover.dragged {
+.book-cover.dragged{
     color: var(--text-color1);
 }
 
@@ -199,8 +198,6 @@ a:hover,
 button:hover,
 .modal-close:hover,
 .home-logo-navbar > div,
-.mobile-nav span.open,
-.mobile-nav span.open:hover,
 .pseudonym-list i:hover,
 .new-scene:hover,
 .add-entity:hover {
@@ -225,9 +222,9 @@ button:hover,
 .profile-dropdown,
 footer,
 .sidebar button,
-.mobile-nav span:hover,
 h3.entities-top-link,
-.tile-position.over {
+.tile-position.over,
+.sidebar-tabs-navigation button {
     background-color: var(--bg-color2);
 }
 
@@ -244,8 +241,8 @@ footer button,
 .sidebar button,
 .sidebar button[disabled],
 .sidebar button[disabled]:hover,
-.mobile-nav span:hover,
-h3.entities-top-link {
+h3.entities-top-link,
+.sidebar-tabs-navigation button {
     color: var(--text-color2);
 }
 
@@ -256,7 +253,8 @@ footer a:hover,
 .navbar a:hover,
 footer button:hover,
 .profile-dropdown button:hover,
-h3.entities-top-link a:hover {
+h3.entities-top-link a:hover,
+.sidebar-tabs-navigation button:hover {
     color: var(--text-hover2);
 }
 
@@ -268,22 +266,22 @@ h3.entities-top-link a:hover {
 
 
 .book-cover,
-.mobile-nav span,
 .sidebar,
 .sidebar button:hover,
 .sidebar button[disabled],
 .sidebar button[disabled]:hover,
 .open-sidebar,
-.connect-block {
+.connect-block,
+.sidebar-tabs-navigation button.active {
     background-color: var(--bg-color3);
 }
 
-.book-content {
+.book-content,
+.sidebar-tabs-navigation button.active {
     border-color: var(--bg-color3);
 }
 
 .book-cover,
-.mobile-nav span,
 .sidebar,
 .sidebar button:hover,
 .open-sidebar,
@@ -302,21 +300,20 @@ div.entities-tree a.join-block.active {
     color: var(--text-hover3);
 }
 
-.book-cover .controls i {
+.book-cover .controls i,
+.entity-details .controls > i,
+.entity-details .controls > a  {
     color: var(--text-color3alt);
 }
-.book-cover .controls i:hover {
+.book-cover .controls i:hover,
+.book-cover .book-header a:hover,
+.entity-details .controls > i:hover,
+.entity-details .controls > a:hover {
     color: var(--text-hover3alt);
 }
 
-.mobile-nav, .mobile-nav span {
-    border-color: var(--text-hover2);
-}
 .sidebar button:hover {
     border-color: var(--text-color3);
-}
-.mobile-nav span.open{
-    border-bottom-color: var(--bg-color1);
 }
 
 .main-content input,

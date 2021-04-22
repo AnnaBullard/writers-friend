@@ -1,17 +1,38 @@
 import { useState } from "react"
 
-export default function SidebarWithTabs ({isOpen, setIsOpen, active, children}) {
-    const [activeTab, setActiveTab] = useState("left");
+export default function SidebarWithTabs ({isOpen, setIsOpen, children, showOmMobile, showOnDesktop, tabs}) {
+    const [activeTab, setActiveTab] = useState("one");
+    let tabClasses = ["one", "two", "three", "four", "five"];
 
-    return <div className={`sidebar-container${isOpen?" open":""} sidebar-with-tabs mobile-sidebar`}>
-        <span className={`open-sidebar${active?" active":""}`} onClick={() => {setIsOpen(true)}}><i className="fas fa-chevron-circle-right"></i></span>
+    
+    let responsiveClass = "";
+    if (showOmMobile && showOnDesktop) {
+        responsiveClass = " mobile-desktop";
+    } else if (showOmMobile && !showOnDesktop){
+        responsiveClass = " mobile-only";
+    } else if (!showOmMobile && showOnDesktop){
+        responsiveClass = " desktop-only";
+    } 
+
+    return <div className={`sidebar-container${isOpen?" open":""} sidebar-with-tabs${responsiveClass}`}>
+        <span className={`open-sidebar active`} onClick={() => {setIsOpen(true)}}><i className="fas fa-chevron-circle-right"></i></span>
         <div className={`sidebar ${activeTab}`}>
             <span className="close-sidebar" onClick={()=>setIsOpen(false)} ><i className="fas fa-times"></i></span>
-            <div className="sidebar-tabs-navigation story-controls">
-                <button onClick={()=>{setActiveTab("left")}} className={activeTab==="left"?"active":""}>All works</button>
-                <button onClick={()=>{setActiveTab("right")}} className={activeTab==="right"?"active":""}>Details</button>
+            <div className="sidebar-tabs-navigation">
+                {tabs.map((tab,idx)=>{
+                    return <button key={`tabs-button-${idx}`} onClick={()=>{
+                        setIsOpen(true);
+                        setActiveTab(tabClasses[idx]);
+                    }} className={activeTab===tabClasses[idx]?"active":""}>
+                        <span>
+                            {tab}
+                        </span>
+                    </button>
+                })}
             </div>
-            {children}
+            <div className="tab-content">
+                {children}
+            </div>
         </div>
     </div>
 }

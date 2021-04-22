@@ -35,7 +35,7 @@ export default function EntityBlock({entity, idx, targetEntity}) {
                 <span className="entity-type" ref={drag}>
                     {getType(entity)} 
                 </span>
-                <span className="book-title">"{entity.title || "untitled"}"</span>
+                <span className="book-title">{entity.title?`"${entity.title}"`:"untitled"}</span>
                 {!!entity.Pseudonym && <span className="book-author"> by {getAuthorFormatted(entity)}</span>}
             </div>
         </div> :
@@ -45,7 +45,7 @@ export default function EntityBlock({entity, idx, targetEntity}) {
                         {getType(entity)} 
                     </span>
                     <Link to={`/workshop/${entity.id}`}>
-                        <span className="book-title">"{entity.title || "untitled"}"</span>
+                        <span className="book-title">{entity.title?`"${entity.title}"`:"untitled"}</span>
                         {!!entity.Pseudonym && <span className="book-author"> by {getAuthorFormatted(entity)}</span>}
                     </Link>
                 </div>
@@ -54,18 +54,12 @@ export default function EntityBlock({entity, idx, targetEntity}) {
                             setModalType("delete")
                             setShowModal(true)
                             }} ></i>
-                    {(entity.typeId !== 1) && <>
-                        <i className="fas fa-pen-nib" onClick={()=>{
-                            setModalType("edit")
-                            setShowModal(true)
-                            }} ></i>
-                        <Link to={`/workshop/${entity.id}`}><i className="fas fa-book"></i></Link>
-                    </>}
-                    {(entity.typeId === 1) && <>
-                        <Link to={`/scenes/${entity.id}`}><i className="fas fa-pen-nib"></i></Link>
-                        <Link to={`/story/${entity.id}`}><i className="fas fa-book"></i></Link>
-                    </>
-                    }
+                    <i className="fas fa-pen-nib" onClick={()=>{
+                        setModalType("edit")
+                        setShowModal(true)
+                        }} ></i>
+                    {(entity.typeId === 1) && <Link to={`/scenes/${entity.id}`}><i className="fas fa-signature"></i></Link>}
+                    <Link to={`/workshop/${entity.id}`}><i className="fas fa-book"></i></Link>
                 </div>
             </div>}
             {showModal && (

@@ -123,4 +123,22 @@
     padding: 0;
 }
 
+/*RESPONSIVE*/
+@media screen and (max-width: 535px){
+    .scenes-list, .title-input,
+    .scenes-list .scene-block {
+        width: 100%;
+    }
 
+    .scenes-list .scene-text {
+        width: calc(100% - 30px);
+    }
+
+    .scenes-list .scene-handle {
+        right: 0;
+    }
+    
+    .new-scene {
+        width: 100%;
+    }
+}

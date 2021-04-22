@@ -29,6 +29,7 @@
   position: fixed;
   top: 0;
   width: 100%;
+  z-index: 99;
 }
 
 .nav-links {
@@ -80,4 +81,28 @@
 
 .page-title {
   font-size: 30px;
+}
+
+/*RESPONSIVE*/
+@media screen and (max-width: 725px){
+  .navbar {
+      min-width: 200px;
+  }
+}
+
+@media screen and (max-width: 500px){
+  .logout span {
+      display: none;
+  }
+
+  .logout i {
+      display: inline-block;
+  }
+  
+  .navbar {
+      flex-direction: column;
+      position: relative;
+      height: auto;
+  }
+
 }

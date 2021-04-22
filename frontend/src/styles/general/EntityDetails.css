@@ -1,0 +1,60 @@
+.entity-details {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.entity-details .book-type {
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.entity-details .book-title {
+    font-size: 24px;
+    text-align: center;
+}
+
+.entity-details .book-author {
+    font-size: 20px;
+}
+
+.entity-details .controls {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+}
+
+.entity-details .controls > i,
+.entity-details .controls > a {
+    font-size: 20px;
+    line-height: 20px;
+    margin: 5px;
+    padding: 0;
+}
+
+.entity-details .parents-tree,
+.entity-details .book-description {
+    font-size: 14px;
+    width: 100%;
+}
+
+.entity-details .parents-tree ul {
+    list-style: none;
+    margin: 0;
+}
+
+.entity-details .parents-tree ul li span {
+    margin-right: 5px
+}
+
+.entity-details .parents-tree > span,
+.entity-details .book-description > span {
+    font-weight: bold;
+}
+
+.entity-details .parents-tree > span::after,
+.entity-details .book-description > span::after {
+    content: ": "
+}
