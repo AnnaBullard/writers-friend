@@ -12,6 +12,7 @@ export default function EntityForm({entity, onClose}) {
   const [typeId, setTypeId] = useState(entity.typeId);
   const [parentId, setParentId] = useState(entity.parentId?entity.parentId:0);
   const [isPublished, setIsPublished] = useState(entity?entity.isPublished:false);
+  const [image, setImage] = useState(null);
   const [entitiesList, setEntititesList] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -40,6 +41,12 @@ export default function EntityForm({entity, onClose}) {
       typeId: parseInt(typeId),
       parentId:(parseInt(parentId)>0?parseInt(parentId):null),
       isPublished};
+
+    if (image) {
+      console.log({image})
+      newEntity.image = image;
+    }
+
     if (!entity.id) {
       dispatch(createEntity(newEntity)).then(res => {
           onClose();
@@ -56,6 +63,11 @@ export default function EntityForm({entity, onClose}) {
     e.preventDefault();
     onClose();
   }
+
+  const updateFile = (e) => {
+    const file = e.target.files[0];
+    if (file) setImage(file);
+  };
 
   return (
     <form onSubmit={handleSubmit}>
@@ -119,6 +131,7 @@ export default function EntityForm({entity, onClose}) {
           onChange={(e) => setDescription(e.target.value)}
           placeholder="Description"
         />
+        <input type="file" onChange={updateFile} />
       </div>
       <div>
         <button type="submit">{entity.id?`Edit `:`Create `}{entityTypes[typeId]}</button>

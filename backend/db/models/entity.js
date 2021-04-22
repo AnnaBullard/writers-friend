@@ -8,7 +8,8 @@ module.exports = (sequelize, DataTypes) => {
     typeId: DataTypes.INTEGER,
     parentId: DataTypes.INTEGER,
     order: DataTypes.INTEGER,
-    isPublished: DataTypes.BOOLEAN
+    isPublished: DataTypes.BOOLEAN,
+    imageUrl: DataTypes.STRING(255)
   }, {});
   Entity.associate = function(models) {
     Entity.belongsTo(models.User,{

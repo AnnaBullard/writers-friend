@@ -42,9 +42,18 @@ export const createEntity = (entity) => async dispatch => {
 }
 
 export const editEntity = (entity) => async dispatch => {
+    const formData = new FormData();
+
+    for (let key in entity) {
+        formData.append(key, entity[key])
+    }
+
     const res = await fetch("/api/entities",{
         method: "PATCH",
-        body: JSON.stringify({entity})
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+        body: formData
     })
     if (!res.errors){
         dispatch(update(entity))
