@@ -14,7 +14,6 @@ module.exports = {
         references:{ model: 'Entities' }
       },
       order: {
-        allowNull: false,
         type: Sequelize.INTEGER
       },
       text: {

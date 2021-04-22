@@ -1,7 +1,7 @@
 import {useState, useEffect} from "react";
 import {useSelector} from "react-redux";
 import {Link} from "react-router-dom";
-import {getPath} from "../Workshop/utils";
+import {getPath, getNearestAuthor} from "../Workshop/utils";
 import EntityForm from "../EntitiesTiles/EntityForm";
 import ConfirmDelete from "../EntitiesTiles/ConfirmDelete";
 import {Modal} from '../../context/Modal';
@@ -18,13 +18,8 @@ export default function EntityDetails({entity}) {
     const entities = useSelector(state => state.entities)
 
     useEffect(()=>{
-        let findAuthor = (entity && entity.pseudonymId)?pseudonyms.find(name => name.id === entity.pseudonymId):null;
-        if (findAuthor) {
-            setAuthor(`${findAuthor.firstName?findAuthor.firstName:""}${findAuthor.middleName?" "+findAuthor.middleName:""}${findAuthor.lastName?" "+findAuthor.lastName:""}`)
-        } else {
-            setAuthor("anonymous")
-        }
-    },[entity, pseudonyms])
+        setAuthor(getNearestAuthor(entity, entities, pseudonyms))
+    },[entity, entities, pseudonyms])
     
     useEffect(()=>{
         if (entities.length && entity && entity.parentId) {

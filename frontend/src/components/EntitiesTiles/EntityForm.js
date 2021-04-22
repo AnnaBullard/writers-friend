@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import {flattenTree,repeat,getAuthorFormattedPseudonym} from "../Workshop/utils"
+import {useState, useEffect} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {flattenTree,repeat,getAuthorFormattedPseudonym, getNearestAuthor} from "../Workshop/utils";
 import {createEntity, editEntity} from "../../store/entities";
 
 
@@ -15,6 +15,7 @@ export default function EntityForm({entity, onClose}) {
   const [image, setImage] = useState(null);
   const [entitiesList, setEntititesList] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [defaultAuthor, setAuthor] = useState("anonymous");
 
   const entityTypes = [null, "chapter/story", "book", "book series", "world"]
 
@@ -24,13 +25,16 @@ export default function EntityForm({entity, onClose}) {
   useEffect(()=>{
     setEntititesList(flattenTree(entities, 0, typeId));
     setIsLoaded(true);
-
-  },[entities,typeId])
+  },[entities, typeId])
 
   useEffect(()=>{
     if (isLoaded && parseInt(parentId) !==0 
       && !entitiesList.find(entity => entity.id === parseInt(parentId))) setParentId(0)
   },[entitiesList, isLoaded, parentId])
+
+  useEffect(()=>{
+    setAuthor(getNearestAuthor(entity, entities, pseudonyms))
+  },[entity, entities, pseudonyms])
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -43,7 +47,6 @@ export default function EntityForm({entity, onClose}) {
       isPublished};
 
     if (image) {
-      console.log({image})
       newEntity.image = image;
     }
 
@@ -99,7 +102,7 @@ export default function EntityForm({entity, onClose}) {
           onChange={e => setPseudonymId(e.target.value)}
           id="entity-pseudonym"
         >
-          <option value={0}>anonymous</option>
+          <option value={0}>default ({defaultAuthor})</option>
           {pseudonyms.map(pseudonym => <option value={pseudonym.id} key={`pseudonym-option-${pseudonym.id}`}>
               {getAuthorFormattedPseudonym(pseudonym)}
             </option>

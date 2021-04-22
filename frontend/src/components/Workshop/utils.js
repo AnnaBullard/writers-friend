@@ -105,3 +105,22 @@ export function getTarget(id, entities, includeText) {
     return target;
     
 }
+
+export function getNearestAuthor (entity, entities, pseudonyms) {
+    let author = "anonymous";
+    let pseudoId;
+    if(entity) {
+        let path = getPath(entity.id, entities);
+        let i = path.length-1;
+        while (!pseudoId && i>=0){
+            let current = path[i]
+            pseudoId = current.pseudonymId
+            i--;
+        }
+    }
+    let found = pseudonyms.find(name => name.id === pseudoId)
+
+    if (found) author = `${found.firstName?found.firstName:""}${found.middleName?" "+found.middleName:""}${found.lastName?" "+found.lastName:""}`
+
+    return author
+}
