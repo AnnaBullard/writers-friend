@@ -8,7 +8,6 @@
     top: 45px;
     transition: all 0.5s;
     width: 300px;
-    z-index: 99;
 }
 
 .sidebar-container.open,

@@ -20,7 +20,7 @@ export default function SidebarWithTabs ({isOpen, setIsOpen, children, showOmMob
             <span className="close-sidebar" onClick={()=>setIsOpen(false)} ><i className="fas fa-times"></i></span>
             <div className="sidebar-tabs-navigation">
                 {tabs.map((tab,idx)=>{
-                    return <button onClick={()=>{
+                    return <button key={`tabs-button-${idx}`} onClick={()=>{
                         setIsOpen(true);
                         setActiveTab(tabClasses[idx]);
                     }} className={activeTab===tabClasses[idx]?"active":""}>

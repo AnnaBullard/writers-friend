@@ -5,13 +5,15 @@
 #modal-content h3,
 .book-cover > div:first-child,
 h1,
-.page-title {
+.page-title,
+.entity-details .book-title,
+.entity-details .book-author {
     font-family: 'Dancing Script', cursive;
 } 
 
 /*Open Sans*/
 body, button, input, textarea, select,
-.book-cover .entity-type, button.join-block {
+.entity-details .book-type, button.join-block {
     font-family: 'Open Sans', sans-serif;
  }
  
@@ -188,7 +190,7 @@ button,
 #modal-content,
 .new-scene,
 .add-entity,
-.book-cover.dragged {
+.book-cover.dragged{
     color: var(--text-color1);
 }
 
@@ -298,10 +300,15 @@ div.entities-tree a.join-block.active {
     color: var(--text-hover3);
 }
 
-.book-cover .controls i {
+.book-cover .controls i,
+.entity-details .controls > i,
+.entity-details .controls > a  {
     color: var(--text-color3alt);
 }
-.book-cover .controls i:hover {
+.book-cover .controls i:hover,
+.book-cover .book-header a:hover,
+.entity-details .controls > i:hover,
+.entity-details .controls > a:hover {
     color: var(--text-hover3alt);
 }
 

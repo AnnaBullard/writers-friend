@@ -57,14 +57,18 @@ export default function Join ({entity, idx, parentTypeId}) {
             <span className="entity-type" ref={drag}>
                 {getType(entity)} 
             </span>
-            <span className="book-title">"{entity.title || "untitled"}"</span>
+            <span className="book-title">{entity.title?`"${entity.title}"`:"untitled"}</span>
             {!!entity.Pseudonym && <span className="book-author"> by {getAuthorFormatted(entity)}</span>}
         </div>
     </div> :
     <>
         <Position parentId={entity.parentId} order={idx} parentTypeId={parentTypeId} last={false} key={`entity-tree-position-${idx}`}/>
         <div>
-            <NavLink to={`/workshop/${entity.id}`} className={`join-block${isOver&&allowed?" over":""}`} ref={drop}><span ref={drag}>{getType(entity)} {entity.title}</span></NavLink>
+            <NavLink to={`/workshop/${entity.id}`} className={`join-block${isOver&&allowed?" over":""}`} ref={drop}>
+                <span ref={drag}>
+                    {getType(entity)} {entity.title?`${entity.title}`:"untitled"}
+                    </span>
+            </NavLink>
             {entity.typeId!==2 && entity.children && entity.children.length > 0 && <EntitiesTreeList entities={entity.children} parentTypeId={entity.typeId} />}
         </div>
     </>
