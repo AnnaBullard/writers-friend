@@ -35,6 +35,7 @@ export default function EntityForm({entity, onClose}) {
     e.preventDefault();
     let newEntity = {
       title,
+      description,
       pseudonymId:(parseInt(pseudonymId)>0?parseInt(pseudonymId):null),
       typeId: parseInt(typeId),
       parentId:(parseInt(parentId)>0?parseInt(parentId):null),
@@ -118,7 +119,6 @@ export default function EntityForm({entity, onClose}) {
           onChange={(e) => setDescription(e.target.value)}
           placeholder="Description"
         />
-        
       </div>
       <div>
         <button type="submit">{entity.id?`Edit `:`Create `}{entityTypes[typeId]}</button>
