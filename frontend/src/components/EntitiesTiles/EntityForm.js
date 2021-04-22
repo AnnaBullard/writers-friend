@@ -121,9 +121,11 @@ export default function EntityForm({entity, onClose}) {
         {!!entity.id && 
         <label style={{gridColumn: "span 2"}} onClick={()=>setIsPublished(!isPublished)} >
           {isPublished && <i className="fas fa-eye"></i>}
-          {!isPublished && (<><i className="fas fa-eye-slash"></i>{` Not `}</>)}
+          {!isPublished && (<><i className="fas fa-eye-slash"></i>{` Make `}</>)}
           {` Public`}
         </label>}
+        <label htmlFor="entity-image">Cover Image:</label>
+        <input type="file" onChange={updateFile} />
         <label htmlFor="entity-description">Description:</label>
         <textarea
           id="entity-description"
@@ -131,7 +133,6 @@ export default function EntityForm({entity, onClose}) {
           onChange={(e) => setDescription(e.target.value)}
           placeholder="Description"
         />
-        <input type="file" onChange={updateFile} />
       </div>
       <div>
         <button type="submit">{entity.id?`Edit `:`Create `}{entityTypes[typeId]}</button>

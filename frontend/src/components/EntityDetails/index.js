@@ -43,6 +43,7 @@ export default function EntityDetails({entity}) {
     return !!entity && <>
         <div className="entity-details">
             <div className="book-type">{entity.typeId > 1?`${entityTypes[entity.typeId]}`:(entity.parentId && tree.length && tree[0].typeId===2)?"chapter":"story"}</div>
+            {!!entity.imageUrl && <img className="book-image" src={entity.imageUrl} />}
             <div className="book-title">{entity.title?`"${entity.title}"`:"untitiled"}</div>
             <div className="book-author">{`by ${author}`}</div>
             <div className="controls">
