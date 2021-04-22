@@ -49,42 +49,52 @@
 	Entities are stored in Redux store as an ordered array of entities of highest level, with nested array of children-entities.
 	Nesting goes up to 4 levels.
 
-	New entity is added to the Redux store using recursion.
+	Redux store updated using following function.
 	```js
-	export let addEntity = (entityArray, child) => {
-	
-		// if has no parent - add to the top level
-		if (!child.parentId){
-			return [...entityArray, child];
-		}
+	export let updateEntity = (array, child) => {
+		//finding original entity
+		let oldChild = findEntity(array, child.id);
+		//generating updated entity
+		let newChild = {...oldChild, ...child};
 
-		// trace path to parent entity
-		let path = findPath(entityArray, child);
+		//if order parameter not passed - remove it
+		if (child.order===undefined) delete newChild.order;
+		
+		//create a full copy of original array
+		let newArray = deepCopy(array);
 
-		// recursively copy original array
-		let copyArray = (array) => {
-			let newArr = [];
-			for (let i = 0; i < array.length; i++) {
-				let item = array[i];
-				// if current entity is parent of the new entity
-				// add to the end of children array
-				if (item.id===child.parentId) {
-					item.children = [...item.children, child];
-				}
-				// if current entity is on the way to the parent entity
-				// enter recursion with children array 
-				else if (path.includes(item.id)) {
-					item.children = copyArray(item.children)
-				}
-				newArr.push(item);
+		//if position was changed
+		if (oldChild.parentId !== newChild.parentId 
+			|| (newChild.order!==undefined && oldChild.order !== newChild.order)) {
+			
+			//remove entity from original position
+			newArray = removeEntity(array, oldChild.id);
+
+			//adjust order
+			if (newChild.order === "last" || newChild.parentId === null){
+				delete newChild.order;
+			} else if (oldChild.parentId === newChild.parentId && newChild.order > oldChild.order) {
+				newChild.order--;
 			}
-			return newArr
+			//add entity to the new position
+			newArray = addEntity(newArray, newChild);
+		} 
+		//if position stayed the same
+		else {
+			if (oldChild.parentId === null) {
+				//for top level - update entity
+				newArray = updateFn(array, newChild)
+			} else {
+				//for deeper-level entity - copy array with callback function that would update entity when it get's to it
+				let path = findPath(array, newChild.id)
+				newArray = copyArray(array, newChild, path, updateFn)
+			}
 		}
 
-		return copyArray(entityArray, child, path);
+		return newArray;
+
 	}
 	```
-	Updating and removing of entities is solved in the similar way
 
 - ### Chapters/stories<a id="chapter" ></a>
 	`Chapters` and `stories` are leaf-entities.

@@ -155,11 +155,15 @@ export let updateEntity = (array, child) => {
         } else if (oldChild.parentId === newChild.parentId && newChild.order > oldChild.order) {
             newChild.order--;
         }
-
+        
         newArray = addEntity(newArray, newChild);
     } else {
-        let path = findPath(array, newChild.id)
-        newArray = copyArray(array, newChild, path, updateFn)
+        if (oldChild.parentId === null) {
+            newArray = updateFn(array, newChild)
+        } else {
+            let path = findPath(array, newChild.id)
+            newArray = copyArray(array, newChild, path, updateFn)
+        }
     }
 
     return newArray;
