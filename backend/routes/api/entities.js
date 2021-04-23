@@ -61,8 +61,7 @@ asyncHandler(async (req,res) => {
         parentId : parseInt(data.parentId) || null,
         isPublished : data.isPublished,
     }
-
-    console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!body",data, entity)
+    
     let imageUrl;
     if (req.file)
         imageUrl = await singlePublicFileUpload(req.file);

@@ -67,7 +67,7 @@ export const editEntity = (entity) => async dispatch => {
     })
 
     if (!res.errors){
-        dispatch(update(entity))
+        dispatch(update(res.data))
         return {ok: "success"}
     }
     else return {error: "Something went wrong"}
