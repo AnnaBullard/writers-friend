@@ -40,7 +40,7 @@ export default function EntityDetails({entity, showOnMobile, showOnDesktop}) {
         }
     },[entity, entities])
 
-    if (!entity) return <div className="entity-details">
+    if (!entity) return <div className={`entity-details${responsiveClass}`}>
         Select a work to see details
     </div>
 
