@@ -51,8 +51,18 @@ restoreUser,
 asyncHandler(async (req,res) => {
     let {user} = req;
     user = user.toJSON();
-    let entity = req.body;
+    let data = req.body;
+    let entity = {
+        id : data.id,
+        title : data.title,
+        description : data.description,
+        pseudonymId : parseInt(data.pseudonymId) || null,
+        typeId : parseInt(data.typeId),
+        parentId : parseInt(data.parentId) || null,
+        isPublished : data.isPublished,
+    }
 
+    console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!body",data, entity)
     let imageUrl;
     if (req.file)
         imageUrl = await singlePublicFileUpload(req.file);

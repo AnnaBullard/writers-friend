@@ -224,7 +224,7 @@ footer,
 .sidebar button,
 h3.entities-top-link,
 .tile-position.over,
-.sidebar-tabs-navigation button {
+.open-sidebar button {
     background-color: var(--bg-color2);
 }
 
@@ -242,7 +242,7 @@ footer button,
 .sidebar button[disabled],
 .sidebar button[disabled]:hover,
 h3.entities-top-link,
-.sidebar-tabs-navigation button {
+.open-sidebar button {
     color: var(--text-color2);
 }
 
@@ -254,7 +254,7 @@ footer a:hover,
 footer button:hover,
 .profile-dropdown button:hover,
 h3.entities-top-link a:hover,
-.sidebar-tabs-navigation button:hover {
+.open-sidebar button:hover {
     color: var(--text-hover2);
 }
 
@@ -266,18 +266,18 @@ h3.entities-top-link a:hover,
 
 
 .book-cover,
+.sidebar-container,
 .sidebar,
 .sidebar button:hover,
 .sidebar button[disabled],
 .sidebar button[disabled]:hover,
-.open-sidebar,
 .connect-block,
-.sidebar-tabs-navigation button.active {
+.open-sidebar button.active {
     background-color: var(--bg-color3);
 }
 
 .book-content,
-.sidebar-tabs-navigation button.active {
+.open-sidebar button.active {
     border-color: var(--bg-color3);
 }
 
@@ -287,7 +287,9 @@ h3.entities-top-link a:hover,
 .open-sidebar,
 .connect-block,
 div.entities-tree a.join-block,
-div.entities-tree button.join-block {
+div.entities-tree button.join-block,
+.open-sidebar button.active,
+.open-sidebar button:hover {
     color: var(--text-color3);
 }
 
@@ -348,6 +350,7 @@ div.entities-tree a.join-block.active {
 *::-webkit-scrollbar {
     width: 7px;
     background-color: var(--bg-color4);
+    position: absolute;
 }
  
 *::-webkit-scrollbar-track {

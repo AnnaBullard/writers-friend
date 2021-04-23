@@ -15,7 +15,6 @@ export default function Workshop ({setPageTitle}) {
     const dispatch = useDispatch();
     const [isLoaded, setIsLoaded] = useState(false);
     const [isOpen, setIsOpen] = useState(true);
-    const [isRightOpen, setIsRightOpen] = useState(true);
     const [activeEntity, setActiveEntity] = useState();
 
     const user = useSelector(state => state.session.user)
@@ -41,7 +40,7 @@ export default function Workshop ({setPageTitle}) {
                 <SidebarWithTabs 
                     isOpen={isOpen} 
                     setIsOpen={setIsOpen}
-                    showOmMobile={true}
+                    showOnMobile={true}
                     showOnDesktop={false}
                     tabs={["Works","Details"]}
                     >
@@ -56,22 +55,18 @@ export default function Workshop ({setPageTitle}) {
                     isOpen={isOpen} 
                     setIsOpen={setIsOpen} 
                     active={true}
-                    showOmMobile={false}
+                    showOnMobile={false}
                     showOnDesktop={true} >
                     <EntitiesTree />
                 </Sidebar>
-                <div className={`main-content${isOpen?" open":""}${isRightOpen?" right-open":""}`}>
-                    <EntitiesTiles />
+                <div className={`main-content${isOpen?" open":""}`}>
+                    <div className="flex-cols">
+                        <div>
+                            <EntitiesTiles />
+                        </div>
+                        <EntityDetails entity={activeEntity} showOnMobile={false} showOnDesktop={true} />
+                    </div>
                 </div>
-                <Sidebar 
-                    isOpen={isRightOpen} 
-                    setIsOpen={setIsRightOpen} 
-                    active={true} 
-                    right={true} 
-                    showOmMobile={false}
-                    showOnDesktop={true} > 
-                    <EntityDetails entity={activeEntity} />
-                </Sidebar>
             </WorkshopContext.Provider>
             </DndProvider>
     </>
