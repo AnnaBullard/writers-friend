@@ -1,0 +1,42 @@
+body, #root {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0; 
+    font-size: 16px;
+    position: relative;
+    overflow-x: hidden;
+}
+
+.page-content{
+    box-sizing: border-box;
+    margin: 45px 0 0 0;
+    min-height: calc(100vh - 90px);
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: stretch;
+    padding: 0;
+    position: relative;
+    overflow-x: hidden;
+    width: 100vw;
+}
+
+.main-content {
+    padding: 15px 15px 15px 35px;
+}
+
+.main-content .flex-cols {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.main-content .flex-cols > div {
+    margin-right: 15px;
+} 
+
+button:focus {
+    outline:none;
+}

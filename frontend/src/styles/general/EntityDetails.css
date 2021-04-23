@@ -2,12 +2,19 @@
     align-items: center;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
+    min-width: 265px;
+    max-width: 300px;
 }
 
 .entity-details .book-type {
     text-transform: uppercase;
     text-align: center;
+}
+
+.entity-details .book-image {
+    max-width: 80%;
+    max-height: 300px;
 }
 
 .entity-details .book-title {

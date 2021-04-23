@@ -1,13 +1,14 @@
 footer {
-    bottom: 0;
+    /* bottom: 0; */
     box-sizing: border-box;
     display: flex;
     height: 45px;
     justify-content: center;
     margin:0;
-    position: absolute;
+    /* position: absolute; */
+    position: relative;
     width: 100%;
-    z-index: 99;
+    /* z-index: 99; */
 }
 
 footer a {

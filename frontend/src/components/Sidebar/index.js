@@ -1,19 +1,25 @@
-export default function Sidebar ({isOpen, setIsOpen, active, children, right, showOmMobile, showOnDesktop}) {
+export default function Sidebar ({isOpen, setIsOpen, active, children, showOnMobile, showOnDesktop}) {
 
     let responsiveClass = "";
-    if (showOmMobile && showOnDesktop) {
+    if (showOnMobile && showOnDesktop) {
         responsiveClass = " mobile-desktop";
-    } else if (showOmMobile && !showOnDesktop){
+    } else if (showOnMobile && !showOnDesktop){
         responsiveClass = " mobile-only";
-    } else if (!showOmMobile && showOnDesktop){
+    } else if (!showOnMobile && showOnDesktop){
         responsiveClass = " desktop-only";
     } 
 
-    return <div className={`sidebar-container${isOpen?" open":""}${right?" right":""}${responsiveClass}`}>
-        <span className={`open-sidebar${active?" active":""}`} onClick={() => {setIsOpen(true)}}><i className="fas fa-chevron-circle-right"></i></span>
+    if (isOpen) return <div className={`sidebar-container${isOpen?" open":""}${responsiveClass}`}>
         <div className="sidebar">
             <span className="close-sidebar" onClick={()=>setIsOpen(false)} ><i className="fas fa-times"></i></span>
-            {children}
+            <div className="content">
+                {children}
+            </div>
         </div>
+    </div>
+    else return <div className={`open-sidebar${active?" active":""}${responsiveClass}`}>
+        <button  onClick={() => {setIsOpen(true)}}>
+            <i className="fas fa-chevron-circle-right"></i>
+        </button>
     </div>
 }

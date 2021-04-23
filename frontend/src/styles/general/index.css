@@ -1,3 +1,4 @@
+@import './Main.css';
 @import './Homepage.css';
 @import './Logo.css';
 @import './Navigation.css';
@@ -10,23 +11,3 @@
 @import './Pseudonyms.css';
 @import './Sidebar.css';
 @import './forms.css';
-
-body, #root {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;    
-    min-height: 100vh;
-    font-size: 16px;
-    position: relative;
-}
-
-.page-content{
-    box-sizing: border-box;
-    margin: 0;
-    padding: 50px 15px;
-    width: 100%;
-}
-
-button:focus {
-    outline:none;
-}

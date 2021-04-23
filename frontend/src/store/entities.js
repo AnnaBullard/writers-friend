@@ -33,19 +33,39 @@ export const getEntities = () => async (dispatch) => {
 }
 
 export const createEntity = (entity) => async dispatch => {
+    const formData = new FormData();
+
+    for (let key in entity) {
+        formData.append(key, entity[key]);
+    }
+
     const res = await fetch("/api/entities",{
         method: "POST",
-        body: JSON.stringify({entity})
-    })
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+        body: formData
+    });
+
     if (!res.errors)
         return dispatch(add(res.data));
 }
 
 export const editEntity = (entity) => async dispatch => {
+    const formData = new FormData();
+
+    for (let key in entity) {
+        formData.append(key, entity[key])
+    }
+
     const res = await fetch("/api/entities",{
         method: "PATCH",
-        body: JSON.stringify({entity})
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+        body: formData
     })
+
     if (!res.errors){
         dispatch(update(entity))
         return {ok: "success"}

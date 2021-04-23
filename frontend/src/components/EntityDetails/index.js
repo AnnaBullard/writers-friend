@@ -1,12 +1,12 @@
 import {useState, useEffect} from "react";
 import {useSelector} from "react-redux";
 import {Link} from "react-router-dom";
-import {getPath} from "../Workshop/utils";
+import {getPath, getNearestAuthor} from "../Workshop/utils";
 import EntityForm from "../EntitiesTiles/EntityForm";
 import ConfirmDelete from "../EntitiesTiles/ConfirmDelete";
 import {Modal} from '../../context/Modal';
 
-export default function EntityDetails({entity}) {
+export default function EntityDetails({entity, showOnMobile, showOnDesktop}) {
     const [showModal, setShowModal] = useState(false);
     const [modalType, setModalType] = useState("edit");
     const [author, setAuthor] = useState("anonymous");
@@ -17,14 +17,18 @@ export default function EntityDetails({entity}) {
     const pseudonyms = useSelector(state => state.pseudonyms)
     const entities = useSelector(state => state.entities)
 
+    let responsiveClass = "";
+    if (showOnMobile && showOnDesktop) {
+        responsiveClass = " mobile-desktop";
+    } else if (showOnMobile && !showOnDesktop){
+        responsiveClass = " mobile-only";
+    } else if (!showOnMobile && showOnDesktop){
+        responsiveClass = " desktop-only";
+    } 
+
     useEffect(()=>{
-        let findAuthor = (entity && entity.pseudonymId)?pseudonyms.find(name => name.id === entity.pseudonymId):null;
-        if (findAuthor) {
-            setAuthor(`${findAuthor.firstName?findAuthor.firstName:""}${findAuthor.middleName?" "+findAuthor.middleName:""}${findAuthor.lastName?" "+findAuthor.lastName:""}`)
-        } else {
-            setAuthor("anonymous")
-        }
-    },[entity, pseudonyms])
+        setAuthor(getNearestAuthor(entity, entities, pseudonyms))
+    },[entity, entities, pseudonyms])
     
     useEffect(()=>{
         if (entities.length && entity && entity.parentId) {
@@ -41,8 +45,9 @@ export default function EntityDetails({entity}) {
     </div>
 
     return !!entity && <>
-        <div className="entity-details">
-            <div className="book-type">{entity.typeId > 1?`${entityTypes[entity.typeId]}`:(entity.parentId && tree.length && tree[0].typeId===2)?"chapter":"story"}</div>
+        <div className={`entity-details${responsiveClass}`}>
+            <div className="book-type">{entity.typeId > 1?`${entityTypes[entity.typeId]}`:(entity.parentId && tree.length && tree[0].typeId===2)?`chapter ${entity.order+1}`:"story"}</div>
+            {!!entity.imageUrl && <img className="book-image" src={entity.imageUrl} alt="book-cover"/>}
             <div className="book-title">{entity.title?`"${entity.title}"`:"untitiled"}</div>
             <div className="book-author">{`by ${author}`}</div>
             <div className="controls">

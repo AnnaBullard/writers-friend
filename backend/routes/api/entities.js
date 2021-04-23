@@ -1,30 +1,25 @@
 const express = require("express");
 const asyncHandler = require("express-async-handler");
-const { restoreUser } = require("../../utils/auth");
-const { Entity, Pseudonym, sequelize } = require("../../db/models");
-const { Op } = require('sequelize');
+const {restoreUser} = require("../../utils/auth");
+const {Entity, sequelize} = require("../../db/models");
+const {singleMulterUpload, singlePublicFileUpload} = require("../../awsS3");
+const {Op} = require('sequelize');
 
 const router = express.Router();
-
-async function EntitiesForUser(id) {
-
-    const entities = await Entity.getEntitiesPerUser(id);
-
-    return entities;
-}
 
 router.get(
     "/",
     restoreUser,
     asyncHandler(async (req,res) => {
         const { user } = req;
-        const entities = await EntitiesForUser(user.id)
+        const entities = await Entity.getEntitiesPerUser(user.id)
 
         return res.json(entities)
     })
 );
 
 router.post("/",
+singleMulterUpload("image"),
 restoreUser,
 asyncHandler(async (req,res) => {
     let { user } = req;
@@ -51,11 +46,26 @@ asyncHandler(async (req,res) => {
 }))
 
 router.patch("/",
+singleMulterUpload("image"),
 restoreUser,
 asyncHandler(async (req,res) => {
-    let { user } = req;
+    let {user} = req;
     user = user.toJSON();
-    let {entity} = req.body;
+    let data = req.body;
+    let entity = {
+        id : data.id,
+        title : data.title,
+        description : data.description,
+        pseudonymId : parseInt(data.pseudonymId) || null,
+        typeId : parseInt(data.typeId),
+        parentId : parseInt(data.parentId) || null,
+        isPublished : data.isPublished,
+    }
+
+    console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!body",data, entity)
+    let imageUrl;
+    if (req.file)
+        imageUrl = await singlePublicFileUpload(req.file);
     
     let newEntity = await Entity.findByPk(entity.id, {
         where: {
@@ -160,6 +170,10 @@ asyncHandler(async (req,res) => {
                 && entity.parentId === null 
                 && order === "last") {
                     order = 0
+            }
+
+            if (imageUrl) {
+                entity = {...entity, imageUrl}
             }
 
             await newEntity.update({...entity, order},{transaction: tx})

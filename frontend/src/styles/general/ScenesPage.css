@@ -85,21 +85,6 @@
     text-align: justify;
 }
 
-.main-content {
-    padding: 0px;
-    transition: all 0.5s;
-}
-
-.main-content.open {
-    padding-left: 300px;
-    transition: all 0.5s;
-}
-
-.main-content.right-open {
-    padding-right: 300px;
-    transition: all 0.5s;
-}
-
 .new-scene {
     align-items: center;
     border-style: dashed;

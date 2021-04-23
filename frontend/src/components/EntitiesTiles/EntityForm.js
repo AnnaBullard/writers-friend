@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import {flattenTree,repeat,getAuthorFormattedPseudonym} from "../Workshop/utils"
+import {useState, useEffect} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {flattenTree,repeat,getAuthorFormattedPseudonym, getNearestAuthor} from "../Workshop/utils";
 import {createEntity, editEntity} from "../../store/entities";
 
 
@@ -12,8 +12,10 @@ export default function EntityForm({entity, onClose}) {
   const [typeId, setTypeId] = useState(entity.typeId);
   const [parentId, setParentId] = useState(entity.parentId?entity.parentId:0);
   const [isPublished, setIsPublished] = useState(entity?entity.isPublished:false);
+  const [image, setImage] = useState(null);
   const [entitiesList, setEntititesList] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [defaultAuthor, setAuthor] = useState("anonymous");
 
   const entityTypes = [null, "chapter/story", "book", "book series", "world"]
 
@@ -23,13 +25,16 @@ export default function EntityForm({entity, onClose}) {
   useEffect(()=>{
     setEntititesList(flattenTree(entities, 0, typeId));
     setIsLoaded(true);
-
-  },[entities,typeId])
+  },[entities, typeId])
 
   useEffect(()=>{
     if (isLoaded && parseInt(parentId) !==0 
       && !entitiesList.find(entity => entity.id === parseInt(parentId))) setParentId(0)
   },[entitiesList, isLoaded, parentId])
+
+  useEffect(()=>{
+    setAuthor(getNearestAuthor(entity, entities, pseudonyms))
+  },[entity, entities, pseudonyms])
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -40,6 +45,11 @@ export default function EntityForm({entity, onClose}) {
       typeId: parseInt(typeId),
       parentId:(parseInt(parentId)>0?parseInt(parentId):null),
       isPublished};
+
+    if (image) {
+      newEntity.image = image;
+    }
+
     if (!entity.id) {
       dispatch(createEntity(newEntity)).then(res => {
           onClose();
@@ -56,6 +66,11 @@ export default function EntityForm({entity, onClose}) {
     e.preventDefault();
     onClose();
   }
+
+  const updateFile = (e) => {
+    const file = e.target.files[0];
+    if (file) setImage(file);
+  };
 
   return (
     <form onSubmit={handleSubmit}>
@@ -87,7 +102,7 @@ export default function EntityForm({entity, onClose}) {
           onChange={e => setPseudonymId(e.target.value)}
           id="entity-pseudonym"
         >
-          <option value={0}>anonymous</option>
+          <option value={0}>default ({defaultAuthor})</option>
           {pseudonyms.map(pseudonym => <option value={pseudonym.id} key={`pseudonym-option-${pseudonym.id}`}>
               {getAuthorFormattedPseudonym(pseudonym)}
             </option>
@@ -109,9 +124,11 @@ export default function EntityForm({entity, onClose}) {
         {!!entity.id && 
         <label style={{gridColumn: "span 2"}} onClick={()=>setIsPublished(!isPublished)} >
           {isPublished && <i className="fas fa-eye"></i>}
-          {!isPublished && (<><i className="fas fa-eye-slash"></i>{` Not `}</>)}
+          {!isPublished && (<><i className="fas fa-eye-slash"></i>{` Make `}</>)}
           {` Public`}
         </label>}
+        <label htmlFor="entity-image">Cover Image:</label>
+        <input type="file" onChange={updateFile} />
         <label htmlFor="entity-description">Description:</label>
         <textarea
           id="entity-description"
