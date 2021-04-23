@@ -29,11 +29,13 @@ export default function Homepage ({themeSettings, setPageTitle}) {
         );
     }
 
-    return <div className="home-logo-navbar">
-        <Logo extraClass="home" />
-        <div>
-            <span>{`Welcome, ${sessionUser?(getAuthorFormattedPseudonym(activePseudonym) || sessionUser.username):"stranger"}!` }</span>
-            <span className="nav-links">{sessionLinks}</span>
+    return <div className="main-content">
+        <div className="home-logo-navbar">
+            <Logo extraClass="home" />
+            <div>
+                <span>{`Welcome, ${sessionUser?(getAuthorFormattedPseudonym(activePseudonym) || sessionUser.username):"stranger"}!` }</span>
+                <span className="nav-links">{sessionLinks}</span>
+            </div>
         </div>
     </div>
 }

@@ -19,7 +19,7 @@ export default function Profile ({setPageTitle}) {
         document.title = `Writer's Friend - Profile`;
     },[pseudonyms])
 
-    return isLoaded && <>
+    return isLoaded && <div className="main-content">
         <h1>Hello, {activePseudonym? getAuthorFormattedPseudonym(activePseudonym) : user.username}</h1>
-    </>
+    </div>
 }
