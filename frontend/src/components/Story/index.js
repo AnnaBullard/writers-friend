@@ -1,7 +1,7 @@
 import {useParams, Link} from "react-router-dom";
 import {useSelector, useDispatch} from "react-redux";
-import { useEffect, useState } from "react";
-import {getScenes} from "../../store/scenes";
+import {useEffect, useState} from "react";
+import {getToRead} from "../../store/scenes";
 import sanitizeHtml from 'sanitize-html';
 import PageNotFound from "../PageNotFound";
 
@@ -20,7 +20,7 @@ export default function Story ({setPageTitle}) {
     },[setPageTitle])
 
     useEffect(()=>{
-        dispatch(getScenes(storyId)).then(res => {
+        dispatch(getToRead(storyId)).then(res => {
             setAuthorized(res)
             setIsLoaded(true)
         })

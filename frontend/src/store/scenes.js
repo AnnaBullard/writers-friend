@@ -69,21 +69,19 @@ export const createScene = () => ({
 export const getScenes = id => async (dispatch) => {
     const res = await fetch(`/api/scenes/${id}`);
     if (res.ok && !res.data.error) {
-        let chapter = res.data.entity;
-        let scenes = res.data.scenes;
-        dispatch(setScenes(chapter, scenes));
+        let {entity, scenes} = res.data;
+        dispatch(setScenes(entity, scenes));
         return true
     } else {
         return false
     }
 }
 
-export const getScenesToRead = id => async (dispatch) => {
+export const getToRead = id => async (dispatch) => {
     const res = await fetch(`/api/scenes/${id}/read`);
     if (res.ok && !res.data.error) {
-        let chapter = res.data.entity;
-        let scenes = res.data.scenes;
-        dispatch(setScenes(chapter, scenes));
+        let {entity, scenes, entities} = res.data;
+        dispatch(setScenes(entity, scenes?scenes:entities));
         return true
     } else {
         return false
