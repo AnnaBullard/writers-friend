@@ -4,6 +4,7 @@ import {useEffect, useState} from "react";
 import {getToRead} from "../../store/scenes";
 import sanitizeHtml from 'sanitize-html';
 import PageNotFound from "../PageNotFound";
+import BookList from "./BookList";
 
 export default function Story ({setPageTitle}) {
     let {storyId} = useParams();
@@ -35,19 +36,21 @@ export default function Story ({setPageTitle}) {
     if (!authorized) {
         return isLoaded && <PageNotFound />
     } else {
-        return isLoaded &&  <div className="main-content">
-            <div className="story-page">
-                <h1>
-                    <span>{story.chapter.title || "untitled"}</span>
-                    <span>
-                        {user.id === story.chapter.userId && 
-                        <Link to={`/scenes/${storyId}`}><i className="fas fa-pen-nib"></i></Link>} 
-                        {user.id === story.chapter.userId && story.chapter.isPublished && <i className="fas fa-eye"></i>}
-                        {user.id === story.chapter.userId && !story.chapter.isPublished && <i className="fas fa-eye-slash"></i>}
-                    </span>
-                </h1>
-                {story.scenes.map(scene => <div key={`story-scene-${scene.id}`} dangerouslySetInnerHTML={{__html: sanitizeHtml(scene.text)}}></div>)}
+            return isLoaded &&  <div className="main-content">
+                <div className="story-page">
+                    <h1>
+                        <span>{story.chapter.title || "untitled"}</span>
+                        <span>
+                            {user.id === story.chapter.userId && 
+                            <Link to={`/scenes/${storyId}`}><i className="fas fa-pen-nib"></i></Link>} 
+                            {user.id === story.chapter.userId && story.chapter.isPublished && <i className="fas fa-eye"></i>}
+                            {user.id === story.chapter.userId && !story.chapter.isPublished && <i className="fas fa-eye-slash"></i>}
+                        </span>
+                    </h1>
+                    {(story.chapter.typeId === 1) ? 
+                        story.scenes.map(scene => <div key={`story-scene-${scene.id}`} dangerouslySetInnerHTML={{__html: sanitizeHtml(scene.text)}}></div>) :
+                        <BookList books={story.scenes} />}
+                </div>
             </div>
-        </div>
     }
 }
