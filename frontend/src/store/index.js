@@ -3,12 +3,14 @@ import thunk from 'redux-thunk';
 import session from './session';
 import entities from './entities';
 import scenes from './scenes';
+import story from './story';
 import pseudonyms from './pseudonyms';
 
 const rootReducer = combineReducers({
   session,
   entities,
   scenes,
+  story,
   pseudonyms
 });
 
